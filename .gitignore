@@ -1,0 +1,11 @@
+*.swp
+*.pyc
+*.dvi
+*.log
+*.toc
+*.aux
+*.out
+*.blg
+*.bbl
+*.out
+*.synctex.gz
