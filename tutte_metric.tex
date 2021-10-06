@@ -1,0 +1,647 @@
+%v1
+\documentclass{amsart}
+\usepackage{amssymb, amsmath, amsfonts, amsthm, graphics, enumerate, mathrsfs, mathtools,tikz-cd,soul}
+\usetikzlibrary{positioning,arrows,scopes}
+%\usepackage{fancyhdr}
+%\usepackage{geometry}
+%\pagestyle{fancy}
+
+% COMMENT OUT FOR FINAL VERSION
+\usepackage{showkeys}
+
+\newtheorem{thm}{Theorem}
+\newtheorem*{thm*}{Theorem}
+\newtheorem{obs}[thm]{Observation}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{eg}[thm]{Example}
+\newtheorem{rmk}[thm]{Remark}
+\newtheorem{conj}[thm]{Conjecture}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cL}{\mathcal{L}}
+
+\DeclareMathOperator{\val}{val}
+\DeclareMathOperator{\trop}{trop}
+\DeclareMathOperator{\rspan}{row.span}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\Eff}{Eff}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\indeg}{indeg}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Arg}{Arg}
+%\DeclareMathOperator{\ker}{ker}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Capacity}{\textsc{cap}}
+\DeclareMathOperator{\coamoeba}{co\mathcal{A}}
+\DeclareMathOperator{\PL}{PL}
+%%% use either \Delta or Div %%%
+\DeclareMathOperator{\Divisor}{\Delta}
+\DeclareMathOperator{\zspan}{span}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\red}{red}
+\DeclareMathOperator{\Br}{Brk}
+\DeclareMathOperator{\ev}{ev}
+
+\renewcommand{\Re}{\mathrm{Re}}
+\newcommand{\dsp}{\displaystyle}
+\newcommand{\pderiv}[1]{\frac{\partial}{\partial{#1}}}
+\newcommand{\angles}[1]{\langle {#1} \rangle}
+
+% for comments
+\newcommand{\harry}[1]{{\color{red} \sf $\diamondsuit$  {#1} $\diamondsuit$ }}
+
+
+\begin{document}
+\title[Tutte power series on metric graphs]{Tutte power series and Tutte evaluations on the moduli space of metric graphs}
+\author{Harry Richman}
+\date{v1, \today  \,(Preliminary draft, not for circulation).}
+\thanks{This work was partially supported by NSF grant DMS-1600223
+and a Rackham Predoctoral Fellowship.}
+
+
+\begin{abstract}
+We define a formal power series assigned to a metric graph with arbitrary
+(positive) real edge lengths.
+% which is invariant under subdivision of edges.
+When all edge lengths are positive integers,
+this recovers the usual Tutte polynomial.
+We prove that for positive inputs, evaluation of the Tutte power series
+defines a continuous function of the moduli space of metric graphs,
+which also extends to the compactification by tropical curves.
+We study how this metric Tutte polynomial is
+related to various structures on a metric graph.
+\end{abstract}
+\maketitle
+
+%\setcounter{tocdepth}{1}
+%\tableofcontents
+
+\section{Introduction}
+Given a graph $G$,
+the Tutte polynomial $T(G;x,y)$ 
+is 
+%an important graph invariant,
+ a two-variable polynomial %ssigned to graph $G$,
+introduced by Tutte in [cite reference].
+Many important graph invariants arise as evaluations of 
+the Tutte polynomial %$T(G; x,y)$ 
+at specific (real) parameters $x$, $y$.
+
+Given a connected graph $G $, 
+%we can define the Tutte polynomial of $G$ by 
+the Tutte polynomial of $G$ is 
+\begin{equation}
+\label{eq:tutte-graph}
+T(G; x,y) = \sum_{A \subset E(G)} (x-1)^{h_0(G\backslash A) - 1}(y-1)^{h_1(G\backslash A)}
+\end{equation}
+where $G\setminus A$ denotes the graph with edges in $A$ deleted,
+and $h_0$ and $h_1$ denote the zeroth and first Betti numbers of 
+a topological space.
+In graph theoretic terms,
+\begin{align*}
+h_0(G) &= \#(\text{connected components of }G), \quad\text{and}\\
+h_1(G) &= \# E(G) - \# V(G) + h_0(G) .
+\end{align*}
+
+
+\subsection{Statement of results}
+Suppose $\Gamma$ is a metric graph with combinatorial model $\Gamma = (G,\ell)$,
+where $\ell : E(G) \to \RR_{>0}$ is a function assigning a positive, real 
+ length to each edge of $G$.
+Given real parameters $x,y$ with $x > 0$,
+let 
+\begin{equation}
+\label{eq:tutte-metric-graph}
+T(\Gamma; x,y) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{x} \right)
+(x-1)^{h_0(G\backslash A) - 1}(y-1)^{h_1(G\backslash A)}
+\end{equation}
+where the notation $[\alpha]_x$ means
+\begin{equation*}
+\label{eq:q-analog-real}
+[\alpha]_x = \frac{x^\alpha - 1}{x-1}
+\quad\text{if } x \neq 1,
+\qquad 
+[\alpha]_1 = \alpha.
+\end{equation*}
+(If $x < 0$, then the expression $[\alpha]_x$ can be considered a complex-valued function,
+by taking the principal branch of the complex logarithm.)
+%which is multivalued if $\alpha \not\in \ZZ$.)
+For fixed $\Gamma$,
+the expression \eqref{eq:tutte-metric-graph} defines a function
+$(x,y) \mapsto T(\Gamma; x,y)$ from $\RR_{>0}\times \RR \to \RR$.
+This function is generally not a polynomial in $x$; %and $y$
+moreover,  it is generally not even a formal power series in $x$ since
+$[\ell(e_i)]_x$ is not analytic at $x = 0$ if the edge length $\ell(e_i)$ is non-integral.
+
+We can recover a power series expression for $T(\Gamma; x,y)$ by a simple linear change of variables.
+Let
+$T^+(\Gamma; u,w) = T(\Gamma; 1 + u, 1 + w) $,
+so that
+\begin{equation}
+T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
+u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)} .
+\end{equation}
+Note that
+\[ [\alpha]_{1+u} = \frac{(1+u)^\alpha - 1}{u}
+= \sum_{k \geq 1} \binom{\alpha}{k}u^{k-1} .
+\]
+so as a power series in $u$ we have 
+\begin{equation}
+[\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
+\in \RR[[u]] .
+\end{equation}
+
+
+\begin{thm}[Tutte power series]
+Given a metric graph $\Gamma = (G,\ell)$,
+the expression $T^+(\Gamma; u,w)$
+%the expression 
+is a well-defined power series in
+$\RR[[u]][w]$;
+in particular,
+$T^+(\Gamma; u,w)$ does not depend on the choice of model $(G,\ell)$.
+
+The power series $T^+(\Gamma;u,w)$ converges when $|u|<1$;
+if some edge length $\ell(e)$ is not an integer,
+then this is the radius of convergence in $u$.
+\end{thm}
+
+\begin{thm}[Continuity of Tutte evaluation]
+Consider the Tutte evaluation function %at $(x,y)$ 
+${\rm ev}(x,y) : \mathcal M_g \to \RR$ 
+on the moduli space 
+$\mathcal M_g$ of metric graphs (of genus $g$),
+defined by
+$$ \ev(x,y) : \Gamma \mapsto T(\Gamma; x,y) ,$$
+where  $x$ and $y$ are fixed (nonnegative?) real numbers.
+If $x > 0$, 
+then the function ${\rm ev}(x,y)$ is continuous on $\mathcal M_g$.
+
+Namely, for each combinatorial graph $G$,
+the Tutte evaluation 
+${\rm ev}(x,y) $ 
+restricts to a continuous function
+$$ {\rm ev}(x,y) : \RR_{>0}^{E(G)} \to \RR,$$ 
+where a point in the domain $ \in \RR_{>0}^{E(G)}$
+represents a choice of (positive, real) edge lengths  $\ell : E(G) \to \RR_{>0}$.
+If $x>0$, then as the length of a  non-loop edge $e \in E(G)$ approaches zero
+in the metric graph $\Gamma = (G,\ell)$
+while other edge lengths are fixed,
+the value of 
+%the Tutte evaluation 
+${\rm ev}(x,y)$
+at $(G,\ell)$ %$\Gamma $ 
+approaches the value of ${\rm ev}(x,y)$ at the contraction 
+$\Gamma / e = (G / e, \ell \big|_{E\setminus e})$.
+\end{thm}
+
+\begin{eg}
+[$x = 1$, $y=1$]
+The Tutte evaluation ${\rm ev}(1,1)$ 
+on a graph $G$ gives the number of spanning trees.
+On a metric graph, $\ev(1,1)$ gives the volume of the Jacobian of
+$\Gamma = (G,\ell)$,
+which can be expressed as a weighted sum of spanning trees of $G$ [cite a reference].
+The function $\ev(1,1)$ is continuous on $\mathcal M_g$, 
+and extends continuously to $\overline{\mathcal M}_g$ 
+(where it has value zero on the boundary).
+\end{eg}
+\begin{eg}
+[$x = 0$, $y=2$]
+The Tutte evaluation ${\rm ev}(0,2)$ 
+on $\Gamma = (G,\ell)$ gives the number of totally cyclic orientations of $\Gamma$.
+This number does not depend on the edge lengths of $\Gamma$;
+i.e. $\ev(0,2)$
+ is constant on metric graphs %$\Gamma = (G,\ell)$ 
+of a fixed combinatorial model $G$.
+However, ${\rm ev}(0,2)$ is not continuous as some edge length approaches $0$.
+Namely, the value of $T(G; 0, 2)$ generally differs from the value of $T(G/e; 0,2)$
+on the contraction.
+\end{eg}
+
+\begin{thm}[Continuity of Tutte coefficient]
+For fixed indices $i,j\geq 0$,
+let ${\rm coeff}(i,j; \Gamma)$
+denote the coefficient of $u^i w^j$ in the power series expansion of $T^+(\Gamma; u,w)$.
+Then the function ${\rm coeff}(i,j)$
+defines a continuous(?) 
+function $\mathcal M_g \to \RR$.
+\end{thm}
+
+\subsection{Previous work} 
+
+Read and Whitehead \cite{RW2}
+
+\subsection{Notation}
+
+$\Gamma$ a compact metric graph
+
+$G$ a finite graph, 
+loops and parallel edges allowed,
+possibly disconnected
+
+$E(G)$ edge set of $G$
+
+$V(G)$ vertex set of $G$
+
+$(G,\ell)$ a combinatorial model for a metric graph,
+where 
+%$G$ is a combinatorial graph and 
+$\ell : E(G) \to \RR_{>0}$
+is a length function on edges of $G$
+
+$D$ a divisor on a metric graph
+
+$T(G; x,y)$ the Tutte polynomial of $G$
+
+$T^{+}(G; u,w) = T(G; 1+u,1+w)$ ``additive'' centered Tutte polynomial
+
+$T^\times(\Gamma; u,w)$ the Tutte polynomial  (power series) of $\Gamma$
+
+% $D_N$ a divisor of degree $N$
+
+
+% $\mu = \mu_\Gamma$ the canonical measure on a metric graph $\Gamma$
+
+\section{Background}
+For a positive integer $\ell$,
+the {\em $q$-analog}
+$[\ell]_q$ is defined as
+the polynomial
+\begin{equation*}
+[\ell]_q = \frac{q^\ell - 1}{q - 1}
+%= \frac{1 - q^\ell }{1 - q} 
+= 1 + q + q^2 + \cdots + q^{\ell -1} .
+\end{equation*}
+When $\ell$ is not a positive integer, the above expression is no longer a polynomial.
+When $\ell$ is not an integer, the above expression is not even has a valid Laurent expansion in the variable $q$.
+However, we can obtain a well-defined power series under a simple change of variable.
+Namely, note that
+\[ [\alpha]_{1+u} = \frac{(1+u)^\alpha - 1}{u}
+= \sum_{k \geq 1} \binom{\alpha}{k}u^{k-1} .
+\]
+so we have 
+\begin{equation}
+[\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
+\in \RR[[u]] .
+\end{equation}
+
+Note that
+\begin{equation*}
+[\alpha + \beta]_q =  [\alpha]_q + q^{\alpha} [\beta]_q
+ = [\alpha]_q + [\beta]_q + (q-1) [\alpha]_q [\beta]_q .
+%[a + b]_q = [a]_q + q^a [b]_q = [a]_q + [b]_q + (q-1) [a]_q [b]_q .
+\end{equation*}
+\begin{align*}
+[\alpha + \beta]_{1+u} &=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
+ &= [\alpha]_{1+u} + [\beta]_{1+u} + u [\alpha]_{1+u} [\beta]_{1+u}.
+\end{align*}
+
+
+\begin{equation*}
+T(\Gamma; 1+u,1+w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
+u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)}
+\end{equation*}
+For a fixed metric graph $\Gamma = (G,\ell)$, the Tutte power series is an element of 
+$\RR[[u]][w]$.
+
+This function satisfies the deletion-contraction relation
+\begin{equation*}
+T(\Gamma; x,y) = [\ell(e)]_x \cdot T(\Gamma \backslash e; x,y) + T(\Gamma / e; x,y) .
+\end{equation*}
+\begin{align*}
+T({\Gamma};1+u,1+w) &= 
+%\begin{gathered}
+[\ell(e)]_{1+u} \cdot T(\Gamma \backslash e; 1+u,1+w) \\
+&\qquad\qquad\qquad\qquad\qquad\qquad
+ + T(\Gamma / e; 1+u,1+w) .
+%\end{gathered}
+\end{align*}
+
+Note that the $q$-analog satisfies the following properties
+\begin{enumerate}
+\item If $q_0>0$ is fixed and $q_0 \neq 1$, the map 
+$$\ell \mapsto [\ell]_{q_0} = \frac{q_0^\ell - 1}{q_0 - 1}$$
+defines a continuous function from $\RR$ to $\RR$,
+which sends $1 \mapsto 1$ and $0 \mapsto 0$.
+
+\item As $q_0$ approaches $0$ from the right,
+we have
+$$ \lim_{q \to 0^+} \frac{q_0^\ell - 1}{q_0 - 1} = \begin{cases}
+1 &\text{if } \ell > 0, \\
+0 &\text{if } \ell = 0, \\
+-\infty &\text{if } \ell < 0.
+\end{cases} $$
+
+\item If $\ell_0\neq 0$ is fixed and $q > 0$,
+the map 
+$$q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}$$
+defines a continuous function from $\RR_{>0}$ to $\RR$,
+which sends $1 \mapsto \ell_0$ and 
+$$ \lim_{q \to 0^+} [\ell_0]_q  = 
+\lim_{q \to 0^+} \frac{q^{\ell_0} - 1}{q - 1} =
+\begin{cases}
+ 1 &\text{if } \ell_0 > 0 \\
+ -\infty &\text{if } \ell_0 <0.
+\end{cases}$$
+\end{enumerate}
+
+\section{Metric graphs}
+A metric graph is a compact, connected metric space which comes from 
+assigning edge lengths to a finite, connected graph.
+If the metric graph $\Gamma$
+comes from a combinatorial graph $G$ by 
+assigning edge lengths $\ell : E(G) \to \RR_{>0}$,
+we say $(G,\ell)$ is a {\em combinatorial model} for $\Gamma$
+and we write $\Gamma = (G,\ell)$.
+%(A single metric graph generally has many different combinatorial models.)
+
+
+\subsection{Tropical curves}
+
+Here we use ``tropical curve'' 
+to refer to a metric graph which possibly has contracted loops,
+which we think of as ``infinitesimally small'' loops attached to a vertex.
+We record the number of 
+
+\section{Tutte polynomial}
+The polynomial $T_G(x,y) = T(G; x,y)$ can also be defined inductively by the 
+deletion-contraction relation:
+\begin{equation*}
+T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
+\end{equation*}
+along with the bases cases for a loop edge and bridge edge.
+\begin{equation*}
+T(G; x,y) = x^i y^j \qquad\text{if $G$ consists of $i$ bridges and $j$ loops.}
+\end{equation*}
+\begin{equation*}
+T(G;x,y) = \begin{cases}
+x & \text{if $G$ is a bridge} \\
+y & \text{if $G$ is a loop}.
+\end{cases}
+\end{equation*}
+
+Check compatibility:
+\begin{align*}
+T(\text{bridge}; x,y) 
+&= (x-1)^{\tilde h_0(\text{bridge}) }(y-1)^{h_1(\text{bridge} )} 
++ (x-1)^{\tilde h_0(\text{two pts.}) }(y-1)^{h_1(\text{two pts.})}  \\
+&= 1 + (x-1) = x ;
+\end{align*}
+\begin{align*}
+T(\text{loop}; x,y) 
+&= (x-1)^{\tilde h_0(\text{loop}) }(y-1)^{h_1(\text{loop} )} 
++ (x-1)^{\tilde h_0(\text{one pt.}) }(y-1)^{h_1(\text{one pt.})} \\
+&= (y-1) + 1 = y .
+\end{align*}
+
+\subsection{Deleting bridges and contracting loops}
+
+
+\section{Specializations of the Tutte polynomial}
+
+\subsection{Constants}
+For a graph $G = (V,E)$,
+\begin{itemize}
+\item 
+$T_G(2,2)$ counts the number of subsets of edges;
+$T_G(2,2) = 2^{\# E}$.
+
+\item 
+$T_G(1,1)$ counts the number of spanning trees.
+
+\item 
+$T_G(1,2)$ counts the number of spanning subset of edges.
+
+\item 
+$T_G(2,1)$ counts the number of independent subsets of edges.
+
+\item 
+$T_G(0,2)$ counts the number of totally cyclic orientations.
+
+\item 
+$T_G(2,0)$ counts the number of acyclic orientations.
+\end{itemize}
+
+For a metric graph $\Gamma = (G,\ell)$,
+\[ T_\Gamma(2,2) = \sum_{A \subset E(G)} \prod_{e_i \in A} [\ell(e_i)]_{2}
+= \sum_{A \subset E(G)} \prod_{e_i \in A} (2^{\ell(e_i)} - 1) .\]
+\[ = \prod_{e_i \in E(G)} (1 + (2^{\ell(e_i)} - 1))
+ = 2^{\sum_i \ell(e_i)}\]
+
+\begin{eg}
+Suppose $\Gamma$ is the theta graph with edge lengths $a$, $b$ and $c$,
+\[ {\rm eval}(\Gamma; 2,2) = 2^{a+b+c} .\]
+
+$T(\Gamma; 1,1) = ab + ac + bc$.
+
+$T(\Gamma; 1,2) = 1 + (a + b + c) + (ab + ac + bc)$.
+
+$T(\Gamma; 2,1) = (2^{a+b}  -2\cdot 2^a + 3) + (2^{a+b+c}-2^{a+b} + 2^a - 1)$
+$= 2^{a+b+c} - 2^a - 2^b - 2^c + 2$.
+
+$T(\Gamma; 0,2) = 1 + 3 + 3 - 1 = 6$.
+
+$T(\Gamma; 2,0) = 2^{a+b+c} - 2(2^a + 2^b + 2^c) + 6$.
+\end{eg}
+
+\begin{eg}
+For the theta graph, we have
+\begin{align*}
+T^+(\Gamma; u,w) &= w^2 + ([a]_{1+u} + [b]_{1+u} + [c]_{1+u})w  \\
+&\qquad + ([a]_{1+u} [b]_{1+u} + [a]_{1+u} [c]_{1+u}  + [b]_{1+u} [c]_{1+u}) \\
+&\qquad + ([a]_{1+u} [b]_{1+u} [c]_{1+u})u
+\end{align*}
+$$ {\rm coeff}(0,0; \Gamma) = ab + ac + bc .$$
+$$ {\rm coeff}(0,1; \Gamma) = a + b + c .$$
+$$ {\rm coeff}(k,1; \Gamma) = \binom{a}{k+1} + \binom{b}{k+1} + \binom{c}{k+1} .$$
+$$ {\rm coeff}(0,2; \Gamma) = 1 .$$
+
+\end{eg}
+
+\subsection{Chromatic polynomial}
+At $y=0$ we obtain the chromatic polynomial of a graph:
+\begin{equation*}
+\chi(G; \lambda) = (-1)^{\#V } (-\lambda)^{h_0(G)} T(G; 1-\lambda,0)
+\end{equation*}
+
+\subsection{Flow polynomial}
+At $x = 0$ we obtain the flow polynomial of a graph:
+\begin{equation*}
+F(G; \lambda) = (-1)^{h_1(G)} T(G; 0, 1 - \lambda)
+\end{equation*}
+
+\subsection{Reliability polynomial}
+The reliability polynomial of a graph satisfies
+\begin{equation*}
+R(G; p) = (1 - p)^{\# V - h_0(G)} p^{h_1(G)} T(G; 1, \frac1p )
+\end{equation*}
+
+\section*{Acknowledgements}
+The author would like to thank ...
+
+
+\begin{thebibliography}{99}
+
+
+%\bibitem{ABKS}
+%Y. An, M. Baker, G. Kuperberg and F. Shokrieh,
+%{Canonical representatives for divisor classes on tropical curves and the matrix-tree theorem},
+%Forum Math. Sigma,
+%{2}:e24 (2014), 25 pp.
+
+\bibitem{BF}
+R. Backhouse and J. F. Ferreira,
+{Recounting the rationals: twice!},
+
+
+%\bibitem{BF}
+%M. Baker and X. Faber,
+%{Metric properties of the tropical Abel--Jacobi map},
+%J. Algebr. Comb.,
+%{33} (2011)
+%349--381.
+
+
+%\bibitem{BN}
+%M. Baker and S. Norine,
+%{Riemann-Roch and Abel-Jacobi theory on a finite graph},
+%Adv. in Math. 
+%{215} (2007), 766--788.
+
+\bibitem{BH}
+J. I. Brown and C. A. Hickman,
+{On chromatic roots of large subdivisions of graphs},
+Discrete Math.
+{242} (2002),
+17--30.
+
+\bibitem{BHSW}
+J. I. Brown, C. Hickman, A. D. Sokal, and D. G. Wagner,
+{On the chromatic roots of generalized theta graphs},
+J. Combin. Theory Ser. B 
+{83} (2001),
+no. 2, 
+272--297.
+
+\bibitem{BO}
+T. H. Brylawski and J. G. Oxley,
+{The Tutte polynomial and its applications},
+N. White (ed.),
+{Matroid Applications}, {Encycl. Math. Appl.},
+{40},
+Cambridge Univ. Press (1992)
+123--225.
+
+\bibitem{CW}
+N. Calkin and H. S. Wilf,
+{Recounting the rationals},
+Amer. Math. Monthly
+107 (2000),
+no. 4,
+360--363.
+
+\bibitem{CLP}
+J. Clancy, T. Leake and S. Payne,
+{A Note on Jacobians, Tutte Polynomials,
+and Two-Variable Zeta Functions of Graphs},
+Exp. Math. (2015)
+24:1, 1--7.
+
+\bibitem{FK}
+C. M. Fortuin and P. W. Kasteleyn,
+{On the random-cluster model 
+I. Introduction and relation to other models},
+Physica {57} (1972)
+536--564.
+
+%\bibitem{F}
+%R. M. Foster,
+%\textit{The average impedance of an electrical network},
+%in Reissner Anniversary Volume, Contributions to Applied Mechanics,
+%pages 333--340,
+%J. W. Edwards,
+%Ann Arbor, MI, 1949.
+
+%\bibitem{GK}
+%A. Gathmann and M. Kerber,
+%\textit{A Riemann-Roch theorem in tropical geometry},
+%Math. Z. \textbf{259} (2008),
+%no. 1, 217--230.
+
+\bibitem{K}
+G. Kirchhoff,
+{\"Uber die Aufl\"osung der Gleichungen,
+auf welche man bei der Untersuchungen der linearen Vertheilung
+galvanischer Str\"ome gef\"urt wird},
+Ann. Phys. Chem. {72} (1847)
+497--508.
+
+\bibitem{MZ}
+G. Mikhalkin and I. Zharkov,
+\textit{Tropical curves, their Jacobians and theta functions},
+preprint, arXiv:0612267v2,
+2007.
+
+\bibitem{RW1}
+R. C. Read and E. G. Whitehead Jr.,
+{Chromatic polynomials for homeomorphism classes of graphs},
+Discrete Math. {204} (1999)
+337--356.
+
+\bibitem{RW2}
+R. C. Read and E. G. Whitehead Jr.,
+{The Tutte polynomial for homeomorphism classes of graphs},
+Discrete Math. {243} (2002)
+267--272.
+
+\bibitem{Sta}
+K. E. Stange,
+{An arborist's guide to the rationals},
+preprint,
+arXiv:1403.2928.
+
+\bibitem{Tra1}
+L. Traldi,
+{A Dichromatic Polynomial for Weighted Graphs and Link Polynomials},
+Proc. Amer. Math. Soc. {106} (1989)
+no. 1, 279--286.
+
+\bibitem{Tra2}
+L. Traldi,
+{Series and parallel reductions for the Tutte polynomial},
+Discrete Math. {220} (2000)
+291--297.
+
+\bibitem{Tra3}
+L. Traldi,
+{Chain polynomials and Tutte polynomials},
+Discrete Math. {248} (2002)
+279--282.
+
+\bibitem{Woo}
+D. R. Woodall,
+{Tutte polynomial expansions for 2-separable graphs},
+Discrete Math. {247} (2002),
+201--213.
+
+\end{thebibliography}
+
+\end{document}
