@@ -252,6 +252,10 @@ function $\mathcal M_g \to \RR$.
 
 Read and Whitehead \cite{RW2}
 
+Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
+
+Zeros of Tutte polynomials?
+
 \subsection{Notation}
 
 $\Gamma$ a compact metric graph
@@ -318,26 +322,6 @@ Note that
 \end{align*}
 
 
-\begin{equation*}
-T(\Gamma; 1+u,1+w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
-u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)}
-\end{equation*}
-For a fixed metric graph $\Gamma = (G,\ell)$, the Tutte power series is an element of 
-$\RR[[u]][w]$.
-
-This function satisfies the deletion-contraction relation
-\begin{equation*}
-T(\Gamma; x,y) = [\ell(e)]_x \cdot T(\Gamma \backslash e; x,y) + T(\Gamma / e; x,y) .
-\end{equation*}
-\begin{align*}
-T({\Gamma};1+u,1+w) &= 
-%\begin{gathered}
-[\ell(e)]_{1+u} \cdot T(\Gamma \backslash e; 1+u,1+w) \\
-&\qquad\qquad\qquad\qquad\qquad\qquad
- + T(\Gamma / e; 1+u,1+w) .
-%\end{gathered}
-\end{align*}
-
 Note that the $q$-analog satisfies the following properties
 \begin{enumerate}
 \item If $q_0>0$ is fixed and $q_0 \neq 1$, the map 
@@ -365,6 +349,26 @@ $$ \lim_{q \to 0^+} [\ell_0]_q  =
  -\infty &\text{if } \ell_0 <0.
 \end{cases}$$
 \end{enumerate}
+
+\begin{equation*}
+T(\Gamma; 1+u,1+w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
+u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)}
+\end{equation*}
+For a fixed metric graph $\Gamma = (G,\ell)$, the Tutte power series is an element of 
+$\RR[[u]][w]$.
+
+This function satisfies the deletion-contraction relation
+\begin{equation*}
+T(\Gamma; x,y) = [\ell(e)]_x \cdot T(\Gamma \backslash e; x,y) + T(\Gamma / e; x,y) .
+\end{equation*}
+\begin{align*}
+T({\Gamma};1+u,1+w) &= 
+%\begin{gathered}
+[\ell(e)]_{1+u} \cdot T(\Gamma \backslash e; 1+u,1+w) \\
+&\qquad\qquad\qquad\qquad\qquad\qquad
+ + T(\Gamma / e; 1+u,1+w) .
+%\end{gathered}
+\end{align*}
 
 \section{Metric graphs}
 A metric graph is a compact, connected metric space which comes from 
@@ -414,6 +418,41 @@ T(\text{loop}; x,y)
 + (x-1)^{\tilde h_0(\text{one pt.}) }(y-1)^{h_1(\text{one pt.})} \\
 &= (y-1) + 1 = y .
 \end{align*}
+
+\begin{eg}[Tutte power series of a line]
+Suppose $G$ is a line graph consisting of $n$ edges.
+Then
+$$
+T(G;x,y) = x^n 
+\qquad\text{and}\qquad 
+T^+(G;u,w) = (1+u)^n = 1 + nu + \binom{n}{2}u^2 + \cdots + u^n.
+$$
+If $\Gamma$ is a segment of length $\alpha$,
+then
+$$
+T^+(\Gamma;u,w) = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
+= 1 + \alpha u + \binom{\alpha}{2}u^2 + \cdots .
+$$
+\end{eg}
+
+\begin{eg}[Tutte power series of a circle]
+Suppose $G$ is a cycle graph consisting of $n$ edges.
+Then
+$$
+T(G;x,y) = x + x^2 + \cdots + x^{n-2} + x^{n-1} + y 
+= \frac{x^n - 1}{x - 1} - 1 + y.
+$$
+and
+$$
+T^+(G;u,w) = n + \binom{n}{2}u + \binom{n}{3} u^2 + \cdots + nu^{n-2} + u^{n-1} + w
+= \frac{(1+u)^n-1}{u} + w
+$$
+If $\Gamma$ is a circle of length $\lambda$, then 
+$$
+T^+(\Gamma;u,w) = \frac{(1 + u)^\lambda - 1}{u} + w
+= \sum_{k=0}^\infty \binom{\lambda}{k+1} u^{k} + w
+$$
+\end{eg}
 
 \subsection{Deleting bridges and contracting loops}
 
