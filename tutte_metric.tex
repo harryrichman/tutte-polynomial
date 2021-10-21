@@ -128,7 +128,7 @@ where $\ell : E(G) \to \RR_{>0}$ is a function assigning a positive, real
 Given real parameters $x,y$ with $x > 0$,
 let 
 \begin{equation}
-\label{eq:tutte-metric-graph-old}
+\label{eq:tutte-metric-graph}
 T(\Gamma; x,y) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{x} \right)
 (x-1)^{h_0(G\backslash A) - 1}(y-1)^{h_1(G\backslash A)}
 \end{equation}
@@ -142,23 +142,25 @@ where the notation $[\alpha]_x$ means
 \end{equation*}
 (If $x < 0$, then the expression $[\alpha]_x$ can be considered a complex-valued function,
 by taking the principal branch of the complex logarithm.)
-\begin{equation}
-\label{eq:tutte-metric-graph}
-T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
-u^{h_0(G\backslash A) - 1} w^{h_1(G\backslash A)}
-\end{equation}
-where the notation $[\alpha]_{1+u}$ means
-\begin{equation*}
-[\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
-\in \RR[[u]] .
-%[\alpha]_{1+u} = \frac{(1+u)^\alpha - 1}{u}
-%\quad\text{if } u \neq 0, \qquad 
-%[\alpha]_1 = \alpha.
-\end{equation*}
+
+%\begin{equation}
+%\label{eq:tutte-metric-graph}
+%T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
+%u^{h_0(G\backslash A) - 1} w^{h_1(G\backslash A)}
+%\end{equation}
+%where the notation $[\alpha]_{1+u}$ means
+%\begin{equation*}
+%[\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
+%\in \RR[[u]] .
+%%[\alpha]_{1+u} = \frac{(1+u)^\alpha - 1}{u}
+%%\quad\text{if } u \neq 0, \qquad 
+%%[\alpha]_1 = \alpha.
+%\end{equation*}
 
 For fixed $\Gamma$,
 the expression \eqref{eq:tutte-metric-graph} defines a function
-$(x,y) \mapsto T(\Gamma; x,y)$ from $\RR_{>0}\times \RR \to \RR$.
+from $\RR_{>0}\times \RR \to \RR$
+by associating $(x,y) \mapsto T(\Gamma; x,y)$. 
 This function is generally not a polynomial in $x$; %and $y$
 moreover,  it is generally not even a formal power series in $x$ since
 $[\ell(e_i)]_x$ is not analytic at $x = 0$ if the edge length $\ell(e_i)$ is non-integral.
