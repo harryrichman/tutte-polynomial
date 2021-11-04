@@ -58,6 +58,7 @@
 \DeclareMathOperator{\red}{red}
 \DeclareMathOperator{\Br}{Brk}
 \DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\vol}{vol}
 
 \renewcommand{\Re}{\mathrm{Re}}
 \newcommand{\dsp}{\displaystyle}
@@ -99,7 +100,7 @@ the Tutte polynomial $T(G;x,y)$
 is 
 %an important graph invariant,
  a two-variable polynomial %ssigned to graph $G$,
-introduced by Tutte in [cite reference].
+introduced by Tutte in \cite{Tut}.
 Many important graph invariants arise as evaluations of 
 the Tutte polynomial %$T(G; x,y)$ 
 at specific (real) parameters $x$, $y$.
@@ -269,6 +270,8 @@ Read and Whitehead \cite{RW2}
 
 Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
 
+\cite{Tra1,Tra2,Tra3}
+
 Zeros of Tutte polynomials?
 
 \subsection{Notation}
@@ -325,10 +328,10 @@ so we have
 \in \RR[[u]] .
 \end{equation}
 
-Note that
+Note that for positive integers $n,m$ we have
 \begin{equation*}
-[\alpha + \beta]_q =  [\alpha]_q + q^{\alpha} [\beta]_q
- = [\alpha]_q + [\beta]_q + (q-1) [\alpha]_q [\beta]_q .
+[n + m]_q =  [n ]_q + q^{n} [m]_q
+ = [n]_q + [m]_q + (q-1) [n]_q [m]_q .
 %[a + b]_q = [a]_q + q^a [b]_q = [a]_q + [b]_q + (q-1) [a]_q [b]_q .
 \end{equation*}
 \begin{align*}
@@ -409,7 +412,7 @@ deletion-contraction relation:
 \begin{equation*}
 T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
 \end{equation*}
-along with the bases cases for a loop edge and bridge edge.
+along with the base cases for a loop edge and bridge edge.
 \begin{equation*}
 T(G; x,y) = x^i y^j \qquad\text{if $G$ consists of $i$ bridges and $j$ loops.}
 \end{equation*}
@@ -455,7 +458,7 @@ Suppose $G$ is a cycle graph consisting of $n$ edges.
 Then
 $$
 T(G;x,y) = x + x^2 + \cdots + x^{n-2} + x^{n-1} + y 
-= \frac{x^n - 1}{x - 1} - 1 + y.
+= \frac{x^n - 1}{x - 1} + y - 1.
 $$
 and
 $$
@@ -502,6 +505,17 @@ For a metric graph $\Gamma = (G,\ell)$,
 = \sum_{A \subset E(G)} \prod_{e_i \in A} (2^{\ell(e_i)} - 1) .\]
 \[ = \prod_{e_i \in E(G)} (1 + (2^{\ell(e_i)} - 1))
  = 2^{\sum_i \ell(e_i)}\]
+\begin{itemize}
+\item 
+$T^+(\Gamma;1,1) = 2^{\vol(\Gamma)}$
+
+\item 
+$T^+(\Gamma;0,0) = \vol(\Jac(\Gamma))$
+
+\item 
+$T^+(\Gamma;0,1) = \sum_{k=0}^g \vol(\Eff^k(\Gamma))$?
+
+\end{itemize}
 
 \begin{eg}
 Suppose $\Gamma$ is the theta graph with edge lengths $a$, $b$ and $c$,
@@ -555,152 +569,152 @@ R(G; p) = (1 - p)^{\# V - h_0(G)} p^{h_1(G)} T(G; 1, \frac1p )
 The author would like to thank ...
 
 
-%\bibliography{manin-mumford} 
-%\bibliographystyle{abbrv}
+\bibliography{tutte_metric} 
+\bibliographystyle{abbrv}
 
-\begin{thebibliography}{99}
-
-%\bibitem{ABKS}
-%Y. An, M. Baker, G. Kuperberg and F. Shokrieh,
-%{Canonical representatives for divisor classes on tropical curves and the matrix-tree theorem},
-%Forum Math. Sigma,
-%{2}:e24 (2014), 25 pp.
-
-\bibitem{BF}
-R. Backhouse and J. F. Ferreira,
-{Recounting the rationals: twice!},
-
-
+%\begin{thebibliography}{99}
+%
+%%\bibitem{ABKS}
+%%Y. An, M. Baker, G. Kuperberg and F. Shokrieh,
+%%{Canonical representatives for divisor classes on tropical curves and the matrix-tree theorem},
+%%Forum Math. Sigma,
+%%{2}:e24 (2014), 25 pp.
+%
 %\bibitem{BF}
-%M. Baker and X. Faber,
-%{Metric properties of the tropical Abel--Jacobi map},
-%J. Algebr. Comb.,
-%{33} (2011)
-%349--381.
-
-
-%\bibitem{BN}
-%M. Baker and S. Norine,
-%{Riemann-Roch and Abel-Jacobi theory on a finite graph},
-%Adv. in Math. 
-%{215} (2007), 766--788.
-
-\bibitem{BH}
-J. I. Brown and C. A. Hickman,
-{On chromatic roots of large subdivisions of graphs},
-Discrete Math.
-{242} (2002),
-17--30.
-
-\bibitem{BHSW}
-J. I. Brown, C. Hickman, A. D. Sokal, and D. G. Wagner,
-{On the chromatic roots of generalized theta graphs},
-J. Combin. Theory Ser. B 
-{83} (2001),
-no. 2, 
-272--297.
-
-\bibitem{BO}
-T. H. Brylawski and J. G. Oxley,
-{The Tutte polynomial and its applications},
-N. White (ed.),
-{Matroid Applications}, {Encycl. Math. Appl.},
-{40},
-Cambridge Univ. Press (1992)
-123--225.
-
-\bibitem{CW}
-N. Calkin and H. S. Wilf,
-{Recounting the rationals},
-Amer. Math. Monthly
-107 (2000),
-no. 4,
-360--363.
-
-\bibitem{CLP}
-J. Clancy, T. Leake and S. Payne,
-{A Note on Jacobians, Tutte Polynomials,
-and Two-Variable Zeta Functions of Graphs},
-Exp. Math. (2015)
-24:1, 1--7.
-
-\bibitem{FK}
-C. M. Fortuin and P. W. Kasteleyn,
-{On the random-cluster model 
-I. Introduction and relation to other models},
-Physica {57} (1972)
-536--564.
-
-%\bibitem{F}
-%R. M. Foster,
-%\textit{The average impedance of an electrical network},
-%in Reissner Anniversary Volume, Contributions to Applied Mechanics,
-%pages 333--340,
-%J. W. Edwards,
-%Ann Arbor, MI, 1949.
-
-%\bibitem{GK}
-%A. Gathmann and M. Kerber,
-%\textit{A Riemann-Roch theorem in tropical geometry},
-%Math. Z. \textbf{259} (2008),
-%no. 1, 217--230.
-
-\bibitem{K}
-G. Kirchhoff,
-{\"Uber die Aufl\"osung der Gleichungen,
-auf welche man bei der Untersuchungen der linearen Vertheilung
-galvanischer Str\"ome gef\"urt wird},
-Ann. Phys. Chem. {72} (1847)
-497--508.
-
-\bibitem{MZ}
-G. Mikhalkin and I. Zharkov,
-\textit{Tropical curves, their Jacobians and theta functions},
-preprint, arXiv:0612267v2,
-2007.
-
-\bibitem{RW1}
-R. C. Read and E. G. Whitehead Jr.,
-{Chromatic polynomials for homeomorphism classes of graphs},
-Discrete Math. {204} (1999)
-337--356.
-
-\bibitem{RW2}
-R. C. Read and E. G. Whitehead Jr.,
-{The Tutte polynomial for homeomorphism classes of graphs},
-Discrete Math. {243} (2002)
-267--272.
-
-\bibitem{Sta}
-K. E. Stange,
-{An arborist's guide to the rationals},
-preprint,
-arXiv:1403.2928.
-
-\bibitem{Tra1}
-L. Traldi,
-{A Dichromatic Polynomial for Weighted Graphs and Link Polynomials},
-Proc. Amer. Math. Soc. {106} (1989)
-no. 1, 279--286.
-
-\bibitem{Tra2}
-L. Traldi,
-{Series and parallel reductions for the Tutte polynomial},
-Discrete Math. {220} (2000)
-291--297.
-
-\bibitem{Tra3}
-L. Traldi,
-{Chain polynomials and Tutte polynomials},
-Discrete Math. {248} (2002)
-279--282.
-
-\bibitem{Woo}
-D. R. Woodall,
-{Tutte polynomial expansions for 2-separable graphs},
-Discrete Math. {247} (2002),
-201--213.
-
-\end{thebibliography}
+%R. Backhouse and J. F. Ferreira,
+%{Recounting the rationals: twice!},
+%
+%
+%%\bibitem{BF}
+%%M. Baker and X. Faber,
+%%{Metric properties of the tropical Abel--Jacobi map},
+%%J. Algebr. Comb.,
+%%{33} (2011)
+%%349--381.
+%
+%
+%%\bibitem{BN}
+%%M. Baker and S. Norine,
+%%{Riemann-Roch and Abel-Jacobi theory on a finite graph},
+%%Adv. in Math. 
+%%{215} (2007), 766--788.
+%
+%\bibitem{BH}
+%J. I. Brown and C. A. Hickman,
+%{On chromatic roots of large subdivisions of graphs},
+%Discrete Math.
+%{242} (2002),
+%17--30.
+%
+%\bibitem{BHSW}
+%J. I. Brown, C. Hickman, A. D. Sokal, and D. G. Wagner,
+%{On the chromatic roots of generalized theta graphs},
+%J. Combin. Theory Ser. B 
+%{83} (2001),
+%no. 2, 
+%272--297.
+%
+%\bibitem{BO}
+%T. H. Brylawski and J. G. Oxley,
+%{The Tutte polynomial and its applications},
+%N. White (ed.),
+%{Matroid Applications}, {Encycl. Math. Appl.},
+%{40},
+%Cambridge Univ. Press (1992)
+%123--225.
+%
+%\bibitem{CW}
+%N. Calkin and H. S. Wilf,
+%{Recounting the rationals},
+%Amer. Math. Monthly
+%107 (2000),
+%no. 4,
+%360--363.
+%
+%\bibitem{CLP}
+%J. Clancy, T. Leake and S. Payne,
+%{A Note on Jacobians, Tutte Polynomials,
+%and Two-Variable Zeta Functions of Graphs},
+%Exp. Math. (2015)
+%24:1, 1--7.
+%
+%\bibitem{FK}
+%C. M. Fortuin and P. W. Kasteleyn,
+%{On the random-cluster model 
+%I. Introduction and relation to other models},
+%Physica {57} (1972)
+%536--564.
+%
+%%\bibitem{F}
+%%R. M. Foster,
+%%\textit{The average impedance of an electrical network},
+%%in Reissner Anniversary Volume, Contributions to Applied Mechanics,
+%%pages 333--340,
+%%J. W. Edwards,
+%%Ann Arbor, MI, 1949.
+%
+%%\bibitem{GK}
+%%A. Gathmann and M. Kerber,
+%%\textit{A Riemann-Roch theorem in tropical geometry},
+%%Math. Z. \textbf{259} (2008),
+%%no. 1, 217--230.
+%
+%\bibitem{K}
+%G. Kirchhoff,
+%{\"Uber die Aufl\"osung der Gleichungen,
+%auf welche man bei der Untersuchungen der linearen Vertheilung
+%galvanischer Str\"ome gef\"urt wird},
+%Ann. Phys. Chem. {72} (1847)
+%497--508.
+%
+%\bibitem{MZ}
+%G. Mikhalkin and I. Zharkov,
+%\textit{Tropical curves, their Jacobians and theta functions},
+%preprint, arXiv:0612267v2,
+%2007.
+%
+%\bibitem{RW1}
+%R. C. Read and E. G. Whitehead Jr.,
+%{Chromatic polynomials for homeomorphism classes of graphs},
+%Discrete Math. {204} (1999)
+%337--356.
+%
+%\bibitem{RW2}
+%R. C. Read and E. G. Whitehead Jr.,
+%{The Tutte polynomial for homeomorphism classes of graphs},
+%Discrete Math. {243} (2002)
+%267--272.
+%
+%\bibitem{Sta}
+%K. E. Stange,
+%{An arborist's guide to the rationals},
+%preprint,
+%arXiv:1403.2928.
+%
+%\bibitem{Tra1}
+%L. Traldi,
+%{A Dichromatic Polynomial for Weighted Graphs and Link Polynomials},
+%Proc. Amer. Math. Soc. {106} (1989)
+%no. 1, 279--286.
+%
+%\bibitem{Tra2}
+%L. Traldi,
+%{Series and parallel reductions for the Tutte polynomial},
+%Discrete Math. {220} (2000)
+%291--297.
+%
+%\bibitem{Tra3}
+%L. Traldi,
+%{Chain polynomials and Tutte polynomials},
+%Discrete Math. {248} (2002)
+%279--282.
+%
+%\bibitem{Woo}
+%D. R. Woodall,
+%{Tutte polynomial expansions for 2-separable graphs},
+%Discrete Math. {247} (2002),
+%201--213.
+%
+%\end{thebibliography}
 
 \end{document}
