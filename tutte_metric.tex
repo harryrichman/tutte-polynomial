@@ -59,6 +59,7 @@
 \DeclareMathOperator{\Br}{Brk}
 \DeclareMathOperator{\ev}{ev}
 \DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\coeff}{coeff}
 
 \renewcommand{\Re}{\mathrm{Re}}
 \newcommand{\dsp}{\displaystyle}
@@ -122,6 +123,9 @@ h_0(G) &= \#(\text{connected components of }G), \quad\text{and}\\
 h_1(G) &= \# E(G) - \# V(G) + h_0(G) .
 \end{align*}
 \note{attribute to Crapo \cite{Cra}.}
+This perspective on the Tutte polynomial was initially introduced by Crapo \cite{Cra}, who used the term {\em rank generating polynomial}.
+(Reference: \cite[Definition 3]{EMM}.)
+
 The purpose of this paper is to explain that this definition of the Tutte polynomial may be extended meaninfully to metric graphs.
 
 \subsection{Statement of results}
@@ -201,6 +205,14 @@ in particular,
 $T^+(\Gamma; u,w)$ does not depend on the choice of model $(G,\ell)$ for $\Gamma$.
 \end{thm}
 
+\begin{thm}[Deletion-contraction relation]
+Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
+the Tutte power series satisfies
+\begin{equation*}
+T^+(\Gamma; u,w) = [\ell(e)]_{1+u} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w).
+\end{equation*}
+\end{thm}
+
 Our next result concerns the convergence of the Tutte powers series of a fixed metric graph $\Gamma$.
 \begin{thm}[Tutte convergence]
 Given a metric graph $\Gamma$,
@@ -267,20 +279,12 @@ on the contraction.
 
 \begin{thm}[Continuity of Tutte coefficient]
 For fixed indices $i,j\geq 0$,
-let ${\rm coeff}(i,j; \Gamma)$
+let $\coeff(i,j; \Gamma)$
 denote the coefficient of $u^i w^j$ in the power series expansion of $T^+(\Gamma; u,w)$.
 Then the function ${\rm coeff}(i,j)$
 defines a continuous(?) 
 function $\mathcal M_g \to \RR$.
 \note{extra assumptions needed?}
-\end{thm}
-
-\begin{thm}[Deletion-contraction relation]
-Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
-the Tutte power series satisfies
-\begin{equation*}
-T^+(\Gamma; u,w) = [\ell(e)]_{1+u} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w).
-\end{equation*}
 \end{thm}
 
 \subsection{Previous work} 
@@ -500,6 +504,14 @@ T(\text{loop}; x,y)
 \end{align*}
 
 \begin{eg}[Tutte power series of a line]
+Suppose $\Gamma$ is a segment of length $\alpha$,
+then
+$$
+T^+(\Gamma;u,w) = (1+u)^\alpha
+= [\alpha]_{1+u} u + 1 = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
+= 1 + \alpha u + \binom{\alpha}{2}u^2 + \cdots .
+$$
+
 Suppose $G$ is a line graph consisting of $n$ edges.
 Then
 $$
@@ -507,16 +519,15 @@ T(G;x,y) = x^n
 \qquad\text{and}\qquad 
 T^+(G;u,w) = (1+u)^n = 1 + nu + \binom{n}{2}u^2 + \cdots + u^n.
 $$
-If $\Gamma$ is a segment of length $\alpha$,
-then
-$$
-T^+(\Gamma;u,w) = (1+u)^\alpha
-= [\alpha]_{1+u} u + 1 = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
-= 1 + \alpha u + \binom{\alpha}{2}u^2 + \cdots .
-$$
 \end{eg}
 
 \begin{eg}[Tutte power series of a circle]
+If $\Gamma$ is a circle of length $\lambda$, then 
+$$
+T^+(\Gamma;u,w) = [\lambda]_{1+u}  + w =  \frac{(1 + u)^\lambda - 1}{u} + w
+= \sum_{k=0}^\infty \binom{\lambda}{k+1} u^{k} + w
+$$
+
 Suppose $G$ is a cycle graph consisting of $n$ edges.
 Then
 $$
@@ -527,11 +538,6 @@ and
 $$
 T^+(G;u,w) = n + \binom{n}{2}u + \binom{n}{3} u^2 + \cdots + nu^{n-2} + u^{n-1} + w
 = \frac{(1+u)^n-1}{u} + w
-$$
-If $\Gamma$ is a circle of length $\lambda$, then 
-$$
-T^+(\Gamma;u,w) = [\lambda]_{1+u}  + w =  \frac{(1 + u)^\lambda - 1}{u} + w
-= \sum_{k=0}^\infty \binom{\lambda}{k+1} u^{k} + w
 $$
 \end{eg}
 
@@ -629,7 +635,7 @@ $T^+(G;1,-1) =$ the number of acyclic orientations.
 \end{itemize}
 
 For a metric graph $\Gamma = (G,\ell)$,
-\[ T_\Gamma(2,2) = \sum_{A \subset E(G)} \prod_{e_i \in A} [\ell(e_i)]_{2}
+\[ T^+(\Gamma;1,1) = \sum_{A \subset E(G)} \prod_{e_i \in A} [\ell(e_i)]_{2}
 = \sum_{A \subset E(G)} \prod_{e_i \in A} (2^{\ell(e_i)} - 1) .\]
 \[ = \prod_{e_i \in E(G)} (1 + (2^{\ell(e_i)} - 1))
  = 2^{\sum_i \ell(e_i)}\]
@@ -670,6 +676,7 @@ T^+(\Gamma; u,w) &= w^2 + ([a]_{1+u} + [b]_{1+u} + [c]_{1+u})w  \\
 \end{align*}
 $$ {\rm coeff}(0,0; \Gamma) = ab + ac + bc .$$
 $$ {\rm coeff}(0,1; \Gamma) = a + b + c .$$
+$$ \coeff(0,k; \Gamma) = $$
 $$ {\rm coeff}(k,1; \Gamma) = \binom{a}{k+1} + \binom{b}{k+1} + \binom{c}{k+1} .$$
 $$ {\rm coeff}(0,2; \Gamma) = 1 .$$
 
