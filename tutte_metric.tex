@@ -121,7 +121,7 @@ In graph theoretic terms,
 h_0(G) &= \#(\text{connected components of }G), \quad\text{and}\\
 h_1(G) &= \# E(G) - \# V(G) + h_0(G) .
 \end{align*}
-[attribute to Crapo \cite{Cra}.]
+\note{attribute to Crapo \cite{Cra}.}
 The purpose of this paper is to explain that this definition of the Tutte polynomial may be extended meaninfully to metric graphs.
 
 \subsection{Statement of results}
@@ -188,6 +188,7 @@ so as a power series in $u$ we have
 [\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 \in \RR[[u]] .
 \end{equation}
+\note{use different notation to distinguish $[a]_{1+u}$ as a power series vs $[a]_{1+u}$ as the expression $1/u((1+u)^a-1)$}
 
 Our first main result is that the expression \eqref{eq:tutte-power-series} does not depend on which  model $(G,\ell)$ we choose for the metric graph $\Gamma$.
 \begin{thm}[Tutte power series]
@@ -274,6 +275,14 @@ function $\mathcal M_g \to \RR$.
 \note{extra assumptions needed?}
 \end{thm}
 
+\begin{thm}[Deletion-contraction relation]
+Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
+the Tutte power series satisfies
+\begin{equation*}
+T^+(\Gamma; u,w) = [\ell(e)]_{1+u} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w).
+\end{equation*}
+\end{thm}
+
 \subsection{Previous work} 
 
 Read and Whitehead \cite{RW2}
@@ -281,6 +290,8 @@ Read and Whitehead \cite{RW2}
 Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
 
 \cite{Tra1,Tra2,Tra3}
+
+\cite{RW1,RW2}
 
 Zeros of Tutte polynomials?
 
@@ -360,26 +371,61 @@ $$\ell \mapsto [\ell]_{q_0} = \frac{q_0^\ell - 1}{q_0 - 1}$$
 defines a continuous function from $\RR$ to $\RR$,
 which sends $1 \mapsto 1$ and $0 \mapsto 0$.
 
-\item As $q_0$ approaches $0$ from the right,
-we have
-$$ \lim_{q \to 0^+} \frac{q_0^\ell - 1}{q_0 - 1} = \begin{cases}
-1 &\text{if } \ell > 0, \\
-0 &\text{if } \ell = 0, \\
--\infty &\text{if } \ell < 0.
-\end{cases} $$
+If $q_0 = 1$,
+we use the convention that $[\ell]_1 = \ell$.
 
-\item If $\ell_0\neq 0$ is fixed and $q > 0$,
+If $q_0 = 0$,
+we have $[\ell]_0 = 1$ for any $\ell > 0$.
+%\item As $q_0$ approaches $0$ from the right,
+%we have
+%$$ \lim_{q \to 0^+} \frac{q_0^\ell - 1}{q_0 - 1} = \begin{cases}
+%1 &\text{if } \ell > 0, \\
+%0 &\text{if } \ell = 0, \\
+%-\infty &\text{if } \ell < 0.
+%\end{cases} $$
+
+\item If $\ell_0\geq 0$ is fixed and $q > 0$,
 the map 
 $$q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}$$
-defines a continuous function from $\RR_{>0}$ to $\RR$,
-which sends $1 \mapsto \ell_0$ and 
+defines a continuous function from $\RR_{>0} \setminus\{1\}$ to $\RR$,
+which satsifies
 $$ \lim_{q \to 0^+} [\ell_0]_q  = 
 \lim_{q \to 0^+} \frac{q^{\ell_0} - 1}{q - 1} =
 \begin{cases}
  1 &\text{if } \ell_0 > 0 \\
+ 0 &\text{if } \ell_0 = 0 \\
  -\infty &\text{if } \ell_0 <0.
 \end{cases}$$
+and has a continuous extension to $\RR_{>0} \to \RR$ that sends $1 \mapsto \ell_0$.
+
+\item 
+In particular, for $\ell, q > 0$ we have
+$$
+[\ell]_0 = 1 
+\qquad\text{and}\qquad
+[0]_q = 0.
+$$
+$$
+\lim_{\ell \to 0} [\ell]_0 = 1 
+\qquad\text{and}\qquad
+\lim_{q \to 0} [0]_q = 0.
+$$
 \end{enumerate}
+
+Considering $[\alpha]_{1+u}$ as a power series in $u$ and $\alpha$:
+\begin{align*}
+[\alpha]_{1+u} &= \sum_{k\geq 0} \binom{\alpha}{k+1}u^k  
+= \sum_{k\geq 0} \frac1{(k+1)!} (\alpha)_{{k+1}} u^k \\
+&= \sum_{k\geq 0} \left( \sum_{j \geq 0} \frac{s(k+1,j)}{(k+1)!} \alpha^j \right) u^k \\
+&= (\alpha) + (-\frac12\alpha + \frac12 \alpha^2)u + (\frac13\alpha - \frac12 \alpha^2 + \frac16 \alpha^3)u^2 + \cdots \\
+\end{align*}
+where $(x)_k = x(x-1)(x-2)\cdots(x-k+1)$ denotes the falling factorial and $s(k,j)$ denotes the Stirling number of the first kind.
+\begin{align*}
+[\alpha]_{1+u} &= \frac{(1+u)^\alpha - 1}{u}
+= \frac{\exp(\alpha \log(1+u)) - 1}{u} \\
+&= \frac1{u} \left( -1 + \sum_{j\geq 0} \frac{\log(1+u)^j}{j!} \alpha^j\right) \\
+&= \sum_{j\geq 1} \frac{\log(1+u)^j}{j! \, u} \alpha^j .
+\end{align*}
 
 \begin{equation*}
 T(\Gamma; 1+u,1+w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
@@ -395,9 +441,8 @@ T(\Gamma; x,y) = [\ell(e)]_x \cdot T(\Gamma \backslash e; x,y) + T(\Gamma / e; x
 \begin{align*}
 T^+({\Gamma};u,w) &= 
 %\begin{gathered}
-[\ell(e)]_{1+u} \cdot T(\Gamma \backslash e; 1+u,1+w) \\
-&\qquad\qquad\qquad\qquad\qquad\qquad
- + T(\Gamma / e; 1+u,1+w) .
+[\ell(e)]_{1+u} \cdot T^+(\Gamma \backslash e; u,w) 
+ + T^+(\Gamma / e; u,w) .
 %\end{gathered}
 \end{align*}
 
