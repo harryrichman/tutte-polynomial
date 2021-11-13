@@ -192,10 +192,12 @@ so as a power series in $u$ we have
 [\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 \in \RR[[u]] .
 \end{equation}
-\note{use different notation to distinguish $[a]_{1+u}$ as a power series vs $[a]_{1+u}$ as the expression $1/u((1+u)^a-1)$}
+\note{use different notation to distinguish $[a]_{1+u}$ as a power series in variable $u$ 
+vs $[a]_{1+u}$ as the real-valued expression $1/u((1+u)^a-1)$}
 
 Our first main result is that the expression \eqref{eq:tutte-power-series} does not depend on which  model $(G,\ell)$ we choose for the metric graph $\Gamma$.
 \begin{thm}[Tutte power series]
+\label{thm:tutte-series}
 Given a metric graph $\Gamma = (G,\ell)$,
 the expression $T^+(\Gamma; u,w)$
 %the expression 
@@ -206,6 +208,7 @@ $T^+(\Gamma; u,w)$ does not depend on the choice of model $(G,\ell)$ for $\Gamma
 \end{thm}
 
 \begin{thm}[Deletion-contraction relation]
+\label{thm:deletion-contraction}
 Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
 the Tutte power series satisfies
 \begin{equation*}
@@ -215,6 +218,7 @@ T^+(\Gamma; u,w) = [\ell(e)]_{1+u} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / 
 
 Our next result concerns the convergence of the Tutte powers series of a fixed metric graph $\Gamma$.
 \begin{thm}[Tutte convergence]
+\label{thm:tutte-convergence}
 Given a metric graph $\Gamma$,
 the Tutte power series $T^+(\Gamma;u,w)$ converges when $|u|<1$.
 If some edge length $\ell(e)$ is not an integer,
@@ -468,6 +472,9 @@ to refer to a metric graph which possibly has contracted loops,
 which we think of as ``infinitesimally small'' loops attached to a vertex.
 We record the number of 
 
+\subsection{Moduli spaces of metric graphs}
+See Melody Chan \cite{Cha}.
+
 \section{Tutte power series}
 The polynomial $T_G(x,y) = T(G; x,y)$ can also be defined inductively by the 
 deletion-contraction relation:
@@ -607,7 +614,29 @@ Compare to the Example in Read--Whitehead \cite[p. 272]{RW2}.
 %\end{align*}
 
 \subsection{Deleting bridges and contracting loops}
+In this section we describe how the definition of Tutte power series $T^+(\Gamma;u,w)$
+may be extended to a more general concept of metric graphs.
 
+- If $\Gamma = \bigcup_{i=1}^k \Gamma_i$ is a disjoint union of $k$ connected metric graphs $\Gamma_i$,
+then 
+$$
+T^+(\bigcup_{i=1}^k \Gamma_i ; u,w) = u^{k-1}\, T^+(\bigvee_{i=1}^k \Gamma_i; u,w).
+$$
+
+- If $\Gamma^{wt} = (G,\ell,wt)$ is a genus-weighted metric graph,
+with underlying metric graph $\Gamma^0 = (G,\ell)$,
+then
+$$
+T^+(\Gamma^{wt}; u,w) = w^{wt(G)} \, T^+(\Gamma^0; u,w).
+$$
+
+
+\section{Proofs}
+
+\begin{proof}[Proof of Theorem~\ref{thm:tutte-series}]
+It sufficies to show that the Tutte power seres is invariant 
+under an edge subdivision.
+\end{proof}
 
 \section{Specializations of the Tutte polynomial}
 
