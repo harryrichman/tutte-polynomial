@@ -105,7 +105,7 @@ introduced by Tutte in \cite{Tut}.
 Many important graph invariants arise as evaluations of 
 the Tutte polynomial %$T(G; x,y)$ 
 at specific (real) parameters $x$, $y$.
-For a comprehensive modern overview of the Tutte polynomial see \cite{EMM}.
+For a comprehensive modern overview of the Tutte polynomial see \cite{BO} \cite{EMM}.
 
 The following characterization of the Tutte polynomial was initially introduced by Crapo \cite{Cra}, who used the term {\em rank generating function} of $G$
 (see also: \cite[Definition 3]{EMM}).
@@ -299,6 +299,9 @@ Several authors have investigated the behavior of the Tutte polynomial under the
 \cite{Tra1,Tra2,Tra3}
 
 \cite{RW1,RW2}
+
+Multivariate Tutte polynomial \cite{Sok-potts}
+also known as the {\em Potts-model partition function}
 
 Zeros of Tutte polynomials?
 
@@ -638,6 +641,34 @@ $$
 \begin{proof}[Proof of Theorem~\ref{thm:tutte-series}]
 It sufficies to show that the Tutte power seres is invariant 
 under an edge subdivision.
+Suppose $G = (V,E)$ contains the edge $e_0$, which we subdivide into $e_1 \cup e_2$ to obtain the graph $G'$.
+
+Then
+\begin{align*}
+T^+(G'; u,w) &= \sum_{A \subset E(G')} \left( \prod_{e \in A} [\ell(e)]_{1+u} \right) u^{h_0(G\backslash A)-1} w^{h_1(G\setminus A)}  \\
+&= \sum_{A \subset E(G') \setminus\{e_1,e_2\}} \sum_{B \subset \{e_1,e_2\}} 
+\end{align*}
+Note that
+$$
+G' \setminus (A \cup \{e_1\}) \simeq G' \setminus (A \cup \{e_2\}) \simeq G \setminus (A \cup \{e_0\})
+$$
+while
+$$
+G' \setminus (A \cup \{e_1,e_2\}) \simeq G \setminus (A \cup \{e_0\}) 
+$$
+By the deletion-contraction relation \note{cite}
+we have
+$$
+T^+(G; u,w) = [a+b]_{1+u} T^+(G\backslash e; u,w) + T^+(G/e; u,w)
+$$
+and 
+$$
+T^+(G'; u,w) = ([a]_{1+u} + [b]_{1+u} + u[a]_{1+u}[b]_{1+u}) T^+(G\backslash e; u,w) + T^+(G/e; u,w) .
+$$
+Therefore. ... 
+$$
+[a]_{1+u} + [b]_{1+u} + u [a]_{1+u} [b]_{1+u}
+$$
 \end{proof}
 
 \section{Specializations of the Tutte polynomial}
