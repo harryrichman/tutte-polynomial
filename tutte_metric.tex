@@ -1,6 +1,6 @@
 %v1
 \documentclass{amsart}
-\usepackage{amssymb, amsmath, amsfonts, amsthm, graphics, enumerate, mathrsfs, mathtools,tikz-cd,soul}
+\usepackage{amssymb, amsmath, amsfonts, amsthm, graphics, enumerate, mathrsfs, mathtools,tikz-cd,soul,csquotes}
 \usetikzlibrary{positioning,arrows,scopes}
 %\usepackage{fancyhdr}
 %\usepackage{geometry}
@@ -301,8 +301,15 @@ Several authors have investigated the behavior of the Tutte polynomial under the
 \cite{RW1,RW2}
 
 Multivariate Tutte polynomial \cite{Sok-potts}
-also known as the {\em Potts-model partition function}
-
+also known as the {\em Potts-model partition function}.
+Sokal \cite{Sok-potts} asks:
+\begin{displayquote}
+Let me conclude by observing that numerous specific evaluations of the Tutte polynomial have been given combinatorial interpretations, 
+as counting some set of objects associated to the graphs $G$. 
+It would be an interesting project to seek to extend these counting problems to ``counting with weights'',
+i.e., to obtain suitably defined univariate or multivariate generating polynomials for the objects in question as specializations of 
+$Z_G(q,v)$ or $Z_G(q,\mathbf{v})$, respectively.
+\end{displayquote}
 Zeros of Tutte polynomials?
 
 \subsection{Notation}
@@ -320,10 +327,9 @@ $V(G)$ vertex set of $G$
 $(G,\ell)$ a combinatorial model for a metric graph,
 where 
 %$G$ is a combinatorial graph and 
+
 $\ell : E(G) \to \RR_{>0}$
 is a length function on edges of $G$
-
-$D$ a divisor on a metric graph
 
 $T(G; x,y)$ the Tutte polynomial of $G$
 
