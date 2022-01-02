@@ -443,7 +443,7 @@ $$
 Considering $[\alpha]_{1+u}$ as a power series in $u$ and $\alpha$:
 \begin{align*}
 [\alpha]_{1+u} &= \sum_{k\geq 0} \binom{\alpha}{k+1}u^k  
-= \sum_{k\geq 0} \frac1{(k+1)!} (\alpha)_{{k+1}} u^k \\
+= \sum_{k\geq 0} \frac1{(k+1)!} \alpha^{\underline{k+1}} u^k \\
 &= \sum_{k\geq 0} \left( \sum_{j \geq 0} \frac{s(k+1,j)}{(k+1)!} \alpha^j \right) u^k \\
 &= (\alpha) + (-\frac12\alpha + \frac12 \alpha^2)u + (\frac13\alpha - \frac12 \alpha^2 + \frac16 \alpha^3)u^2 + \cdots \\
 \end{align*}
@@ -647,6 +647,14 @@ Compare to the Example in Read--Whitehead \cite[p. 272]{RW2}.
 In this section we describe how the definition of Tutte power series $T^+(\Gamma;u,w)$
 may be extended to a more general concept of metric graphs.
 
+\begin{dfn}
+A {\em genus-weighted metric graph}
+$(G,\ell, wt)$
+consists of a graph $G = (V,E)$,
+a length function $\ell : E \to \RR_{>0}$,
+and a genus function
+$wt: V \to \ZZ_{\geq 0}$.
+\end{dfn}
 - If $\Gamma = \bigcup_{i=1}^k \Gamma_i$ is a disjoint union of $k$ connected metric graphs $\Gamma_i$,
 then 
 $$
