@@ -65,6 +65,11 @@
 \newcommand{\dsp}{\displaystyle}
 \newcommand{\pderiv}[1]{\frac{\partial}{\partial{#1}}}
 \newcommand{\angles}[1]{\langle {#1} \rangle}
+% formal q-analog
+\newcommand{\fanalog}[2]{[[#2]]_{#1}}
+% non-formal q-analog
+\newcommand{\analog}[2]{[#2]_{#1}}
+
 
 % for comments
 \newcommand{\harry}[1]{{\color{red} \sf $\diamondsuit$  {#1} $\diamondsuit$ }}
@@ -284,6 +289,7 @@ Namely, the value of $T(G; 0, 2)$ generally differs from the value of $T(G/e; 0,
 on the contraction.
 \end{eg}
 
+\note{Maybe remove this theorem}
 \begin{thm}[Continuity of Tutte coefficient]
 For fixed indices $i,j\geq 0$,
 let $\coeff(i,j; \Gamma)$
@@ -296,11 +302,11 @@ function $\mathcal M_g \to \RR$.
 
 \subsection{Previous work} 
 
+Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
+
 Read and Whitehead \cite{RW2}
 
 Brylawski \cite{Bry}
-
-Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
 
 \cite{Tra1,Tra2,Tra3}
 
@@ -375,6 +381,9 @@ so we have
 [\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 \in \RR[[u]] .
 \end{equation}
+
+$\fanalog{q}{\alpha}$
+$\analog{q}{\alpha}$
 
 \begin{prop}
 For positive integers $n,m$ we have
@@ -492,17 +501,17 @@ and we write $\Gamma = (G,\ell)$.
 %(A single metric graph generally has many different combinatorial models.)
 
 
+\subsection{Moduli spaces of metric graphs}
+See Melody Chan \cite{Cha}.
+
+\cite{ACP}
+
 \subsection{Tropical curves}
 
 Here we use ``tropical curve'' 
 to refer to a metric graph which possibly has contracted loops,
 which we think of as ``infinitesimally small'' loops attached to a vertex.
 We record the number of 
-
-\subsection{Moduli spaces of metric graphs}
-See Melody Chan \cite{Cha}.
-
-\cite{ACP}
 
 
 \section{Tutte power series}
