@@ -34,6 +34,8 @@
 \newcommand{\cU}{\mathcal{U}}
 \newcommand{\cL}{\mathcal{L}}
 
+\newcommand{\RRpos}{\RR_{>0}}
+
 \DeclareMathOperator{\val}{val}
 \DeclareMathOperator{\trop}{trop}
 \DeclareMathOperator{\rspan}{row.span}
@@ -112,7 +114,8 @@ the Tutte polynomial %$T(G; x,y)$
 at specific (real) parameters $x$, $y$.
 For a comprehensive modern overview of the Tutte polynomial see \cite{BO} \cite{EMM}.
 
-The following characterization of the Tutte polynomial was initially introduced by Crapo \cite{Cra}, who used the term {\em rank generating function} of $G$
+The following characterization of the Tutte polynomial was initially introduced by Crapo \cite{Cra}, 
+using the  {\em rank generating function} of $G$
 (see also: \cite[Definition 3]{EMM}).
 Given a connected graph $G $, 
 %we can define the Tutte polynomial of $G$ by 
@@ -203,7 +206,7 @@ vs $[a]_{1+u}$ as the real-valued expression $1/u((1+u)^a-1)$}
 
 Our first main result is that the expression \eqref{eq:tutte-power-series} does not depend on which  model $(G,\ell)$ we choose for the metric graph $\Gamma$.
 \begin{thm}[Tutte power series]
-\label{thm:tutte-series}
+\label{thm:intro-tutte-series}
 Given a metric graph $\Gamma = (G,\ell)$,
 the expression $T^+(\Gamma; u,w)$
 %the expression 
@@ -235,25 +238,32 @@ then the radius of convergence in $u$ is equal to $1$.
 Instead of fixing a metric graph $\Gamma$ and varying the parameters $u,w$,
 we can instead fix a choice of $(u,w)$ and vary the metric graph.
 As $\Gamma$ varies, the value of $T^+(\Gamma;u,w)$ also varies continuously.
+
+Let $\mathcal M_g$ denote the moduli space of metric graphs of genus $g$.
 \begin{thm}[Continuity of Tutte evaluation]
 \label{thm:tutte-eval-moduli}
-Consider the Tutte evaluation function %at $(x,y)$ 
-${\rm ev}^+(u,w) : \mathcal M_g \to \RR$ 
-on the moduli space 
-$\mathcal M_g$ of metric graphs (of genus $g$),
-defined by
-$$ \ev^+(u,w) : \Gamma \mapsto T^+(\Gamma; u,w) ,$$
-where  $u$ and $w$ are fixed (nonnegative?) real numbers.
-If $u > -1$, 
-then the function ${\rm ev}^+(u,w)$ is continuous on $\mathcal M_g$.
+Let $u$ and $w$ be fixed (nonnegative?) real numbers,
+with $u > -1$.
+The Tutte evaluation at $(u,w)$,
+%on the moduli space of metric graphs (of genus $g$),
+$$ \ev^+(u,w) : \Gamma \,\mapsto\, T^+(\Gamma; u,w) ,$$
+defines a continuous function  
+${\rm ev}^+(u,w) : \mathcal M_g \to \RR$.
 
-Namely, for each combinatorial graph $G$,
+Namely, 
+\begin{enumerate}
+\item 
+(Continuity on cells)
+for each combinatorial graph $G$,
 the Tutte evaluation 
 ${\rm ev}(u,w) $ 
 restricts to a continuous function
-$$ {\rm ev}(u,w) : \RR_{>0}^{E(G)} \to \RR,$$ 
+$$ {\rm ev}(u,w) : \RRpos^{E(G)} \to \RR,$$ 
 where a point in the domain $ \in \RR_{>0}^{E(G)}$
 represents a choice of (positive, real) edge lengths  $\ell : E(G) \to \RR_{>0}$.
+
+\item 
+(Continuity between cells)
 If $u > -1$, then as the length of a  non-loop edge $e \in E(G)$ approaches zero
 in the metric graph $\Gamma = (G,\ell)$
 while other edge lengths are fixed,
@@ -263,6 +273,7 @@ ${\rm ev}(u,w)$
 at $(G,\ell)$ %$\Gamma $ 
 approaches the value of ${\rm ev}(u,w)$ at the contraction 
 $\Gamma / e = (G / e, \ell \big|_{E\setminus e})$.
+\end{enumerate}
 \end{thm}
 
 \begin{eg}
@@ -384,22 +395,39 @@ so we have
 
 $\fanalog{q}{\alpha}$
 $\analog{q}{\alpha}$
+$[\![\alpha]\!]_q$
 
 \begin{prop}
+\hfill
+\begin{enumerate}
+\item 
 For positive integers $n,m$ we have
 \begin{equation*}
-[n + m]_q =  [n ]_q + q^{n} [m]_q
+[n + m]_q 
+%=  [n ]_q + q^{n} [m]_q
  = [n]_q + [m]_q + (q-1) [n]_q [m]_q .
 %[a + b]_q = [a]_q + q^a [b]_q = [a]_q + [b]_q + (q-1) [a]_q [b]_q .
 \end{equation*}
-\end{prop}
-\begin{prop}
+
+\item 
 For positive real numbers $\alpha,\beta$, we have
 \begin{align*}
-[\alpha + \beta]_{1+u} &=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
+[\alpha + \beta]_{1+u} 
+%&=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
  &= [\alpha]_{1+u} + [\beta]_{1+u} + u [\alpha]_{1+u} [\beta]_{1+u}.
 \end{align*}
+\end{enumerate}
 \end{prop}
+\begin{proof}
+Observe that
+\begin{align*}
+[\alpha + \beta]_{1+u} &= \frac{(1+u)^{\alpha+\beta}-1}{u} \\
+&= \frac{(1+u)^{\alpha+\beta}-(1+u)^\alpha}{u} + \frac{(1+u)^{\alpha}-1}{u} \\
+&= (1+u)^\alpha [\beta]_{1+u} + [\alpha]_{1+u} \\
+&= \left(u \frac{(1+u)^\alpha - 1}{u} + 1\right) [\beta]_{1+u} + [\alpha]_{1+u}  \\
+&= u [\alpha]_{1+u} [\beta]_{1+u} + [\beta]_{1+u} + [\alpha]_{1+u} .
+\end{align*}
+\end{proof}
 
 Note that the $q$-analog satisfies the following properties
 \begin{enumerate}
@@ -490,6 +518,8 @@ h_1(G| A) &= \#(A) - rk(A) .
 \end{align*}
 
 
+\subsection{Tutte polynomial}
+
 \section{Metric graphs}
 A metric graph is a compact, connected metric space which comes from 
 assigning edge lengths to a finite, connected graph.
@@ -553,13 +583,18 @@ T(\text{loop}; x,y)
 Suppose $\Gamma$ is a segment of length $\alpha$,
 then
 $$
-T^+(\Gamma;u,w) = (1+u)^\alpha
-= [\alpha]_{1+u} u + 1 = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
+T^+(\Gamma;u,w) 
+= [\alpha]_{1+u} u + 1 
+= (1+u)^\alpha
+$$
+The power series expansion is
+$$
+T^+(\Gamma;u,w) = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
 = 1 + \alpha u + \binom{\alpha}{2}u^2 + \cdots .
 $$
 
-Suppose $G$ is a line graph consisting of $n$ edges.
-Then
+If $G$ is a line graph consisting of $n$ edges,
+then
 $$
 T(G;x,y) = x^n 
 \qquad\text{and}\qquad 
@@ -571,7 +606,10 @@ $$
 If $\Gamma$ is a circle of length $\lambda$, then 
 $$
 T^+(\Gamma;u,w) = [\lambda]_{1+u}  + w =  \frac{(1 + u)^\lambda - 1}{u} + w
-= \sum_{k=0}^\infty \binom{\lambda}{k+1} u^{k} + w
+$$
+which has power series expansion
+$$
+T^+(\Gamma;u,w) = \sum_{k=0}^\infty \binom{\lambda}{k+1} u^{k} + w
 $$
 
 Suppose $G$ is a cycle graph consisting of $n$ edges.
@@ -591,6 +629,13 @@ $$
 Suppose $G$ is the graph with two vertices connected by three edges.
 Suppose $\Gamma$ is the metric graph which assigns lengths $a,b,c$ to the edges of $G$.
 Then
+\begin{multline*}
+T^+(G;u,w) = ( [a]_{1+u} [b]_{1+u} + [a]_{1+u} [c]_{1+u} + [b]_{1+u} [c]_{1+u} ) \\
++ ( [a]_{1+u} [b]_{1+u} [c]_{1+u} ) u 
++ ([a]_{1+u} + [b]_{1+u} + [c]_{1+u}) w + w^2 .
+\end{multline*}
+
+Using deletion-contraction, we also deduce
 \begin{align*}
 T^+(G;u,w) &= [a]_{1+u} T^+(\text{circle of length }b+c) \\
 &\qquad\quad + T^+(\text{circle of length }b)T^+(\text{circle of length }c) \\
@@ -607,6 +652,7 @@ T^+(G;u,0) &= [a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} \\
 &= (ab + ac + bc) + \left(a\binom{b+c}{2} + \binom{a}{2}(b+c) + b\binom{c}{2} + \binom{b}{2} c \right)u + () u^2 + \cdots  \\
 &= (ab + ac + bc) + \frac12 \left(a(b+c)(a+b+c-2) + bc(b+c-2) \right)u + \cdots \\
 &= (ab + ac + bc) + \frac12 \left(a^2b + a^2c +ab^2 +ac^2 + b^2c + bc^2 + 2abc-2ab - 2ac - 2bc \right)u + \cdots \\
+&= (ab + ac + bc) + \left(abc + \frac{ab(a + b - 2)}{2} + ac(\frac{a + c}{2} - 1) + \frac{bc(b + c - 2)}{2} \right)u + \cdots
 \end{align*}
 \begin{align*}
 T^+(G;u,0) &= [a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} \\
@@ -658,33 +704,55 @@ may be extended to a more general concept of metric graphs.
 
 \begin{dfn}
 A {\em genus-weighted metric graph}
-$(G,\ell, wt)$
+$\Gamma = (G,\ell, wt)$
 consists of a graph $G = (V,E)$,
 a length function $\ell : E \to \RR_{>0}$,
 and a genus function
 $wt: V \to \ZZ_{\geq 0}$.
 \end{dfn}
-- If $\Gamma = \bigcup_{i=1}^k \Gamma_i$ is a disjoint union of $k$ connected metric graphs $\Gamma_i$,
-then 
-$$
-T^+(\bigcup_{i=1}^k \Gamma_i ; u,w) = u^{k-1}\, T^+(\bigvee_{i=1}^k \Gamma_i; u,w).
-$$
 
-- If $\Gamma^{wt} = (G,\ell,wt)$ is a genus-weighted metric graph,
+\begin{itemize}
+\item
+If $\Gamma = \bigcup_{i=1}^k \Gamma_i$ is a disjoint union of $k$ connected metric graphs $\Gamma_i$,
+then 
+\begin{align*}
+T^+(\bigcup_{i=1}^k \Gamma_i ; u,w) 
+&= u^{k-1}\, T^+(\bigvee_{i=1}^k \Gamma_i; u,w) \\
+&= u^{k-1}\, \prod_{i=1}^k T^+(\Gamma_i; u,w)  .
+\end{align*}
+
+\item
+If $\Gamma^{wt} = (G,\ell,wt)$ is a genus-weighted metric graph,
 with underlying metric graph $\Gamma^0 = (G,\ell)$,
 then
 $$
 T^+(\Gamma^{wt}; u,w) = w^{wt(G)} \, T^+(\Gamma^0; u,w).
 $$
+\end{itemize}
 
+\subsection{Proofs}
 
-\section{Proofs}
-
-\begin{proof}[Proof of Theorem~\ref{thm:tutte-series}]
-It sufficies to show that the Tutte power seres is invariant 
+\begin{proof}[Proof of Theorem~\ref{thm:intro-tutte-series}]
+It sufficies to show that the Tutte power series is invariant 
 under an edge subdivision.
 Suppose $G = (V,E)$ contains the edge $e_0$, which we subdivide into $e_1 \cup e_2$ to obtain the graph $G'$.
 
+By the deletion-contraction relation \note{cite}
+we have
+$$
+T^+(G; u,w) = [a+b]_{1+u} T^+(G\backslash e_0; u,w) + T^+(G/e_0; u,w)
+$$
+and 
+\begin{align*}
+T^+(G'; u,w) &= [a]_{1+u} T^+(G\backslash e_1; u,w) + T^+(G/e_1; u,w)\\
+&= [a]_{1+u}\left( T^+(G\backslash\{e_1,e_2\}; u,w) + T^+(G \backslash e_1 / e_2; u,w)\right) \\
+&\qquad + \left([b]_{1+u} T^+(G/e_1 \backslash e_2; u,w) + T^+(G/\{e_1,e_2\}; u,w) \right)\\
+&= ([a]_{1+u} + [b]_{1+u} + u[a]_{1+u}[b]_{1+u}) T^+(G\backslash e_0; u,w) + T^+(G/e; u,w) .
+\end{align*}
+Therefore. ... 
+$$
+[a]_{1+u} + [b]_{1+u} + u [a]_{1+u} [b]_{1+u}
+$$
 Then
 \begin{align*}
 T^+(G'; u,w) &= \sum_{A \subset E(G')} \left( \prod_{e \in A} [\ell(e)]_{1+u} \right) u^{h_0(G\backslash A)-1} w^{h_1(G\setminus A)}  \\
@@ -698,19 +766,7 @@ while
 $$
 G' \setminus (A \cup \{e_1,e_2\}) \simeq G \setminus (A \cup \{e_0\}) 
 $$
-By the deletion-contraction relation \note{cite}
-we have
-$$
-T^+(G; u,w) = [a+b]_{1+u} T^+(G\backslash e; u,w) + T^+(G/e; u,w)
-$$
-and 
-$$
-T^+(G'; u,w) = ([a]_{1+u} + [b]_{1+u} + u[a]_{1+u}[b]_{1+u}) T^+(G\backslash e; u,w) + T^+(G/e; u,w) .
-$$
-Therefore. ... 
-$$
-[a]_{1+u} + [b]_{1+u} + u [a]_{1+u} [b]_{1+u}
-$$
+
 \end{proof}
 
 \section{Specializations of the Tutte polynomial}
@@ -729,7 +785,7 @@ $T^+(G;0,0) =$ the number of spanning trees.
 $T^+(G;0,1) =$ the number of spanning subsets of edges.
 
 \item 
-$T^+(G;1,0) =$ the number of independent subsets of edges.
+$T^+(G;1,0) =$ the number of acyclic subsets of edges.
 
 \item 
 $T^+(G;-1,1) =$ the number of totally cyclic orientations.
