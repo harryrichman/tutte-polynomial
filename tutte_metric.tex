@@ -196,7 +196,7 @@ Note that
 = \sum_{k \geq 1} \binom{\alpha}{k}u^{k-1} 
 \qquad \text{for } |u|<1
 \]
-so as a power series in $u$ we have 
+has a power series expansion in $u$ 
 \begin{equation}
 [\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 \in \RR[[u]] .
@@ -282,7 +282,7 @@ The Tutte evaluation ${\rm ev}(1,1)$
 on a graph $G$ gives the number of spanning trees.
 On a metric graph, $\ev(1,1)$ gives the volume of the Jacobian of
 $\Gamma = (G,\ell)$,
-which can be expressed as a weighted sum of spanning trees of $G$ [cite a reference].
+which can be expressed as a weighted sum of spanning trees of $G$ \note{[cite a reference]}.
 The function $\ev(1,1)$ is continuous on $\mathcal M_g$, 
 and extends continuously to $\overline{\mathcal M}_g$ 
 (where it has value zero on the boundary).
@@ -391,6 +391,10 @@ so we have
 \begin{equation}
 [\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 \in \RR[[u]] .
+\end{equation}
+Here $\alpha$ can be any real number, and
+\begin{equation}
+\binom{\alpha}{k} = \frac{\alpha (\alpha-1) \cdots (\alpha-k+1)}{k!} 
 \end{equation}
 
 $\fanalog{q}{\alpha}$
@@ -536,6 +540,8 @@ See Melody Chan \cite{Cha}.
 
 \cite{ACP}
 
+\note{is it natural here to restrict to stable graphs, or have infinitely many graphs per genus?}
+
 \subsection{Tropical curves}
 
 Here we use ``tropical curve'' 
@@ -545,7 +551,7 @@ We record the number of
 
 
 \section{Tutte power series}
-The polynomial $T_G(x,y) = T(G; x,y)$ can also be defined inductively by the 
+The polynomial $T(G; x,y)$ can also be defined inductively by the 
 deletion-contraction relation:
 \begin{equation*}
 T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
@@ -652,7 +658,7 @@ T^+(G;u,0) &= [a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} \\
 &= (ab + ac + bc) + \left(a\binom{b+c}{2} + \binom{a}{2}(b+c) + b\binom{c}{2} + \binom{b}{2} c \right)u + () u^2 + \cdots  \\
 &= (ab + ac + bc) + \frac12 \left(a(b+c)(a+b+c-2) + bc(b+c-2) \right)u + \cdots \\
 &= (ab + ac + bc) + \frac12 \left(a^2b + a^2c +ab^2 +ac^2 + b^2c + bc^2 + 2abc-2ab - 2ac - 2bc \right)u + \cdots \\
-&= (ab + ac + bc) + \left(abc + \frac{ab(a + b - 2)}{2} + ac(\frac{a + c}{2} - 1) + \frac{bc(b + c - 2)}{2} \right)u + \cdots
+&= (ab + ac + bc) + \left(abc + \frac12 (a^2b + ab^2 + a^2c + ac^2 + b^2 c + bc^2) - ab - ac - bc \right)u + \cdots
 \end{align*}
 \begin{align*}
 T^+(G;u,0) &= [a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} \\
@@ -664,7 +670,7 @@ T^+(G;u,0) &= [a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} \\
 
 \begin{eg}[Tutte power series of $K_4$]
 Suppose $G = K_4$, the complete graph on four vertices.
-Suppose $\Gamma$ is the metric graph assigning edge lengths $a,b,c,d,e,f$ to $G$, as shown in Figure [fill in].
+Suppose $\Gamma$ is the metric graph assigning edge lengths $a,b,c,d,e,f$ to $G$, as shown in Figure \note{[fill in]}.
 
 Then we have
 \begin{align*}
@@ -861,7 +867,7 @@ R(G; p) = (1 - p)^{\# V - h_0(G)} p^{h_1(G)} T(G; 1, \frac1p )
 \end{equation*}
 
 \section*{Acknowledgements}
-The author would like to thank ...
+The author would like to thank David Speyer for helpful discussion.
 
 
 \bibliography{tutte_metric-ref} 
