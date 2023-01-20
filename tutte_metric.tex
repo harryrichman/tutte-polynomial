@@ -22,6 +22,7 @@
 \newtheorem{eg}[thm]{Example}
 \newtheorem{rmk}[thm]{Remark}
 \newtheorem{conj}[thm]{Conjecture}
+\newtheorem{fact}[thm]{Fact}
 
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\FF}{\mathbb{F}}
@@ -68,7 +69,7 @@
 \newcommand{\pderiv}[1]{\frac{\partial}{\partial{#1}}}
 \newcommand{\angles}[1]{\langle {#1} \rangle}
 % formal q-analog
-\newcommand{\fanalog}[2]{[[#2]]_{#1}}
+\newcommand{\fanalog}[2]{[\![#2]\!]_{#1}}
 % non-formal q-analog
 \newcommand{\analog}[2]{[#2]_{#1}}
 
@@ -111,7 +112,7 @@ is
 introduced by Tutte in \cite{Tut}.
 Many important graph invariants arise as evaluations of 
 the Tutte polynomial %$T(G; x,y)$ 
-at specific (real) parameters $x$, $y$.
+at specific integer (or real?) parameters $x$, $y$.
 For a comprehensive modern overview of the Tutte polynomial see \cite{BO} \cite{EMM}.
 
 The following characterization of the Tutte polynomial was initially introduced by Crapo \cite{Cra}, 
@@ -145,16 +146,16 @@ Given real parameters $x,y$ with $x > 0$,
 let 
 \begin{equation}
 \label{eq:tutte-metric-graph}
-T(\Gamma; x,y) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{x} \right)
-(x-1)^{h_0(G\backslash A) - 1}(y-1)^{h_1(G\backslash A)}
+	T(\Gamma; x,y) = \sum_{A \subset E(G)} \left( \prod_{e \in A} \fanalog{x}{\ell(e)} \right)
+	(x-1)^{h_0(G\backslash A) - 1}(y-1)^{h_1(G\backslash A)}
 \end{equation}
-where the notation $[\alpha]_x$ for real $\alpha, x > 0$ means
+where the notation $\analog{x}{\alpha}$ for real $\alpha, x > 0$ means
 \begin{equation*}
 \label{eq:q-analog-real}
-[\alpha]_x = \frac{x^\alpha - 1}{x-1}
-\quad\text{if } x \neq 1,
-\qquad 
-[\alpha]_1 = \alpha.
+	\analog{x}{\alpha} = \frac{x^\alpha - 1}{x-1}
+	\quad\text{if } x \neq 1,
+	\qquad 
+	\analog{1}{\alpha} = \alpha.
 \end{equation*}
 %(If $x < 0$, then the expression $[\alpha]_x$ can be considered a complex-valued function,
 %by taking the principal branch of the complex logarithm.)
@@ -201,7 +202,7 @@ has a power series expansion in $u$
 [\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 \in \RR[[u]] .
 \end{equation}
-\note{use different notation to distinguish $[a]_{1+u}$ as a power series in variable $u$ 
+\note{use different notation to distinguish $\fanalog{1 + u}{a}$ as a power series in variable $u$ 
 vs $[a]_{1+u}$ as the real-valued expression $1/u((1+u)^a-1)$}
 
 Our first main result is that the expression \eqref{eq:tutte-power-series} does not depend on which  model $(G,\ell)$ we choose for the metric graph $\Gamma$.
@@ -333,7 +334,7 @@ It would be an interesting project to seek to extend these counting problems to 
 i.e., to obtain suitably defined univariate or multivariate generating polynomials for the objects in question as specializations of 
 $Z_G(q,v)$ or $Z_G(q,\mathbf{v})$, respectively.
 \end{displayquote}
-Zeros of Tutte polynomials?
+Application: Zeros of Tutte polynomials?
 
 \subsection{Notation}
 
@@ -389,53 +390,69 @@ Namely, note that
 \]
 so we have 
 \begin{equation}
-[\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
+\fanalog{1+u}{\alpha} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 \in \RR[[u]] .
 \end{equation}
-Here $\alpha$ can be any real number, and
+Here $\alpha$ can be any real number, and $\binom{\alpha}{k}$ is the real number
 \begin{equation}
 \binom{\alpha}{k} = \frac{\alpha (\alpha-1) \cdots (\alpha-k+1)}{k!} 
 \end{equation}
 
+[TODO: decide on notation
 $\fanalog{q}{\alpha}$
 $\analog{q}{\alpha}$
 $[\![\alpha]\!]_q$
+$\left[\alpha\right]_q$
 
-\begin{prop}
+\begin{fact}
 \hfill
 \begin{enumerate}
 \item 
-For positive integers $n,m$ we have
-\begin{equation*}
-[n + m]_q 
-%=  [n ]_q + q^{n} [m]_q
- = [n]_q + [m]_q + (q-1) [n]_q [m]_q .
-%[a + b]_q = [a]_q + q^a [b]_q = [a]_q + [b]_q + (q-1) [a]_q [b]_q .
-\end{equation*}
+For a positive integer $n$, the expression $\analog{q}{n}$ is a polynomial in $\ZZ[q]$. 
+As $q \to 1$, we have $\analog{q}{n} \to n$.
+As $q \to 0$, we have $\analog{q}{n} \to 1$.
 
 \item 
-For positive real numbers $\alpha,\beta$, we have
-\begin{align*}
-[\alpha + \beta]_{1+u} 
-%&=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
- &= [\alpha]_{1+u} + [\beta]_{1+u} + u [\alpha]_{1+u} [\beta]_{1+u}.
-\end{align*}
+For a real number $\alpha$, the expression $\fanalog{1 + u}{\alpha}$ is a power series in $\RR[[u]]$.
+As $u \to 0$, we have $\fanalog{1 + u}{\alpha} \to \alpha$.
+\note{If $\alpha$ is positive, then as $u \to -1$, we have $\fanalog{1 + u}{\alpha} \to 1$.}
 \end{enumerate}
+\end{fact}
+
+For positive integers $n,m$ we have
+\begin{equation*}
+\analog{q}{n + m}
+%=  [n ]_q + q^{n} [m]_q
+ = \analog{q}{n} + \analog{q}{m} + (q-1) \analog{q}{n} \analog{q}{m} .
+%[a + b]_q = [a]_q + q^a [b]_q = [a]_q + [b]_q + (q-1) [a]_q [b]_q .
+\end{equation*}
+The analogous identity holds for power series $\fanalog{1 + u}{\alpha}$.
+\begin{prop}
+For \note{positive ?} real numbers $\alpha,\beta$, we have
+\begin{align*}
+\fanalog{1 + u}{\alpha + \beta} 
+%&=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
+ &= \fanalog{1 + u}{\alpha} + \fanalog{1 + u}{\beta} + u \fanalog{1 + u}{\alpha} \fanalog{1 + u}{\beta} .
+\end{align*}
 \end{prop}
 \begin{proof}
 Observe that
 \begin{align*}
-[\alpha + \beta]_{1+u} &= \frac{(1+u)^{\alpha+\beta}-1}{u} \\
+\fanalog{1 + u}{\alpha + \beta} &= \frac{(1+u)^{\alpha+\beta}-1}{u} \\
 &= \frac{(1+u)^{\alpha+\beta}-(1+u)^\alpha}{u} + \frac{(1+u)^{\alpha}-1}{u} \\
-&= (1+u)^\alpha [\beta]_{1+u} + [\alpha]_{1+u} \\
-&= \left(u \frac{(1+u)^\alpha - 1}{u} + 1\right) [\beta]_{1+u} + [\alpha]_{1+u}  \\
-&= u [\alpha]_{1+u} [\beta]_{1+u} + [\beta]_{1+u} + [\alpha]_{1+u} .
+&= (1+u)^\alpha \fanalog{1 + u}{\beta} + \fanalog{1 + u}{\alpha} 
 \end{align*}
+and
+$
+(1 + u)^\alpha 
+% &= u \left(\frac{(1+u)^\alpha - 1}{u}\right) + 1  \\
+= u \fanalog{1 + u}{\alpha} + 1 .
+$
 \end{proof}
 
 Note that the $q$-analog satisfies the following properties
 \begin{enumerate}
-\item If $q_0>0$ is fixed and $q_0 \neq 1$, the map 
+\item (Varying the edge length) If $q_0>0$ is fixed and $q_0 \neq 1$, the map 
 $$\ell \mapsto [\ell]_{q_0} = \frac{q_0^\ell - 1}{q_0 - 1}$$
 defines a continuous function from $\RR$ to $\RR$,
 which sends $1 \mapsto 1$ and $0 \mapsto 0$.
@@ -453,7 +470,7 @@ we have $[\ell]_0 = 1$ for any $\ell > 0$.
 %-\infty &\text{if } \ell < 0.
 %\end{cases} $$
 
-\item If $\ell_0\geq 0$ is fixed and $q > 0$,
+\item (Varying the formal $q$-parameter) If $\ell_0\geq 0$ is fixed and $q > 0$,
 the map 
 $$q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}$$
 defines a continuous function from $\RR_{>0} \setminus\{1\}$ to $\RR$,
@@ -551,6 +568,8 @@ We record the number of
 
 
 \section{Tutte power series}
+
+\subsection{Deletion-contraction}
 The polynomial $T(G; x,y)$ can also be defined inductively by the 
 deletion-contraction relation:
 \begin{equation*}
@@ -636,23 +655,23 @@ Suppose $G$ is the graph with two vertices connected by three edges.
 Suppose $\Gamma$ is the metric graph which assigns lengths $a,b,c$ to the edges of $G$.
 Then
 \begin{multline*}
-T^+(G;u,w) = ( [a]_{1+u} [b]_{1+u} + [a]_{1+u} [c]_{1+u} + [b]_{1+u} [c]_{1+u} ) \\
-+ ( [a]_{1+u} [b]_{1+u} [c]_{1+u} ) u 
-+ ([a]_{1+u} + [b]_{1+u} + [c]_{1+u}) w + w^2 .
+T^+(G;u,w) = ( \fanalog{1 + u}{a} \fanalog{1 + u}{b} + \fanalog{1 + u}{a} \fanalog{1 + u}{c} + \fanalog{1 + u}{b} \fanalog{1 + u}{c} ) \\
++ ( \fanalog{1 + u}{a} \fanalog{1 + u}{b} \fanalog{1 + u}{c} ) u 
++ (\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + \fanalog{1 + u}{c}) w + w^2 .
 \end{multline*}
 
 Using deletion-contraction, we also deduce
 \begin{align*}
-T^+(G;u,w) &= [a]_{1+u} T^+(\text{circle of length }b+c) \\
+T^+(G;u,w) &= \fanalog{1 + u}{a} T^+(\text{circle of length }b+c) \\
 &\qquad\quad + T^+(\text{circle of length }b)T^+(\text{circle of length }c) \\
-&= [a]_{1+u} ([b+c]_{1+u} + w)
-+ ([b]_{1+u} + w) ([c]_{1+u} + w) \\
-&= ([a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} ) + 
-([a]_{1+u} + [b]_{1+u} + [c]_{1+u}) w + w^2 .
+&= \fanalog{1 + u}{a} ([b+c]_{1+u} + w)
++ (\fanalog{1 + u}{b} + w) (\fanalog{1 + u}{c} + w) \\
+&= (\fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} ) + 
+(\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + \fanalog{1 + u}{c}) w + w^2 .
 \end{align*}
 Note that at $w = 0$, we have
 \begin{align*}
-T^+(G;u,0) &= [a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} \\
+T^+(G;u,0) &= \fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} \\
 &= \sum_{k\geq 0}\binom{a}{k+1}u^k \sum_{k\geq 0} \binom{b+c}{k+1}u^k + \sum_{k\geq 0}\binom{b}{k+1}u^k \sum_{k\geq 0}\binom{c}{k+1}u^k \\
 &= \left( a + \binom{a}{2}u + \cdots\right) \left(b + c + \binom{b+c}{2} u + \cdots\right) + \left(b + \binom{b}{2}u + \cdots\right) \left(c + \binom{c}{2}u + \cdots\right) \\
 &= (ab + ac + bc) + \left(a\binom{b+c}{2} + \binom{a}{2}(b+c) + b\binom{c}{2} + \binom{b}{2} c \right)u + () u^2 + \cdots  \\
@@ -661,8 +680,8 @@ T^+(G;u,0) &= [a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} \\
 &= (ab + ac + bc) + \left(abc + \frac12 (a^2b + ab^2 + a^2c + ac^2 + b^2 c + bc^2) - ab - ac - bc \right)u + \cdots
 \end{align*}
 \begin{align*}
-T^+(G;u,0) &= [a]_{1+u} [b+c]_{1+u} + [b]_{1+u}[c]_{1+u} \\
-&= [a]_{1+u} \left([b]_{1+u} + [c]_{1+u} + u[b]_{1+u} [c]_{1+u} \right) + [b]_{1+u} [c]_{1+u} \\
+T^+(G;u,0) &= \fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} \\
+&= \fanalog{1 + u}{a} \left(\fanalog{1 + u}{b} + \fanalog{1 + u}{c} + u\fanalog{1 + u}{b} \fanalog{1 + u}{c} \right) + \fanalog{1 + u}{b} \fanalog{1 + u}{c} \\
 &= [a][b] + [a][c] + [b][c] + u[a][b][c] .
 \end{align*}
 
@@ -692,9 +711,9 @@ Compare to the Example in Read--Whitehead \cite[p. 272]{RW2}.
 \end{eg}
 
 %\begin{align*}
-%T^+(\Gamma;u,w) &= [a]_{1+u}T^+() + T^+() \\
-%&= [a]_{1+u} [d]_{1+u} T^+(\text{circle of length }b+c+e+f) \\
-%&\qquad\quad + [a]_{1+u} T^+(\text{circle of length }b+c) T^+(\text{circle of length }e+f) \\
+%T^+(\Gamma;u,w) &= \fanalog{1 + u}{a}T^+() + T^+() \\
+%&= \fanalog{1 + u}{a} [d]_{1+u} T^+(\text{circle of length }b+c+e+f) \\
+%&\qquad\quad + \fanalog{1 + u}{a} T^+(\text{circle of length }b+c) T^+(\text{circle of length }e+f) \\
 %&\qquad\quad + [d]_{1+u} T^+(\text{circle of length }b+f)T^+(\text{circle of length }c+e) \\
 %&\qquad\quad + T^+(\text{banana of lengths }b,c,e,f) \\
 %&= \sum_{k \geq 0} \binom{a}{k+1}u^k \sum_{k\geq 0} \binom{d}{k+1}u^k \left( \sum_{k\geq 0} \binom{b + c + e + f}{k+1} u^k + w\right) \\
@@ -736,7 +755,7 @@ T^+(\Gamma^{wt}; u,w) = w^{wt(G)} \, T^+(\Gamma^0; u,w).
 $$
 \end{itemize}
 
-\subsection{Proofs}
+\section{Proofs}
 
 \begin{proof}[Proof of Theorem~\ref{thm:intro-tutte-series}]
 It sufficies to show that the Tutte power series is invariant 
@@ -745,34 +764,20 @@ Suppose $G = (V,E)$ contains the edge $e_0$, which we subdivide into $e_1 \cup e
 
 By the deletion-contraction relation \note{cite}
 we have
-$$
-T^+(G; u,w) = [a+b]_{1+u} T^+(G\backslash e_0; u,w) + T^+(G/e_0; u,w)
-$$
+\[
+	T^+(G; u,w) = \fanalog{1 + u}{a + b} T^+(G\setminus e_0; u,w) + T^+(G/e_0; u,w)
+\]
 and 
 \begin{align*}
-T^+(G'; u,w) &= [a]_{1+u} T^+(G\backslash e_1; u,w) + T^+(G/e_1; u,w)\\
-&= [a]_{1+u}\left( T^+(G\backslash\{e_1,e_2\}; u,w) + T^+(G \backslash e_1 / e_2; u,w)\right) \\
-&\qquad + \left([b]_{1+u} T^+(G/e_1 \backslash e_2; u,w) + T^+(G/\{e_1,e_2\}; u,w) \right)\\
-&= ([a]_{1+u} + [b]_{1+u} + u[a]_{1+u}[b]_{1+u}) T^+(G\backslash e_0; u,w) + T^+(G/e; u,w) .
+	T^+(G'; u,w) &= \fanalog{1 + u}{a} T^+(G\setminus e_1; u,w) + T^+(G/e_1; u,w)\\
+	&= \fanalog{1 + u}{a}\left(\fanalog{1 + u}{b} T^+(G\setminus\{e_1,e_2\}; u,w) + T^+(G \setminus e_1 / e_2; u,w)\right) \\
+	&\qquad + \left(\fanalog{1 + u}{b} T^+(G/e_1 \setminus e_2; u,w) + T^+(G/\{e_1,e_2\}; u,w) \right)\\
+	&= (\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + u\fanalog{1 + u}{a}\fanalog{1 + u}{b}) T^+(G\setminus e_0; u,w) + T^+(G/e_0; u,w) .
 \end{align*}
 Therefore. ... 
-$$
-[a]_{1+u} + [b]_{1+u} + u [a]_{1+u} [b]_{1+u}
-$$
-Then
-\begin{align*}
-T^+(G'; u,w) &= \sum_{A \subset E(G')} \left( \prod_{e \in A} [\ell(e)]_{1+u} \right) u^{h_0(G\backslash A)-1} w^{h_1(G\setminus A)}  \\
-&= \sum_{A \subset E(G') \setminus\{e_1,e_2\}} \sum_{B \subset \{e_1,e_2\}} 
-\end{align*}
-Note that
-$$
-G' \setminus (A \cup \{e_1\}) \simeq G' \setminus (A \cup \{e_2\}) \simeq G \setminus (A \cup \{e_0\})
-$$
-while
-$$
-G' \setminus (A \cup \{e_1,e_2\}) \simeq G \setminus (A \cup \{e_0\}) 
-$$
-
+\[
+\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + u \fanalog{1 + u}{a} \fanalog{1 + u}{b}
+\]
 \end{proof}
 
 \section{Specializations of the Tutte polynomial}
@@ -798,6 +803,9 @@ $T^+(G;-1,1) =$ the number of totally cyclic orientations.
 
 \item 
 $T^+(G;1,-1) =$ the number of acyclic orientations.
+
+\item 
+$T^+(G; -k, -1) = (\pm 1/k)\cdot$ the number of $k$-colorings.
 \end{itemize}
 
 For a metric graph $\Gamma = (G,\ell)$,
@@ -836,9 +844,9 @@ $T(\Gamma; 2,0) = 2^{a+b+c} - 2(2^a + 2^b + 2^c) + 6$.
 \begin{eg}
 For the theta graph, we have
 \begin{align*}
-T^+(\Gamma; u,w) &= w^2 + ([a]_{1+u} + [b]_{1+u} + [c]_{1+u})w  \\
-&\qquad + ([a]_{1+u} [b]_{1+u} + [a]_{1+u} [c]_{1+u}  + [b]_{1+u} [c]_{1+u}) \\
-&\qquad + ([a]_{1+u} [b]_{1+u} [c]_{1+u})u
+T^+(\Gamma; u,w) &= w^2 + (\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + \fanalog{1 + u}{c})w  \\
+&\qquad + (\fanalog{1 + u}{a} \fanalog{1 + u}{b} + \fanalog{1 + u}{a} \fanalog{1 + u}{c}  + \fanalog{1 + u}{b} \fanalog{1 + u}{c}) \\
+&\qquad + (\fanalog{1 + u}{a} \fanalog{1 + u}{b} \fanalog{1 + u}{c})u
 \end{align*}
 $$ {\rm coeff}(0,0; \Gamma) = ab + ac + bc .$$
 $$ {\rm coeff}(0,1; \Gamma) = a + b + c .$$
@@ -849,9 +857,15 @@ $$ {\rm coeff}(0,2; \Gamma) = 1 .$$
 \end{eg}
 
 \subsection{Chromatic polynomial}
-At $y=0$ we obtain the chromatic polynomial of a graph:
+At $y=0$ we obtain the chromatic polynomial of a (connected) graph:
 \begin{equation*}
-\chi(G; \lambda) = (-1)^{\#V } (-\lambda)^{h_0(G)} T(G; 1-\lambda,0)
+\chi(G; \lambda) = (-1)^{\#V } (-\lambda) T(G; 1-\lambda,0)
+\end{equation*}
+For a metric graph,
+\begin{equation*}
+	\chi(\Gamma; \lambda) = (-\lambda)\, T^+(\Gamma; -\lambda, -1) 
+	= \sum_{A \subset E} (-\lambda)^{h_0(\Gamma \setminus A)} (-1)^{h_1(\Gamma \setminus A)} 
+	\prod_{e \in A} \fanalog{1 - \lambda}{\ell(e)} .
 \end{equation*}
 
 \subsection{Flow polynomial}
@@ -859,6 +873,13 @@ At $x = 0$ we obtain the flow polynomial of a graph:
 \begin{equation*}
 F(G; \lambda) = (-1)^{h_1(G)} T(G; 0, 1 - \lambda)
 \end{equation*}
+
+For a metric graph,
+\begin{equation*}
+F(\Gamma; \lambda) = (-1)^{h_1(\Gamma)} T^+(\Gamma; -1, -\lambda) = \sum_{A \subset E} (-1)^{h_0(\Gamma \setminus A) - 1} (-\lambda)^{h_1(\Gamma \setminus A)} \prod_{e \in A} \fanalog{0}{\ell(e)}
+\end{equation*}
+
+Conclusion: edge lengths don't change the flow polynomial.
 
 \subsection{Reliability polynomial}
 The reliability polynomial of a graph satisfies
