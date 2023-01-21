@@ -34,6 +34,7 @@
 \newcommand{\cO}{\mathcal{O}}
 \newcommand{\cU}{\mathcal{U}}
 \newcommand{\cL}{\mathcal{L}}
+\newcommand{\fg}{\mathfrak{g}}
 
 \newcommand{\RRpos}{\RR_{>0}}
 
@@ -139,7 +140,7 @@ As a consequence, evaluation of the Tutte polynomial (for certain real inputs) e
 
 \subsection{Statement of results}
 Suppose $\Gamma$ is a metric graph with combinatorial model $\Gamma = (G,\ell)$,
-where $\ell : E(G) \to \RR_{>0}$ is a function assigning a 
+where $\ell : E(G) \to \RRpos$ is a function assigning a 
 %positive, real 
 length to each edge of $G$.
 Given real parameters $x,y$ with $x > 0$,
@@ -176,7 +177,7 @@ where the notation $\analog{x}{\alpha}$ for real $\alpha, x > 0$ means
 
 For a fixed metric graph $\Gamma$,
 the expression \eqref{eq:tutte-metric-graph} defines a function
-$\RR_{>0}\times \RR \to \RR$
+$\RRpos\times \RR \to \RR$
 by associating $(x,y) \mapsto T(\Gamma; x,y)$. 
 This function is generally not a polynomial in $x$; %and $y$
 moreover,  it does not admit a formal power series expansion in $x$ 
@@ -189,8 +190,8 @@ $T^+(\Gamma; u,w) := T(\Gamma; 1 + u, 1 + w) $,
 so that
 \begin{equation}
 \label{eq:tutte-power-series}
-T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
-u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)} .
+	T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} \fanalog{1 + u}{\ell(e_i)} \right)
+	u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)} .
 \end{equation}
 Note that
 \[ [\alpha]_{1+u} = \frac{(1+u)^\alpha - 1}{u}
@@ -203,7 +204,7 @@ has a power series expansion in $u$
 \in \RR[[u]] .
 \end{equation}
 \note{use different notation to distinguish $\fanalog{1 + u}{a}$ as a power series in variable $u$ 
-vs $[a]_{1+u}$ as the real-valued expression $1/u((1+u)^a-1)$}
+vs $[a]_{1+u}$ as the real-valued expression $((1+u)^a-1)/u$}
 
 Our first main result is that the expression \eqref{eq:tutte-power-series} does not depend on which  model $(G,\ell)$ we choose for the metric graph $\Gamma$.
 \begin{thm}[Tutte power series]
@@ -220,7 +221,7 @@ $T^+(\Gamma; u,w)$ does not depend on the choice of model $(G,\ell)$ for $\Gamma
 \begin{thm}[Deletion-contraction relation]
 \label{thm:deletion-contraction}
 Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
-which is neither a bridge nor a loop,
+which is not a loop,
 the Tutte power series satisfies
 \begin{equation*}
 T^+(\Gamma; u,w) = [\ell(e)]_{1+u} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w).
@@ -260,8 +261,8 @@ the Tutte evaluation
 ${\rm ev}(u,w) $ 
 restricts to a continuous function
 $$ {\rm ev}(u,w) : \RRpos^{E(G)} \to \RR,$$ 
-where a point in the domain $ \in \RR_{>0}^{E(G)}$
-represents a choice of (positive, real) edge lengths  $\ell : E(G) \to \RR_{>0}$.
+where a point in the domain $ \in \RRpos^{E(G)}$
+represents a choice of (positive, real) edge lengths  $\ell : E(G) \to \RRpos$.
 
 \item 
 (Continuity between cells)
@@ -316,11 +317,13 @@ function $\mathcal M_g \to \RR$.
 
 Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
 
+Previous work on {\em chain polynomials}:
+
 Read and Whitehead \cite{RW2}
 
 Brylawski \cite{Bry}
 
-\cite{Tra1,Tra2,Tra3}
+Traldi \cite{Tra1,Tra2,Tra3}
 
 \cite{RW1,RW2}
 
@@ -352,7 +355,7 @@ $(G,\ell)$ a combinatorial model for a metric graph,
 where 
 %$G$ is a combinatorial graph and 
 
-$\ell : E(G) \to \RR_{>0}$
+$\ell : E(G) \to \RRpos$
 is a length function on edges of $G$
 
 $T(G; x,y)$ the Tutte polynomial of $G$
@@ -473,7 +476,7 @@ we have $[\ell]_0 = 1$ for any $\ell > 0$.
 \item (Varying the formal $q$-parameter) If $\ell_0\geq 0$ is fixed and $q > 0$,
 the map 
 $$q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}$$
-defines a continuous function from $\RR_{>0} \setminus\{1\}$ to $\RR$,
+defines a continuous function from $\RRpos \setminus\{1\}$ to $\RR$,
 which satsifies
 $$ \lim_{q \to 0^+} [\ell_0]_q  = 
 \lim_{q \to 0^+} \frac{q^{\ell_0} - 1}{q - 1} =
@@ -482,7 +485,7 @@ $$ \lim_{q \to 0^+} [\ell_0]_q  =
  0 &\text{if } \ell_0 = 0 \\
  -\infty &\text{if } \ell_0 <0.
 \end{cases}$$
-and has a continuous extension to $\RR_{>0} \to \RR$ that sends $1 \mapsto \ell_0$.
+and has a continuous extension to $\RRpos \to \RR$ that sends $1 \mapsto \ell_0$.
 
 \item 
 In particular, for $\ell, q > 0$ we have
@@ -546,11 +549,16 @@ A metric graph is a compact, connected metric space which comes from
 assigning edge lengths to a finite, connected graph.
 If the metric graph $\Gamma$
 comes from a combinatorial graph $G$ by 
-assigning edge lengths $\ell : E(G) \to \RR_{>0}$,
+assigning edge lengths $\ell : E(G) \to \RRpos$,
 we say $(G,\ell)$ is a {\em combinatorial model} for $\Gamma$
 and we write $\Gamma = (G,\ell)$.
 %(A single metric graph generally has many different combinatorial models.)
 
+\subsection{Deletion and contraction}
+
+Suppose $\Gamma = (G,\ell)$, and $e \in E(G)$.
+
+\note{TODO} define $\Gamma \setminus e$ and $\Gamma / e$.
 
 \subsection{Moduli spaces of metric graphs}
 See Melody Chan \cite{Cha}.
@@ -561,6 +569,7 @@ See Melody Chan \cite{Cha}.
 
 \subsection{Tropical curves}
 
+\note{consider deleting}
 Here we use ``tropical curve'' 
 to refer to a metric graph which possibly has contracted loops,
 which we think of as ``infinitesimally small'' loops attached to a vertex.
@@ -569,9 +578,37 @@ We record the number of
 
 \section{Tutte power series}
 
+Let $T^+(\Gamma; u,w)$ be the power series in $\RR[[u]][w]$
+defined by
+\begin{equation}
+%\label{eq:tutte-power-series}
+	T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} \fanalog{1 + u}{\ell(e_i)} \right)
+	u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)} .
+\end{equation}
+
+
+\begin{prop}
+\hfill
+\begin{enumerate}
+\item 
+Let $\Gamma = \Gamma_1 \vee \Gamma_2$ denote the wedge sum of two metric graphs. Then
+\[
+	T^+(\Gamma_1 \vee \Gamma_2; u,w) = T^+(\Gamma_1; u,w) T^+(\Gamma_2; u,w)
+\]
+
+\item 
+Let $\Gamma = \Gamma_1 \bigcup \Gamma_2$ denote the (disconnected) disjoint union of two metric graphs. Then
+\[
+	T^+(\Gamma_1 \cup \Gamma_2; u,w) = u\, T^+(\Gamma; u,w) T^+(\Gamma; u,w)
+\]
+
+\end{enumerate}
+\end{prop}
+
+
 \subsection{Deletion-contraction}
-The polynomial $T(G; x,y)$ can also be defined inductively by the 
-deletion-contraction relation:
+The Tutte polynomial $T(G; x,y)$ can be characterized inductively by the deletion-contraction relation:
+
 \begin{equation*}
 T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
 \end{equation*}
@@ -585,10 +622,16 @@ x & \text{if $G$ is a bridge} \\
 y & \text{if $G$ is a loop}.
 \end{cases}
 \end{equation*}
-The Tutte power series $T^+(\Gamma; u,w)$ satsifies a similar deletion-contraction relation:
+
+The Tutte power series $T^+(\Gamma; u,w)$ satisfies a similar deletion-contraction relation.
+
+\begin{thm}
+%\label{thm:deletion-contraction}
+For a metric graph $\Gamma$,
 \begin{equation}
-T^+(\Gamma; u,w) = [\ell(e)]_{1+u} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w) .
+T^+(\Gamma; u,w) = \fanalog{1 + u}{\ell(e)} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w) .
 \end{equation}
+\end{thm}
 
 Check compatibility:
 \begin{align*}
@@ -607,11 +650,11 @@ T(\text{loop}; x,y)
 \begin{eg}[Tutte power series of a line]
 Suppose $\Gamma$ is a segment of length $\alpha$,
 then
-$$
+\[
 T^+(\Gamma;u,w) 
 = [\alpha]_{1+u} u + 1 
-= (1+u)^\alpha
-$$
+= (1+u)^\alpha.
+\]
 The power series expansion is
 $$
 T^+(\Gamma;u,w) = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
@@ -729,11 +772,11 @@ may be extended to a more general concept of metric graphs.
 
 \begin{dfn}
 A {\em genus-weighted metric graph}
-$\Gamma = (G,\ell, wt)$
+$\Gamma = (G,\ell, \fg)$
 consists of a graph $G = (V,E)$,
-a length function $\ell : E \to \RR_{>0}$,
+a length function $\ell : E \to \RRpos$ on edges,
 and a genus function
-$wt: V \to \ZZ_{\geq 0}$.
+$\fg: V \to \ZZ_{\geq 0}$ on vertices.
 \end{dfn}
 
 \begin{itemize}
@@ -741,18 +784,18 @@ $wt: V \to \ZZ_{\geq 0}$.
 If $\Gamma = \bigcup_{i=1}^k \Gamma_i$ is a disjoint union of $k$ connected metric graphs $\Gamma_i$,
 then 
 \begin{align*}
-T^+(\bigcup_{i=1}^k \Gamma_i ; u,w) 
-&= u^{k-1}\, T^+(\bigvee_{i=1}^k \Gamma_i; u,w) \\
-&= u^{k-1}\, \prod_{i=1}^k T^+(\Gamma_i; u,w)  .
+T^+\left(\bigcup_{i=1}^k \Gamma_i ; u,w \right) 
+&= u^{k-1}\, T^+\left(\vee_{i=1}^k \Gamma_i; u,w \right) .
+% &= u^{k-1}\, \prod_{i=1}^k T^+(\Gamma_i; u,w )  .
 \end{align*}
 
 \item
-If $\Gamma^{wt} = (G,\ell,wt)$ is a genus-weighted metric graph,
+If $\Gamma^{\fg} = (G,\ell,\fg)$ is a genus-weighted metric graph,
 with underlying metric graph $\Gamma^0 = (G,\ell)$,
 then
-$$
-T^+(\Gamma^{wt}; u,w) = w^{wt(G)} \, T^+(\Gamma^0; u,w).
-$$
+\[
+	T^+(\Gamma^{\fg}; u,w) = w^{\sum \fg(v)} \, T^+(\Gamma^0; u,w).
+\]
 \end{itemize}
 
 \section{Proofs}
@@ -762,7 +805,7 @@ It sufficies to show that the Tutte power series is invariant
 under an edge subdivision.
 Suppose $G = (V,E)$ contains the edge $e_0$, which we subdivide into $e_1 \cup e_2$ to obtain the graph $G'$.
 
-By the deletion-contraction relation \note{cite}
+By the deletion-contraction relation, Theorem~\ref{thm:deletion-contraction},
 we have
 \[
 	T^+(G; u,w) = \fanalog{1 + u}{a + b} T^+(G\setminus e_0; u,w) + T^+(G/e_0; u,w)
