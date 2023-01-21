@@ -652,7 +652,7 @@ Suppose $\Gamma$ is a segment of length $\alpha$,
 then
 \[
 T^+(\Gamma;u,w) 
-= [\alpha]_{1+u} u + 1 
+= 1 + \fanalog{1 + u}{\alpha} u
 = (1+u)^\alpha.
 \]
 The power series expansion is
@@ -672,9 +672,9 @@ $$
 
 \begin{eg}[Tutte power series of a circle]
 If $\Gamma$ is a circle of length $\lambda$, then 
-$$
-T^+(\Gamma;u,w) = [\lambda]_{1+u}  + w =  \frac{(1 + u)^\lambda - 1}{u} + w
-$$
+\[
+	T^+(\Gamma;u,w) = w + \fanalog{1 + u}{\lambda} = w + \frac{(1 + u)^\lambda - 1}{u}
+\]
 which has power series expansion
 $$
 T^+(\Gamma;u,w) = \sum_{k=0}^\infty \binom{\lambda}{k+1} u^{k} + w
@@ -703,31 +703,15 @@ T^+(G;u,w) = ( \fanalog{1 + u}{a} \fanalog{1 + u}{b} + \fanalog{1 + u}{a} \fanal
 + (\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + \fanalog{1 + u}{c}) w + w^2 .
 \end{multline*}
 
-Using deletion-contraction, we also deduce
-\begin{align*}
-T^+(G;u,w) &= \fanalog{1 + u}{a} T^+(\text{circle of length }b+c) \\
-&\qquad\quad + T^+(\text{circle of length }b)T^+(\text{circle of length }c) \\
-&= \fanalog{1 + u}{a} ([b+c]_{1+u} + w)
-+ (\fanalog{1 + u}{b} + w) (\fanalog{1 + u}{c} + w) \\
-&= (\fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} ) + 
-(\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + \fanalog{1 + u}{c}) w + w^2 .
-\end{align*}
-Note that at $w = 0$, we have
-\begin{align*}
-T^+(G;u,0) &= \fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} \\
-&= \sum_{k\geq 0}\binom{a}{k+1}u^k \sum_{k\geq 0} \binom{b+c}{k+1}u^k + \sum_{k\geq 0}\binom{b}{k+1}u^k \sum_{k\geq 0}\binom{c}{k+1}u^k \\
-&= \left( a + \binom{a}{2}u + \cdots\right) \left(b + c + \binom{b+c}{2} u + \cdots\right) + \left(b + \binom{b}{2}u + \cdots\right) \left(c + \binom{c}{2}u + \cdots\right) \\
-&= (ab + ac + bc) + \left(a\binom{b+c}{2} + \binom{a}{2}(b+c) + b\binom{c}{2} + \binom{b}{2} c \right)u + () u^2 + \cdots  \\
-&= (ab + ac + bc) + \frac12 \left(a(b+c)(a+b+c-2) + bc(b+c-2) \right)u + \cdots \\
-&= (ab + ac + bc) + \frac12 \left(a^2b + a^2c +ab^2 +ac^2 + b^2c + bc^2 + 2abc-2ab - 2ac - 2bc \right)u + \cdots \\
-&= (ab + ac + bc) + \left(abc + \frac12 (a^2b + ab^2 + a^2c + ac^2 + b^2 c + bc^2) - ab - ac - bc \right)u + \cdots
-\end{align*}
-\begin{align*}
-T^+(G;u,0) &= \fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} \\
-&= \fanalog{1 + u}{a} \left(\fanalog{1 + u}{b} + \fanalog{1 + u}{c} + u\fanalog{1 + u}{b} \fanalog{1 + u}{c} \right) + \fanalog{1 + u}{b} \fanalog{1 + u}{c} \\
-&= [a][b] + [a][c] + [b][c] + u[a][b][c] .
-\end{align*}
-
+%Using deletion-contraction, we also deduce
+%\begin{align*}
+%T^+(G;u,w) &= \fanalog{1 + u}{a} T^+(\text{circle of length }b+c) \\
+%&\qquad\quad + T^+(\text{circle of length }b)T^+(\text{circle of length }c) \\
+%&= \fanalog{1 + u}{a} ([b+c]_{1+u} + w)
+%+ (\fanalog{1 + u}{b} + w) (\fanalog{1 + u}{c} + w) \\
+%&= (\fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} ) + 
+%(\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + \fanalog{1 + u}{c}) w + w^2 .
+%\end{align*}
 \end{eg}
 
 \begin{eg}[Tutte power series of $K_4$]
@@ -896,6 +880,22 @@ $$ {\rm coeff}(0,1; \Gamma) = a + b + c .$$
 $$ \coeff(0,k; \Gamma) = $$
 $$ {\rm coeff}(k,1; \Gamma) = \binom{a}{k+1} + \binom{b}{k+1} + \binom{c}{k+1} .$$
 $$ {\rm coeff}(0,2; \Gamma) = 1 .$$
+
+Note that at $w = 0$, we have
+\begin{align*}
+T^+(G;u,0) &= \fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} \\
+&= \sum_{k\geq 0}\binom{a}{k+1}u^k \sum_{k\geq 0} \binom{b+c}{k+1}u^k + \sum_{k\geq 0}\binom{b}{k+1}u^k \sum_{k\geq 0}\binom{c}{k+1}u^k \\
+&= \left( a + \binom{a}{2}u + \cdots\right) \left(b + c + \binom{b+c}{2} u + \cdots\right) + \left(b + \binom{b}{2}u + \cdots\right) \left(c + \binom{c}{2}u + \cdots\right) \\
+&= (ab + ac + bc) + \left(a\binom{b+c}{2} + \binom{a}{2}(b+c) + b\binom{c}{2} + \binom{b}{2} c \right)u + () u^2 + \cdots  \\
+&= (ab + ac + bc) + \frac12 \left(a(b+c)(a+b+c-2) + bc(b+c-2) \right)u + \cdots \\
+&= (ab + ac + bc) + \frac12 \left(a^2b + a^2c +ab^2 +ac^2 + b^2c + bc^2 + 2abc-2ab - 2ac - 2bc \right)u + \cdots \\
+&= (ab + ac + bc) + \left(abc + \frac12 (a^2b + ab^2 + a^2c + ac^2 + b^2 c + bc^2) - ab - ac - bc \right)u + \cdots
+\end{align*}
+\begin{align*}
+T^+(G;u,0) &= \fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} \\
+&= \fanalog{1 + u}{a} \left(\fanalog{1 + u}{b} + \fanalog{1 + u}{c} + u\fanalog{1 + u}{b} \fanalog{1 + u}{c} \right) + \fanalog{1 + u}{b} \fanalog{1 + u}{c} \\
+&= [a][b] + [a][c] + [b][c] + u[a][b][c] .
+\end{align*}
 
 \end{eg}
 
