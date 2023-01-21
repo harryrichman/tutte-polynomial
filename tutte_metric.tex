@@ -918,17 +918,26 @@ F(G; \lambda) = (-1)^{h_1(G)} T(G; 0, 1 - \lambda)
 \end{equation*}
 
 For a metric graph,
-\begin{equation*}
-F(\Gamma; \lambda) = (-1)^{h_1(\Gamma)} T^+(\Gamma; -1, -\lambda) = \sum_{A \subset E} (-1)^{h_0(\Gamma \setminus A) - 1} (-\lambda)^{h_1(\Gamma \setminus A)} \prod_{e \in A} \fanalog{0}{\ell(e)}
-\end{equation*}
+\begin{align*}
+	F(\Gamma; \lambda) = (-1)^{h_1(\Gamma)} T^+(\Gamma; -1, -\lambda) 
+	&= \sum_{A \subset E} (-1)^{h_0(\Gamma \setminus A) - 1} (-\lambda)^{h_1(\Gamma \setminus A)} \prod_{e \in A} \fanalog{0}{\ell(e)} \\
+	&= \sum_{A \subset E} (-1)^{\chi(\Gamma \setminus A)} \lambda^{h_1(\Gamma \setminus A)}
+\end{align*}
 
-Conclusion: edge lengths don't change the flow polynomial.
+Conclusion: (positive) edge lengths don't change the flow polynomial.
 
 \subsection{Reliability polynomial}
 The reliability polynomial of a graph satisfies
 \begin{equation*}
-R(G; p) = (1 - p)^{\# V - h_0(G)} p^{h_1(G)} T(G; 1, \frac1p )
+R(G; p) = (1 - p)^{\# V - h_0(G)} p^{h_1(G)} T\left(G; 1, \frac{1}{p} \right)
 \end{equation*}
+
+For a metric graph,
+\begin{align*}
+R(\Gamma; p) &= (1 - p)^\infty p^{h_1(\Gamma)} T^+\left(\Gamma; 0, \frac{1 - p}{p} \right) \\
+&= (1 - p)^\infty p^{h_1(\Gamma)} \sum_{\substack{A \subset E \\ \Gamma \setminus A \text{ connected}}} \left(\frac{1 - p}{p}\right)^{h_1(\Gamma \setminus A)} \prod_{e \in A} \fanalog{1}{\ell(e)} \\
+&= (1 - p)^\infty \sum_{\substack{A \subset E \\ \Gamma \setminus A \text{ connected}}} p^{\# A} (1 - p)^{h_1(\Gamma) - \# A} \prod_{e \in A} \ell(e) 
+\end{align*}
 
 \section*{Acknowledgements}
 The author would like to thank David Speyer for helpful discussion.
