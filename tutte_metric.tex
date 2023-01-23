@@ -113,8 +113,8 @@ is
 introduced by Tutte in \cite{Tut}.
 Many important graph invariants arise as evaluations of 
 the Tutte polynomial %$T(G; x,y)$ 
-at specific integer (or real?) parameters $x$, $y$.
-For a comprehensive modern overview of the Tutte polynomial see \cite{BO} \cite{EMM}.
+at specific integer parameters $x$, $y$.
+For a comprehensive modern overview of the Tutte polynomial see \cite{BO, EMM}.
 
 The following characterization of the Tutte polynomial was initially introduced by Crapo \cite{Cra}, 
 using the  {\em rank generating function} of $G$
@@ -237,6 +237,8 @@ If some edge length $\ell(e)$ is not an integer \note{in a minimal model},
 then the radius of convergence in $u$ is equal to $1$.
 \end{thm}
 
+\subsection{Evaluating Tutte power series}
+
 Instead of fixing a metric graph $\Gamma$ and varying the parameters $u,w$,
 we can instead fix a choice of $(u,w)$ and vary the metric graph.
 As $\Gamma$ varies, the value of $T^+(\Gamma;u,w)$ also varies continuously.
@@ -318,6 +320,14 @@ function $\mathcal M_g \to \RR$.
 Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
 
 Previous work on {\em chain polynomials}:
+
+Traldi~\cite{Tra1} considers the weighted Tutte polynomial
+\[
+	\widetilde T^+(G; u,w) = \sum_{A \subset E} \left( \prod_{e \in A} \alpha_e \right) u^{h_0(G|A)} w^{h_1(G|A)} .
+\]
+But, was previously studied by Fortuin--Kasteleyn~\cite{FK} in harder-to-understand notation for a modern reader.
+
+The essential contribution of this work is to enforce a dependence of the edge weights $(\alpha(e))$ on the polynomial parameter $u$, namely $\alpha(e) = \fanalog{1 + u}{\ell(e)}$.
 
 Read and Whitehead \cite{RW2}
 
@@ -633,19 +643,25 @@ T^+(\Gamma; u,w) = \fanalog{1 + u}{\ell(e)} T^+(\Gamma \backslash e; u,w) + T^+(
 \end{equation}
 \end{thm}
 
-Check compatibility:
+\begin{proof}
+Observe that
+\[
+	T(\Gamma; u,w) = \sum_{\substack{A \subset E \\ e_0 \in A}} (\cdots) + \sum_{\substack{A \subset E \\ e_0 \not \in A}} (\cdots).
+\]
+The first sum reduces to
 \begin{align*}
-T(\text{bridge}; x,y) 
-&= (x-1)^{\tilde h_0(\text{bridge}) }(y-1)^{h_1(\text{bridge} )} 
-+ (x-1)^{\tilde h_0(\text{two pts.}) }(y-1)^{h_1(\text{two pts.})}  \\
-&= 1 + (x-1) = x ;
+	&\sum_{\substack{A \subset E \\ e_0 \in A}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus A)-1}w^{h_1(G\setminus A)}\\
+	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)} \sum_{\substack{A' \subset E \setminus e_0}} \left( \prod_{e \in A'}\fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus e_0\setminus A)-1}w^{h_1(G\setminus e_0\setminus A)} \\[1.5em]
+	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)} T(G\setminus e_0;u,w),
 \end{align*}
+while the second sum reduces to
 \begin{align*}
-T(\text{loop}; x,y) 
-&= (x-1)^{\tilde h_0(\text{loop}) }(y-1)^{h_1(\text{loop} )} 
-+ (x-1)^{\tilde h_0(\text{one pt.}) }(y-1)^{h_1(\text{one pt.})} \\
-&= (y-1) + 1 = y .
+	&\sum_{\substack{A \subset E \\ e_0 \not\in A}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus A)-1}w^{h_1(G\setminus A)}\\
+	&\qquad\qquad = \sum_{\substack{A \subset E \setminus e_0}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G \setminus A / e_0)-1}w^{h_1(G\setminus A / e_0)} \\[1.5em]
+	&\qquad\qquad = T(G/ e_0;u,w).
 \end{align*}
+In the second equality, we use the fact that the quotient map $(G\setminus A) \to (G\setminus A)/e_0$ is a homotopy equivalence, so it preserves homology groups. The third line uses the fact that deletion and contraction commute, $(G \setminus A) / e_0 = (G / e_0) \setminus A$.
+\end{proof}
 
 \begin{eg}[Tutte power series of a line]
 Suppose $\Gamma$ is a segment of length $\alpha$,
@@ -657,7 +673,8 @@ T^+(\Gamma;u,w)
 \]
 The power series expansion is
 $$
-T^+(\Gamma;u,w) = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
+T^+(\Gamma;u,w) 
+% = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
 = 1 + \alpha u + \binom{\alpha}{2}u^2 + \cdots .
 $$
 
@@ -676,9 +693,9 @@ If $\Gamma$ is a circle of length $\lambda$, then
 	T^+(\Gamma;u,w) = w + \fanalog{1 + u}{\lambda} = w + \frac{(1 + u)^\lambda - 1}{u}
 \]
 which has power series expansion
-$$
-T^+(\Gamma;u,w) = \sum_{k=0}^\infty \binom{\lambda}{k+1} u^{k} + w
-$$
+\[
+	T^+(\Gamma;u,w) = w + \lambda + \binom{\lambda}{2} u + \binom{\lambda}{3} u^2 + \cdots .
+\]
 
 Suppose $G$ is a cycle graph consisting of $n$ edges.
 Then
@@ -810,20 +827,21 @@ Therefore. ...
 \section{Specializations of the Tutte polynomial}
 
 \subsection{Constants}
-For a graph $G = (V,E)$,
+For a graph $G = (V,E)$, the Tutte polynomial has the following specializations to graph invariants when evaluated at particular integer points.
+
 \begin{itemize}
 \item 
-$T^+(G;1,1)=$  the number of subsets of edges;
+$T^+(G;1,1)=$  the number of edge subsets;
 $T_G(2,2) = 2^{\# E}$.
 
 \item 
 $T^+(G;0,0) =$ the number of spanning trees.
 
 \item 
-$T^+(G;0,1) =$ the number of spanning subsets of edges.
+$T^+(G;0,1) =$ the number of connected spanning subgraphs.
 
 \item 
-$T^+(G;1,0) =$ the number of acyclic subsets of edges.
+$T^+(G;1,0) =$ the number of acyclic spanning subgraphs.
 
 \item 
 $T^+(G;-1,1) =$ the number of totally cyclic orientations.
@@ -856,16 +874,27 @@ $T^+(\Gamma;0,1) = \sum_{k=0}^g \vol(\Eff^k(\Gamma))$?
 Suppose $\Gamma$ is the theta graph with edge lengths $a$, $b$ and $c$,
 \[ {\rm eval}(\Gamma; 2,2) = 2^{a+b+c} .\]
 
-$T(\Gamma; 1,1) = ab + ac + bc$.
+Number of spanning trees:
 
-$T(\Gamma; 1,2) = 1 + (a + b + c) + (ab + ac + bc)$.
+$T^+(\Gamma; 0,0) = ab + ac + bc$.
 
-$T(\Gamma; 2,1) = (2^{a+b}  -2\cdot 2^a + 3) + (2^{a+b+c}-2^{a+b} + 2^a - 1)$
-$= 2^{a+b+c} - 2^a - 2^b - 2^c + 2$.
+Number of connected spanning subgraphs:
 
-$T(\Gamma; 0,2) = 1 + 3 + 3 - 1 = 6$.
+$T^+(\Gamma; 0,1) = 1 + (a + b + c) + (ab + ac + bc)$.
 
-$T(\Gamma; 2,0) = 2^{a+b+c} - 2(2^a + 2^b + 2^c) + 6$.
+Number of acyclic spanning subgraphs:
+
+$T^+(\Gamma; 1,0) 
+%= (2^{a+b}  -2\cdot 2^a + 3) + (2^{a+b+c}-2^{a+b} + 2^a - 1)
+= 2^{a+b+c} - 2^a - 2^b - 2^c + 2$.
+
+Number of totally cyclic orientations:
+
+$T^+(\Gamma; -1,1) = 1 + 3 + 3 - 1 = 6$.
+
+Number of totally acyclic orientations:
+
+$T^+(\Gamma; 1,-1) = 2^{a+b+c} - 2(2^a + 2^b + 2^c) + 6$.
 \end{eg}
 
 \begin{eg}
@@ -936,11 +965,30 @@ For a metric graph,
 \begin{align*}
 R(\Gamma; p) &= (1 - p)^\infty p^{h_1(\Gamma)} T^+\left(\Gamma; 0, \frac{1 - p}{p} \right) \\
 &= (1 - p)^\infty p^{h_1(\Gamma)} \sum_{\substack{A \subset E \\ \Gamma \setminus A \text{ connected}}} \left(\frac{1 - p}{p}\right)^{h_1(\Gamma \setminus A)} \prod_{e \in A} \fanalog{1}{\ell(e)} \\
-&= (1 - p)^\infty \sum_{\substack{A \subset E \\ \Gamma \setminus A \text{ connected}}} p^{\# A} (1 - p)^{h_1(\Gamma) - \# A} \prod_{e \in A} \ell(e) 
+&= (1 - p)^\infty \sum_{\substack{A \subset E \\ \Gamma \setminus A \text{ connected}}} p^{\# A} (1 - p)^{h_1(\Gamma \setminus A) - \# A} \prod_{e \in A} \ell(e) 
+\end{align*}
+
+\subsection{Potts model polynomial}
+
+Following Sokal~\cite[Section 2.5]{Sok-potts}
+
+The (modified) Potts model polynomial, or cluster-generating function, $\widetilde Z(G; q,v)$ is
+\[
+	\widetilde Z(G; q, v) = \sum_{A \subset E} q^{h_0(G|A) - |V|} v^{|A|}
+	= \sum_{A \subset E} q^{h_1(G|A)} (v/q)^{|A|}
+\]
+\[
+	\widetilde Z(G; q,v) = (q/v)^{h_0(G)} (v/q)^{|V|} T(G; 1 + \frac{q}{v}, 1 + v) 
+	= (v/q)^{|V| - h_0(G)} T^+(G; \frac{q}{v}, v) .
+\]
+\begin{align*}
+	Z(\Gamma; q, v) &= (v/q)^{\infty} T^+(\Gamma; q/v, v) \\
+	&= (v/q)^{\infty} \sum_{A \subset E} (q/v)^{h_0(\Gamma \setminus A) - 1} v^{h_1(\Gamma \setminus A)} \prod_{e \in A} \fanalog{1 + q/v}{\ell(e)}
 \end{align*}
 
 \section*{Acknowledgements}
 The author would like to thank David Speyer for helpful discussion.
+% Leo Jiang
 
 
 \bibliography{tutte_metric-ref} 
