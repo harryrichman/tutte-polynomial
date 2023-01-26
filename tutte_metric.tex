@@ -81,15 +81,14 @@
 
 \begin{document}
 \title[Tutte power series on metric graphs]{Tutte power series and Tutte evaluations on the moduli space of metric graphs}
-\author{Harry Richman}
+\author{David Harry Richman}
 \date{v1, \today  \,(Preliminary draft, not for circulation).}
 \thanks{This work was partially supported by NSF grant DMS-1600223
 and a Rackham Predoctoral Fellowship.}
 
 
 \begin{abstract}
-We define a way to assign a formal power series to a metric graph with arbitrary
-(positive) real edge lengths.
+We define a way to assign a formal power series to a metric graph with arbitrary positive real edge lengths.
 % which is invariant under subdivision of edges.
 When all edge lengths are positive integers,
 this recovers the usual Tutte polynomial.
@@ -118,7 +117,7 @@ For a comprehensive modern overview of the Tutte polynomial see \cite{BO, EMM}.
 
 The following characterization of the Tutte polynomial was initially introduced by Crapo \cite{Cra}, 
 using the  {\em rank generating function} of $G$
-(see also: \cite[Definition 3]{EMM}).
+(see also \cite[Definition 3]{EMM}).
 Given a connected graph $G $, 
 %we can define the Tutte polynomial of $G$ by 
 the Tutte polynomial of $G$ is 
@@ -182,7 +181,7 @@ by associating $(x,y) \mapsto T(\Gamma; x,y)$.
 This function is generally not a polynomial in $x$; %and $y$
 moreover,  it does not admit a formal power series expansion in $x$ 
 %since $[\ell(e_i)]_x$ is not analytic at $x = 0$ 
-if some edge length $\ell(e_i)$ is non-integral.
+if any edge length $\ell(e_i)$ is non-integral.
 
 We can recover a power series expression for $T(\Gamma; x,y)$ by a simple change of variables.
 Let
@@ -200,7 +199,7 @@ Note that
 \]
 has a power series expansion in $u$ 
 \begin{equation}
-[\alpha]_{1+u} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
+\fanalog{1 + u}{\alpha} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 \in \RR[[u]] .
 \end{equation}
 \note{use different notation to distinguish $\fanalog{1 + u}{a}$ as a power series in variable $u$ 
@@ -323,19 +322,23 @@ Previous work on {\em chain polynomials}:
 
 Traldi~\cite{Tra1} considers the weighted Tutte polynomial
 \[
-	\widetilde T^+(G; u,w) = \sum_{A \subset E} \left( \prod_{e \in A} \alpha_e \right) u^{h_0(G|A)} w^{h_1(G|A)} .
+	\widetilde T^+(G; u,w) = \sum_{A \subset E} \left( \prod_{e \in A} c(e) \right) u^{h_0(G|A)} w^{h_1(G|A)} .
 \]
 But, was previously studied by Fortuin--Kasteleyn~\cite{FK} in harder-to-understand notation for a modern reader.
 
 The essential contribution of this work is to enforce a dependence of the edge weights $(\alpha(e))$ on the polynomial parameter $u$, namely $\alpha(e) = \fanalog{1 + u}{\ell(e)}$.
 
+
+The identities presented in this paper are essentially in the work of Read and Whitehead~\cite{RW2}, but with the restriction that edge lengths are positive integers. In their work, edge lengths are called ``chain lengths.''
+
 Read and Whitehead \cite{RW2}
+\cite{RW1,RW2}
 
 Brylawski \cite{Bry}
 
 Traldi \cite{Tra1,Tra2,Tra3}
 
-\cite{RW1,RW2}
+Ok and Perrett \cite{OP}
 
 Multivariate Tutte polynomial \cite{Sok-potts}
 also known as the {\em Potts-model partition function}.
