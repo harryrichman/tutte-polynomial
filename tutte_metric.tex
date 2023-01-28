@@ -338,8 +338,6 @@ Brylawski \cite{Bry}
 
 Traldi \cite{Tra1,Tra2,Tra3}
 
-Ok and Perrett \cite{OP}
-
 Multivariate Tutte polynomial \cite{Sok-potts}
 also known as the {\em Potts-model partition function}.
 Sokal \cite{Sok-potts} asks:
@@ -350,7 +348,13 @@ It would be an interesting project to seek to extend these counting problems to 
 i.e., to obtain suitably defined univariate or multivariate generating polynomials for the objects in question as specializations of 
 $Z_G(q,v)$ or $Z_G(q,\mathbf{v})$, respectively.
 \end{displayquote}
+
 Application: Zeros of Tutte polynomials?
+
+Jackson and Sokal \cite{JS}
+
+Ok and Perrett \cite{OP}
+
 
 \subsection{Notation}
 
@@ -490,7 +494,7 @@ we have $[\ell]_0 = 1$ for any $\ell > 0$.
 the map 
 $$q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}$$
 defines a continuous function from $\RRpos \setminus\{1\}$ to $\RR$,
-which satsifies
+which satisfies
 $$ \lim_{q \to 0^+} [\ell_0]_q  = 
 \lim_{q \to 0^+} \frac{q^{\ell_0} - 1}{q - 1} =
 \begin{cases}
@@ -516,36 +520,19 @@ $$
 
 Considering $[\alpha]_{1+u}$ as a power series in $u$ and $\alpha$:
 \begin{align*}
-[\alpha]_{1+u} &= \sum_{k\geq 0} \binom{\alpha}{k+1}u^k  
-= \sum_{k\geq 0} \frac1{(k+1)!} \alpha^{\underline{k+1}} u^k \\
-&= \sum_{k\geq 0} \left( \sum_{j \geq 0} \frac{s(k+1,j)}{(k+1)!} \alpha^j \right) u^k \\
+\fanalog{1 + u}{\alpha} &= \sum_{k \geq 0} \binom{\alpha}{k+1}u^k  
+= \sum_{k \geq 0} \frac1{(k+1)!} \alpha^{\underline{k+1}} u^k \\
+&= \sum_{k \geq 0} \left( \sum_{j \geq 0} \frac{s(k+1,j)}{(k+1)!} \alpha^j \right) u^k \\
 &= (\alpha) + (-\frac12\alpha + \frac12 \alpha^2)u + (\frac13\alpha - \frac12 \alpha^2 + \frac16 \alpha^3)u^2 + \cdots \\
 \end{align*}
-where $(x)_k = x(x-1)(x-2)\cdots(x-k+1)$ denotes the falling factorial and $s(k,j)$ denotes the Stirling number of the first kind.
+where $x^{\underline{k}} = x(x-1)(x-2)\cdots(x-k+1)$ denotes the falling factorial and $s(k,j)$ denotes the Stirling number of the first kind.
+
+As a power series in $\alpha$:
 \begin{align*}
-[\alpha]_{1+u} &= \frac{(1+u)^\alpha - 1}{u}
+\fanalog{1 + u}{\alpha} &= \frac{(1+u)^\alpha - 1}{u}
 = \frac{\exp(\alpha \log(1+u)) - 1}{u} \\
 &= \frac1{u} \left( -1 + \sum_{j\geq 0} \frac{\log(1+u)^j}{j!} \alpha^j\right) \\
 &= \sum_{j\geq 1} \frac{\log(1+u)^j}{j! \, u} \alpha^j .
-\end{align*}
-
-\begin{equation*}
-T(\Gamma; 1+u,1+w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} [\ell(e_i)]_{1+u} \right)
-u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)}
-\end{equation*}
-For a fixed metric graph $\Gamma = (G,\ell)$, the Tutte power series is an element of 
-$\RR[[u]][w]$.
-
-This function satisfies the deletion-contraction relation
-\begin{equation*}
-T(\Gamma; x,y) = [\ell(e)]_x \cdot T(\Gamma \backslash e; x,y) + T(\Gamma / e; x,y) .
-\end{equation*}
-\begin{align*}
-T^+({\Gamma};u,w) &= 
-%\begin{gathered}
-[\ell(e)]_{1+u} \cdot T^+(\Gamma \backslash e; u,w) 
- + T^+(\Gamma / e; u,w) .
-%\end{gathered}
 \end{align*}
 
 \subsection{Graph theory}
@@ -595,7 +582,7 @@ Let $T^+(\Gamma; u,w)$ be the power series in $\RR[[u]][w]$
 defined by
 \begin{equation}
 %\label{eq:tutte-power-series}
-	T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} \fanalog{1 + u}{\ell(e_i)} \right)
+	T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e \in A} \fanalog{1 + u}{\ell(e)} \right)
 	u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)} .
 \end{equation}
 
@@ -610,9 +597,9 @@ Let $\Gamma = \Gamma_1 \vee \Gamma_2$ denote the wedge sum of two metric graphs.
 \]
 
 \item 
-Let $\Gamma = \Gamma_1 \bigcup \Gamma_2$ denote the (disconnected) disjoint union of two metric graphs. Then
+Let $\Gamma = \Gamma_1 \bigsqcup \Gamma_2$ denote the (disconnected) disjoint union of two metric graphs. Then
 \[
-	T^+(\Gamma_1 \cup \Gamma_2; u,w) = u\, T^+(\Gamma; u,w) T^+(\Gamma; u,w)
+	T^+(\Gamma_1 \sqcup \Gamma_2; u,w) = u\, T^+(\Gamma; u,w) T^+(\Gamma; u,w)
 \]
 
 \end{enumerate}
@@ -625,16 +612,18 @@ The Tutte polynomial $T(G; x,y)$ can be characterized inductively by the deletio
 \begin{equation*}
 T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
 \end{equation*}
-along with the base cases for a loop edge and bridge edge.
+if $e$ is not a loop or bridge,
+along with the base cases 
 \begin{equation*}
 T(G; x,y) = x^i y^j \qquad\text{if $G$ consists of $i$ bridges and $j$ loops.}
 \end{equation*}
-\begin{equation*}
-T(G;x,y) = \begin{cases}
-x & \text{if $G$ is a bridge} \\
-y & \text{if $G$ is a loop}.
-\end{cases}
-\end{equation*}
+%for a loop edge and bridge edge.
+%\begin{equation*}
+%T(G;x,y) = \begin{cases}
+%x & \text{if $G$ is a bridge} \\
+%y & \text{if $G$ is a loop}.
+%\end{cases}
+%\end{equation*}
 
 The Tutte power series $T^+(\Gamma; u,w)$ satisfies a similar deletion-contraction relation.
 
@@ -670,16 +659,16 @@ In the second equality, we use the fact that the quotient map $(G\setminus A) \t
 Suppose $\Gamma$ is a segment of length $\alpha$,
 then
 \[
-T^+(\Gamma;u,w) 
-= 1 + \fanalog{1 + u}{\alpha} u
-= (1+u)^\alpha.
+	T^+(\Gamma;u,w) 
+	= 1 + \fanalog{1 + u}{\alpha} u
+	= (1+u)^\alpha,
 \]
-The power series expansion is
-$$
+which has power series expansion
+$
 T^+(\Gamma;u,w) 
 % = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
 = 1 + \alpha u + \binom{\alpha}{2}u^2 + \cdots .
-$$
+$
 
 If $G$ is a line graph consisting of $n$ edges,
 then
@@ -988,6 +977,10 @@ The (modified) Potts model polynomial, or cluster-generating function, $\widetil
 	Z(\Gamma; q, v) &= (v/q)^{\infty} T^+(\Gamma; q/v, v) \\
 	&= (v/q)^{\infty} \sum_{A \subset E} (q/v)^{h_0(\Gamma \setminus A) - 1} v^{h_1(\Gamma \setminus A)} \prod_{e \in A} \fanalog{1 + q/v}{\ell(e)}
 \end{align*}
+
+\section{Further questions}
+
+Observation: for a fixed combinatorial graph $G$, the $(i,j)$-coefficient of the Tutte power series $T^+(\Gamma; u,w)$ is a polynomial in the edge lengths.
 
 \section*{Acknowledgements}
 The author would like to thank David Speyer for helpful discussion.
