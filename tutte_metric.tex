@@ -90,7 +90,7 @@ and a Rackham Predoctoral Fellowship.}
 
 \begin{abstract}
 We define a % formal power series 
-Tutte power seris for a metric graph with arbitrary positive real edge lengths, 
+Tutte power series for a metric graph with arbitrary positive real edge lengths, 
 %called the Tutte power series,
 % which is invariant under subdivision of edges.
 which recovers the usual Tutte polynomial when all edge lengths are positive integers.
@@ -158,8 +158,11 @@ of $\Gamma$ as
 where $\fanalog{1 + u}{\alpha}$ is the formal power series  
 \begin{equation}
 	\fanalog{1 + u}{\alpha} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
-	\quad \in \RR[[u]] .
+	\quad \in \RR[[u]]
 \end{equation}
+and
+$\displaystyle
+\binom{\alpha}{k} = \frac1{k!}\alpha(\alpha - 1) \cdots (\alpha - k + 1)$.
 Note this power series converges for $|u| < 1$, and in this range satisfies
 \[ 
 	\fanalog{1}{\alpha} = \alpha
@@ -187,7 +190,7 @@ Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
 which is not a loop,
 the Tutte power series satisfies
 \begin{equation}
-	T^+(\Gamma; u,w) = \fanalog{1 + u}{\ell(e)} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w).
+	T^+(\Gamma; u,w) = \fanalog{1 + u}{\ell(e)} \, T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w).
 \end{equation}
 \end{thm}
 
@@ -197,7 +200,7 @@ Instead of considering a fixed metric graph $\Gamma$,
 % and varying the parameters $u,w$,
 we can 
 %fix a choice of $(u,w)$ and 
-vary the metric graph over a natural moduli space.
+vary $\Gamma$ over a natural moduli space of metric graphs.
 As $\Gamma$ varies, the value of $T^+(\Gamma;u,w)$ also varies continuously under certain mild assumptions on the parameters $(u, w)$.
 
 Let $\Mgraphg$ denote the moduli space of metric graphs of genus $g$.
@@ -227,40 +230,41 @@ represents a choice of (positive, real) edge lengths  $\ell : E(G) \to \RRpos$.
 
 \item 
 (Continuity between cells)
-If $u > -1$, then as the length of a  non-loop edge $e \in E(G)$ approaches zero
+% If $u > -1$, then 
+As the length of a  non-loop edge $e \in E(G)$ approaches zero
 in the metric graph $\Gamma = (G,\ell)$
 while other edge lengths are fixed,
 the value of 
 %the Tutte evaluation 
-${\rm ev}(u,w)$
+$\ev^+(u,w)$
 at $(G,\ell)$ %$\Gamma $ 
-approaches the value of ${\rm ev}(u,w)$ at the contraction 
+approaches the value of $\ev^+(u,w)$ at the contraction 
 $\Gamma / e = (G / e, \ell \big|_{E\setminus e})$.
 \end{enumerate}
 \end{thm}
 
 \begin{eg}
-[$x = 1$, $y=1$]
-The Tutte evaluation ${\rm ev}(1,1)$ 
+[$u = 0$, $w = 0$]
+The Tutte evaluation $\ev^+(0, 0)$ 
 on a graph $G$ gives the number of spanning trees.
-On a metric graph, $\ev(1,1)$ gives the volume of the Jacobian of
+On a metric graph, $\ev^+(0, 0)$ gives the volume of the Jacobian of
 $\Gamma = (G,\ell)$,
 which can be expressed as a weighted sum of spanning trees of $G$ \note{[cite a reference]}.
-The function $\ev(1,1)$ is continuous on $\Mgraphg$, 
+The function $\ev^+(0, 0)$ is continuous on $\Mgraphg$, 
 and extends continuously to $\overline{\Mgraphg}$ 
 (where it has value zero on the boundary).
 \end{eg}
 \begin{eg}
-[$x = 0$, $y=2$]
-The Tutte evaluation ${\rm ev}(0,2)$ 
+[$u = -1$, $w = 1$]
+The Tutte evaluation $\ev^+(-1, 1)$ 
 on $\Gamma = (G,\ell)$ gives the number of totally cyclic orientations of $\Gamma$.
 This number does not depend on the edge lengths of $\Gamma$;
-i.e. $\ev(0,2)$
+i.e. $\ev^+(-1, 1)$
  is constant on metric graphs %$\Gamma = (G,\ell)$ 
 of a fixed combinatorial model $G$.
-However, ${\rm ev}(0,2)$ is not continuous as some edge length approaches $0$.
-Namely, the value of $T(G; 0, 2)$ generally differs from the value of $T(G/e; 0,2)$
-on the contraction.
+However, $\ev^+(-1, 1)$ is not continuous as some edge length approaches $0$.
+Namely, the value of $T(G; -1, 1)$ generally differs from the value of $T(G/e; -1, 1)$
+after contracting an edge.
 \end{eg}
 
 \subsection{Tutte power series coefficients}
@@ -379,11 +383,13 @@ Here $\alpha$ can be any real number, and $\binom{\alpha}{k}$ is the real number
 \binom{\alpha}{k} = \frac{\alpha (\alpha-1) \cdots (\alpha-k+1)}{k!} 
 \end{equation}
 
-[TODO: decide on notation
+\note{
+TODO: decide on notation
 $\fanalog{q}{\alpha}$
 $\analog{q}{\alpha}$
 $[\![\alpha]\!]_q$
 $\left[\alpha\right]_q$
+}
 
 \begin{fact}
 \hfill
@@ -413,7 +419,7 @@ For \note{positive ?} real numbers $\alpha,\beta$, we have
 \begin{align*}
 \fanalog{1 + u}{\alpha + \beta} 
 %&=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
- &= \fanalog{1 + u}{\alpha} + \fanalog{1 + u}{\beta} + u \fanalog{1 + u}{\alpha} \fanalog{1 + u}{\beta} .
+ &= \fanalog{1 + u}{\alpha} + \fanalog{1 + u}{\beta} + u \, \fanalog{1 + u}{\alpha} \fanalog{1 + u}{\beta} .
 \end{align*}
 as elements of $\RR[[u]]$.
 \end{prop}
@@ -518,7 +524,11 @@ and we write $\Gamma = (G,\ell)$.
 
 \subsection{Deletion and contraction}
 
-Suppose $\Gamma = (G,\ell)$, and $e \in E(G)$.
+Suppose $\Gamma = (G,\ell)$, and $e \in E(G)$ is a non-loop edge.
+
+The {\em deletion} $\Gamma \setminus e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$.
+
+The {\em contraction} $\Gamma / e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$, and then joining the endpoints of $e$.
 
 \note{TODO} define $\Gamma \setminus e$ and $\Gamma / e$.
 
