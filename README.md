@@ -1,4 +1,4 @@
-# Tutte power series and Tutte evaluations on moduli space
+# Tutte power series on metric graphs
 
 In this paper we observe that the Tutte polynomial of a (connected) graph
 extends nicely to a power series for a metric graph, under a simple
