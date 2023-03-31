@@ -81,7 +81,9 @@
 \newcommand{\note}[1]{\harry{#1}}
 
 \begin{document}
-\title[Tutte power series on metric graphs]{Tutte power series and Tutte evaluations on the moduli space of metric graphs}
+\title[Tutte power series on metric graphs]
+{Tutte power series on metric graphs}
+%{Tutte power series and Tutte evaluations on the moduli space of metric graphs}
 \author{David Harry Richman}
 \date{v1, \today  \,(Preliminary draft, not for circulation).}
 \thanks{This work was partially supported by NSF grant DMS-1600223
@@ -178,7 +180,7 @@ Our first main result is that the expression \eqref{eq:tutte-power-series} does 
 Given a metric graph $\Gamma = (G,\ell)$,
 the expression $T^+(\Gamma; u,w)$
 is a well-defined power series in
-$\RR[[u]][w]$;
+$\RR[\![u]\!][w]$;
 in particular,
 $T^+(\Gamma; u,w)$ does not depend on the choice of model $(G,\ell)$ for $\Gamma$.
 \end{thm}
@@ -225,7 +227,7 @@ restricts to a continuous function
 \[
 	\ev^+(u,w) : \RRpos^{E(G)} \to \RR,
 \]
-where a point in the domain $ \in \RRpos^{E(G)}$
+where a point in the positive orthant $\RRpos^{E(G)}$
 represents a choice of (positive, real) edge lengths  $\ell : E(G) \to \RRpos$.
 
 \item 
@@ -239,15 +241,15 @@ the value of
 $\ev^+(u,w)$
 at $(G,\ell)$ %$\Gamma $ 
 approaches the value of $\ev^+(u,w)$ at the contraction 
-$\Gamma / e = (G / e, \ell \big|_{E\setminus e})$.
+$\Gamma / e$. % = (G / e, \ell \big|_{E\setminus e})$.
 \end{enumerate}
 \end{thm}
 
 \begin{eg}
 [$u = 0$, $w = 0$]
-The Tutte evaluation $\ev^+(0, 0)$ 
-on a graph $G$ gives the number of spanning trees.
-On a metric graph, $\ev^+(0, 0)$ gives the volume of the Jacobian of
+%The Tutte evaluation $\ev^+(0, 0)$ 
+%on a graph $G$ gives the number of spanning trees.
+On a metric graph, the Tutte evaluation $\ev^+(0, 0)$ gives the volume of the Jacobian of
 $\Gamma = (G,\ell)$,
 which can be expressed as a weighted sum of spanning trees of $G$ \note{[cite a reference]}.
 The function $\ev^+(0, 0)$ is continuous on $\Mgraphg$, 
@@ -274,34 +276,12 @@ For fixed indices $i,j\geq 0$,
 let $\coeff(i,j; \Gamma)$
 denote the coefficient of $u^i w^j$ in the power series expansion of $T^+(\Gamma; u,w)$.
 Then the function ${\rm coeff}(i,j)$
-defines a polynomial(?) 
+defines a locally-polynomial 
 function $\Mgraphg \to \RR$.
 \note{extra assumptions needed?}
 \end{thm}
 
 \subsection{Previous work} 
-
-Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
-
-Previous work on {\em chain polynomials}:
-
-Traldi~\cite{Tra1} considers the weighted Tutte polynomial
-\[
-	\widetilde T^+(G; u,w) = \sum_{A \subset E} \left( \prod_{e \in A} c(e) \right) u^{h_0(G|A)} w^{h_1(G|A)} .
-\]
-The same weighted polynomial was previously studied by Fortuin--Kasteleyn~\cite{FK}, but in harder-to-understand notation for a modern reader.
-
-The essential contribution of this work is to enforce a dependence of the edge weights $(\alpha(e))$ on the polynomial parameter $u$, namely $\alpha(e) = \fanalog{1 + u}{\ell(e)}$.
-
-
-The identities presented in this paper are essentially in the work of Read and Whitehead~\cite{RW2}, but with the restriction that edge lengths are positive integers. In their work, edge lengths are called ``chain lengths.''
-
-Read and Whitehead \cite{RW2}
-\cite{RW1,RW2}
-
-Brylawski \cite{Bry}
-
-Traldi \cite{Tra1,Tra2,Tra3}
 
 Multivariate Tutte polynomial \cite{Sok-potts}
 also known as the {\em Potts-model partition function}.
@@ -314,11 +294,35 @@ i.e., to obtain suitably defined univariate or multivariate generating polynomia
 $Z_G(q,v)$ or $Z_G(q,\mathbf{v})$, respectively.
 \end{displayquote}
 
+Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
+
+Previous work on {\em chain polynomials}:
+
+The identities presented in this paper are essentially in the work of Read and Whitehead~\cite{RW2}, but with the restriction that edge lengths are positive integers. In their work, edge lengths are called ``chain lengths.''
+
+The family of graphs obtained by varying chain lengths of a fixed graph is called a ``homeomorphism class'' of graphs.
+
+Read and Whitehead \cite{RW2}
+\cite{RW1,RW2}
+
+The essential contribution of this work is to enforce a dependence of the edge weights $(\alpha(e))$ on the polynomial parameter $u$, namely $\alpha(e) = \fanalog{1 + u}{\ell(e)}$.
+
+Traldi~\cite{Tra1} considers the weighted Tutte polynomial
+\[
+	\widetilde T^+(G; u,w) = \sum_{A \subset E} \left( \prod_{e \in A} c(e) \right) u^{h_0(G|A)} w^{h_1(G|A)} .
+\]
+The same weighted polynomial was previously studied by Fortuin--Kasteleyn~\cite{FK}, but in harder-to-understand notation for a modern reader.
+
+
+Brylawski \cite{Bry}
+
+Traldi \cite{Tra1,Tra2,Tra3}
+
 Application: Zeros of Tutte polynomials?
 
-Jackson and Sokal \cite{JS}
+Jackson and Sokal \cite{JS} study zero-free regions of the Tutte polynomial.
 
-Ok and Perrett \cite{OP}
+Ok and Perrett \cite{OP} study the density of the real zeros of the Tutte polynomial.
 
 
 \subsection{Notation}
@@ -526,16 +530,20 @@ and we write $\Gamma = (G,\ell)$.
 
 Suppose $\Gamma = (G,\ell)$, and $e \in E(G)$ is a non-loop edge.
 
-The {\em deletion} $\Gamma \setminus e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$.
+The {\em edge deletion} $\Gamma \setminus e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$.
 
-The {\em contraction} $\Gamma / e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$, and then joining the endpoints of $e$.
+The {\em edge contraction} $\Gamma / e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$, and then joining the endpoints of $e$.
 
-\note{TODO} define $\Gamma \setminus e$ and $\Gamma / e$.
 
 \subsection{Moduli spaces of metric graphs}
 See Melody Chan \cite{Cha}.
 
-\cite{ACP}
+Abramovich--Caporaso--Payne~\cite{ACP}.
+
+A graph $G$ is {\em stable} if it is connected, and every vertex has degree at least three.
+A metric graph is {\em semistable} if every point has valence at least two.
+ 
+The moduli space of genus $g$ metric graphs is a polyhedral fan
 
 \note{is it natural here to restrict to stable graphs, or have infinitely many graphs per genus?}
 
@@ -550,7 +558,7 @@ We record the number of
 
 \section{Tutte power series}
 
-Let $T^+(\Gamma; u,w)$ be the power series in $\RR[[u]][w]$
+Let $T^+(\Gamma; u,w)$ be the power series in $\RR[\![u]\!][w]$
 defined by
 \begin{equation}
 %\label{eq:tutte-power-series}
@@ -565,13 +573,13 @@ defined by
 \item 
 Let $\Gamma = \Gamma_1 \vee \Gamma_2$ denote the wedge sum of two metric graphs. Then
 \[
-	T^+(\Gamma_1 \vee \Gamma_2; u,w) = T^+(\Gamma_1; u,w) T^+(\Gamma_2; u,w)
+	T^+(\Gamma_1 \vee \Gamma_2; u,w) = T^+(\Gamma_1; u,w) \, T^+(\Gamma_2; u, w).
 \]
 
 \item 
 Let $\Gamma = \Gamma_1 \bigsqcup \Gamma_2$ denote the (disconnected) disjoint union of two metric graphs. Then
 \[
-	T^+(\Gamma_1 \sqcup \Gamma_2; u,w) = u\, T^+(\Gamma; u,w) T^+(\Gamma; u,w)
+	T^+(\Gamma_1 \sqcup \Gamma_2; u,w) = u\, T^+(\Gamma; u,w) \, T^+(\Gamma; u, w).
 \]
 
 \end{enumerate}
@@ -579,15 +587,15 @@ Let $\Gamma = \Gamma_1 \bigsqcup \Gamma_2$ denote the (disconnected) disjoint un
 
 
 \subsection{Deletion-contraction}
-The Tutte polynomial $T(G; x,y)$ can be characterized inductively by the deletion-contraction relation:
 
+The Tutte polynomial $T(G; x,y)$ can be characterized inductively by the deletion-contraction relation:
 \begin{equation*}
-T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
+	T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
 \end{equation*}
 if $e$ is not a loop or bridge,
 along with the base cases 
 \begin{equation*}
-T(G; x,y) = x^i y^j \qquad\text{if $G$ consists of $i$ bridges and $j$ loops.}
+	T(G; x,y) = x^i y^j \qquad\text{if $G$ consists of $i$ bridges and $j$ loops.}
 \end{equation*}
 %for a loop edge and bridge edge.
 %\begin{equation*}
@@ -603,14 +611,17 @@ The Tutte power series $T^+(\Gamma; u,w)$ satisfies a similar deletion-contracti
 %\label{thm:deletion-contraction}
 For a metric graph $\Gamma$,
 \begin{equation}
-T^+(\Gamma; u,w) = \fanalog{1 + u}{\ell(e)} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w) .
+	T^+(\Gamma; u,w) 
+	= \fanalog{1 + u}{\ell(e)} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w) .
 \end{equation}
 \end{thm}
 
 \begin{proof}
 Observe that
 \[
-	T^+(\Gamma; u,w) = \sum_{\substack{A \subset E \\ e_0 \in A}} (\cdots) + \sum_{\substack{A \subset E \\ e_0 \not \in A}} (\cdots).
+	T^+(\Gamma; u,w) 
+	= \sum_{A \subset E} (\cdots)
+	= \sum_{\substack{A \subset E \\ e_0 \in A}} (\cdots) + \sum_{\substack{A \subset E \\ e_0 \not \in A}} (\cdots).
 \]
 The first sum reduces to
 \begin{align*}
@@ -630,44 +641,44 @@ In the second equality, we use the fact that the quotient map $(G\setminus A) \t
 \begin{eg}[Tutte power series of a line]
 Suppose $\Gamma$ is a segment of length $\alpha$,
 then
+%\[
+%	T^+(\Gamma;u,w) 
+%	= 1 + \fanalog{1 + u}{\alpha} u
+%	= (1+u)^\alpha,
+%\]
+%which has power series expansion
 \[
 	T^+(\Gamma;u,w) 
-	= 1 + \fanalog{1 + u}{\alpha} u
-	= (1+u)^\alpha,
-\]
-which has power series expansion
-$
-T^+(\Gamma;u,w) 
 % = \sum_{k=0}^\infty \binom{\alpha}{k} u^k
 = 1 + \alpha u + \binom{\alpha}{2}u^2 + \cdots .
-$
+\]
 
 If $G$ is a line graph consisting of $n$ edges,
 then
-$$
-T(G;x,y) = x^n 
-\qquad\text{and}\qquad 
-T^+(G;u,w) = (1+u)^n = 1 + nu + \binom{n}{2}u^2 + \cdots + u^n.
-$$
+\[
+	%T(G;x,y) = x^n 
+	%\qquad\text{and}\qquad 
+	T^+(G;u,w) = (1+u)^n = 1 + nu + \binom{n}{2}u^2 + \cdots + u^n.
+\]
 \end{eg}
 
 \begin{eg}[Tutte power series of a circle]
-If $\Gamma$ is a circle of length $\lambda$, then 
+If $\Gamma$ is a circle of length $\alpha$, then 
+%\[
+%	T^+(\Gamma;u,w) = w + \fanalog{1 + u}{\alpha} = w + \frac{(1 + u)^\alpha - 1}{u}
+%\]
+%which has power series expansion
 \[
-	T^+(\Gamma;u,w) = w + \fanalog{1 + u}{\lambda} = w + \frac{(1 + u)^\lambda - 1}{u}
-\]
-which has power series expansion
-\[
-	T^+(\Gamma;u,w) = w + \lambda + \binom{\lambda}{2} u + \binom{\lambda}{3} u^2 + \cdots .
+	T^+(\Gamma;u,w) = w + \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots .
 \]
 
 Suppose $G$ is a cycle graph consisting of $n$ edges.
 Then
-$$
-T(G;x,y) = x + x^2 + \cdots + x^{n-2} + x^{n-1} + y 
-= \frac{x^n - 1}{x - 1} + y - 1.
-$$
-and
+%$$
+%T(G;x,y) = x + x^2 + \cdots + x^{n-2} + x^{n-1} + y 
+%= \frac{x^n - 1}{x - 1} + y - 1.
+%$$
+%and
 $$
 T^+(G;u,w) = n + \binom{n}{2}u + \binom{n}{3} u^2 + \cdots + nu^{n-2} + u^{n-1} + w
 = \frac{(1+u)^n-1}{u} + w
@@ -693,29 +704,6 @@ T^+(G;u,w) = ( \fanalog{1 + u}{a} \fanalog{1 + u}{b} + \fanalog{1 + u}{a} \fanal
 %&= (\fanalog{1 + u}{a} [b+c]_{1+u} + \fanalog{1 + u}{b}\fanalog{1 + u}{c} ) + 
 %(\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + \fanalog{1 + u}{c}) w + w^2 .
 %\end{align*}
-\end{eg}
-
-\begin{eg}[Tutte power series of $K_4$]
-Suppose $G = K_4$, the complete graph on four vertices.
-Suppose $\Gamma$ is the metric graph assigning edge lengths $a,b,c,d,e,f$ to $G$, as shown in Figure \note{[fill in]}.
-
-Then we have
-\begin{align*}
-T^+(\Gamma;u,w) &= ([a][b][d] + [a][b][e] + [a][b][f] + [a][c][d] + [a][c][e] + [a][c][f] + [a][d][e] + [a][d][f] \\
-&\qquad\quad + [b][c][d] + [b][c][e] + [b][c][f] + [b][d][e] + [b][e][f] + [c][d][f] + [c][e][f] + [d][e][f]) \\
-&\quad + ([a][b][c][d] + [a][b][c][e] + [a][b][c][f] + [a][b][d][e] + [a][b][d][f] + [a][b][e][f] \\
-&\qquad\quad + [a][c][d][e] + [a][c][d][f] + [a][c][e][f] + [a][d][e][f] + [b][c][d][e] \\
-&\qquad\quad + [b][c][d][f] + [b][c][e][f] + [b][d][e][f] + [c][d][e][f] )u \\
-&\quad + ([a][b][c][d][e] + [a][b][c][d][f] + [a][b][c][e][f] + [a][b][d][e][f] \\
-&\qquad\quad + [a][c][d][e][f] + [b][c][d][e][f])u^2 \\
-&\quad + [a][b][c][d][e][f]u^3 \\
-&\quad + ([a][b] + [a][c] + [a][d] + [a][e] + [a][f] + [b][c] + [b][d] + [b][e] \\
-&\qquad\quad + [b][f] + [c][d] + [c][e] + [c][f] + [d][e] + [d][f] + [e][f])w \\
-&\quad + ([a][b][c] + [a][e][f] + [b][d][f] + [c][d][e])uw \\
-&\quad + ([a] + [b] + [c] + [d] + [e] + [f])w^2 %\\&\qquad\quad 
-+ w^3
-\end{align*}
-Compare to the Example in Read--Whitehead \cite[p. 272]{RW2}.
 \end{eg}
 
 %\begin{align*}
@@ -835,8 +823,34 @@ $T^+(\Gamma;0,1) = \sum_{k=0}^g \vol(\Eff^k(\Gamma))$?
 \end{itemize}
 
 \begin{eg}
+Suppose $\Gamma$ is the circle graph with edge length $a$. Then
+\begin{itemize}
+\item 
+the number of spanning trees is 
+$T^+(\Gamma; 0, 0) = a$
+
+\item 
+the number of connected spanning subgraphs is
+$T^+(\Gamma; 0, 1) = a + 1$;
+
+\item 
+the number of acyclic spanning subgraphs is
+$T^+(\Gamma; 1, 0) = 2^a - 1$;
+
+\item 
+the number of totally acyclic orientations is
+$T^+(\Gamma; 1, -1) = 2^a - 2$;
+
+\item 
+the number of totally cyclic orientations is
+$T^+(\Gamma; -1, 1) = 2$;
+
+\end{itemize}
+\end{eg}
+
+\begin{eg}
 Suppose $\Gamma$ is the theta graph with edge lengths $a$, $b$ and $c$,
-\[ {\rm eval}(\Gamma; 2,2) = 2^{a+b+c} .\]
+\[ \ev^+(\Gamma; 1, 1) = 2^{a + b + c} .\]
 
 Number of spanning trees:
 
@@ -868,11 +882,27 @@ T^+(\Gamma; u,w) &= w^2 + (\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + \fanalog{1 
 &\qquad + (\fanalog{1 + u}{a} \fanalog{1 + u}{b} + \fanalog{1 + u}{a} \fanalog{1 + u}{c}  + \fanalog{1 + u}{b} \fanalog{1 + u}{c}) \\
 &\qquad + (\fanalog{1 + u}{a} \fanalog{1 + u}{b} \fanalog{1 + u}{c})u
 \end{align*}
+The Tutte constant coefficient is 
 $$ {\rm coeff}(0,0; \Gamma) = ab + ac + bc .$$
+The Tutte coefficient of $w$ is
 $$ {\rm coeff}(0,1; \Gamma) = a + b + c .$$
-$$ \coeff(0,k; \Gamma) = $$
-$$ {\rm coeff}(k,1; \Gamma) = \binom{a}{k+1} + \binom{b}{k+1} + \binom{c}{k+1} .$$
+The Tutte coefficient of $u^0 w^k$ is
 $$ {\rm coeff}(0,2; \Gamma) = 1 .$$
+$$ \coeff(0,k; \Gamma) = $$
+The Tutte coefficient of $u$ is 
+\[
+	\coeff(1, 0; \Gamma) = a \binom{b}{2} + \binom{a}{2} b + \cdots + abc
+	= abc + \frac12 \sum a^2 b - \sum ab
+\]
+\[
+	\coeff(2, 0; \Gamma) = a \binom{b}{3} + \binom{a}{2} \binom{b}{2} + \binom{a}{3} b + \cdots + ab \binom{c}{2} + a \binom{b}{2} c + \binom{a}{2} bc
+\]
+\[
+	= \frac16 \sum a b^3 - \frac12 \sum a b^2 + \frac23 \sum a b + \frac14 \sum a^2 b^2 - \frac14 \sum a b^2 + \frac14 a b + \frac12 abc(a + b + c) - \frac32 abc
+\]
+
+
+$$ {\rm coeff}(k,1; \Gamma) = \binom{a}{k+1} + \binom{b}{k+1} + \binom{c}{k+1} .$$
 
 Note that at $w = 0$, we have
 \begin{align*}
@@ -1011,6 +1041,32 @@ The author would like to thank
 Will Dana, Leo Jiang, and
 David Speyer for helpful discussion.
 
+\section*{Appendix: extra material}
+
+[probably to delete]
+
+\begin{eg}[Tutte power series of $K_4$]
+Suppose $G = K_4$, the complete graph on four vertices.
+Suppose $\Gamma$ is the metric graph assigning edge lengths $a,b,c,d,e,f$ to $G$, as shown in Figure \note{[fill in]}.
+
+Then we have
+\begin{align*}
+T^+(\Gamma;u,w) &= ([a][b][d] + [a][b][e] + [a][b][f] + [a][c][d] + [a][c][e] + [a][c][f] + [a][d][e] + [a][d][f] \\
+&\qquad\quad + [b][c][d] + [b][c][e] + [b][c][f] + [b][d][e] + [b][e][f] + [c][d][f] + [c][e][f] + [d][e][f]) \\
+&\quad + ([a][b][c][d] + [a][b][c][e] + [a][b][c][f] + [a][b][d][e] + [a][b][d][f] + [a][b][e][f] \\
+&\qquad\quad + [a][c][d][e] + [a][c][d][f] + [a][c][e][f] + [a][d][e][f] + [b][c][d][e] \\
+&\qquad\quad + [b][c][d][f] + [b][c][e][f] + [b][d][e][f] + [c][d][e][f] )u \\
+&\quad + ([a][b][c][d][e] + [a][b][c][d][f] + [a][b][c][e][f] + [a][b][d][e][f] \\
+&\qquad\quad + [a][c][d][e][f] + [b][c][d][e][f])u^2 \\
+&\quad + [a][b][c][d][e][f]u^3 \\
+&\quad + ([a][b] + [a][c] + [a][d] + [a][e] + [a][f] + [b][c] + [b][d] + [b][e] \\
+&\qquad\quad + [b][f] + [c][d] + [c][e] + [c][f] + [d][e] + [d][f] + [e][f])w \\
+&\quad + ([a][b][c] + [a][e][f] + [b][d][f] + [c][d][e])uw \\
+&\quad + ([a] + [b] + [c] + [d] + [e] + [f])w^2 %\\&\qquad\quad 
++ w^3
+\end{align*}
+Compare to the Example in Read--Whitehead \cite[p. 272]{RW2}.
+\end{eg}
 
 \bibliography{tutte_metric-ref} 
 \bibliographystyle{abbrv}
