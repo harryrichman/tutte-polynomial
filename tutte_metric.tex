@@ -1,10 +1,24 @@
 %v1
 \documentclass{amsart}
-\usepackage{amssymb, amsmath, amsfonts, amsthm, graphics, enumerate, mathrsfs, mathtools,tikz-cd,soul,csquotes}
+\usepackage{amssymb, amsmath, amsfonts, amsthm}
+\usepackage{graphics, enumerate, mathrsfs, mathtools,soul,csquotes}
+\usepackage{tikz-cd}
 \usetikzlibrary{positioning,arrows,scopes}
 %\usepackage{fancyhdr}
 %\usepackage{geometry}
 %\pagestyle{fancy}
+
+% link highlighting
+\definecolor{cadmiumgreen}{rgb}{0.0, 0.42, 0.24}
+\usepackage[
+colorlinks, citecolor=cadmiumgreen,
+pagebackref,
+pdfauthor={David Harry Richman}, 
+pdfstartview ={FitV},
+]{hyperref}
+\hypersetup{
+	pdftitle={Tutte power series on metric graphs},
+}
 
 % COMMENT OUT FOR FINAL VERSION
 \usepackage{showkeys}
@@ -75,6 +89,7 @@
 \newcommand{\analog}[2]{[#2]_{#1}}
 % moduli space of graphs
 \newcommand{\Mgraphg}{\mathcal M_g^{\mathrm{graph}}}
+\newcommand{\Mggraph}{\Mgraphg}
 
 % for comments
 \newcommand{\harry}[1]{{\color{red} \sf $\diamondsuit$  {#1} $\diamondsuit$ }}
@@ -108,7 +123,7 @@ The evaluations give rise to a large family of functions generalizing the functi
 \maketitle
 
 %\setcounter{tocdepth}{1}
-%\tableofcontents
+\tableofcontents
 
 \section{Introduction}
 Given a graph $G$,
@@ -142,7 +157,7 @@ h_1(G) &= \# E(G) - \# V(G) + h_0(G) .
 \end{align*}
 
 The purpose of this paper is to explain that this definition of the Tutte polynomial may be extended meaningfully to a metric graph.
-As a consequence, evaluation of the Tutte polynomial (for certain real parameters) extends to a continuous function on the moduli space of metric graphs.
+As a consequence, evaluation of the Tutte polynomial (at certain real parameters) extends to a continuous function on the moduli space of metric graphs.
 
 \subsection{Statement of results}
 Suppose $\Gamma$ is a metric graph with combinatorial model $\Gamma = (G,\ell)$,
@@ -157,14 +172,14 @@ of $\Gamma$ as
 	T^+(\Gamma; u,w) = \sum_{A \subset E(G)} \left( \prod_{e_i \in A} \fanalog{1 + u}{\ell(e_i)} \right)
 	u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)} 
 \end{equation}
-where $\fanalog{1 + u}{\alpha}$ is the formal power series  
+where $\fanalog{1 + u}{\alpha}$ denotes the formal power series  
 \begin{equation}
-	\fanalog{1 + u}{\alpha} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
+	\fanalog{1 + u}{\alpha} \coloneq \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 	\quad \in \RR[[u]]
 \end{equation}
 and
 $\displaystyle
-\binom{\alpha}{k} = \frac1{k!}\alpha(\alpha - 1) \cdots (\alpha - k + 1)$.
+\binom{\alpha}{k} \coloneq \frac1{k!}\alpha(\alpha - 1) \cdots (\alpha - k + 1)$.
 Note this power series converges for $|u| < 1$, and in this range satisfies
 \[ 
 	\fanalog{1}{\alpha} = \alpha
@@ -187,7 +202,7 @@ $T^+(\Gamma; u,w)$ does not depend on the choice of model $(G,\ell)$ for $\Gamma
 
 To prove this result, we show that $T^+(\Gamma; u, w)$ satisfies a familiar deletion-contraction identity.
 \begin{thm}[Deletion-contraction relation]
-\label{thm:deletion-contraction}
+\label{thm:intro-deletion-contraction}
 Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
 which is not a loop,
 the Tutte power series satisfies
@@ -355,9 +370,9 @@ $T^+(\Gamma; u,w)$ the Tutte power series of $\Gamma$
 
 % $\mu = \mu_\Gamma$ the canonical measure on a metric graph $\Gamma$
 
-\section{Background}
+% \section{Background}
 
-\subsection{$q$-analogs}
+\section{\texorpdfstring{$q$}{q}-analogs}
 For a positive integer $\ell$,
 the {\em $q$-analog}
 $[\ell]_q$ is defined as
@@ -425,7 +440,7 @@ For \note{positive ?} real numbers $\alpha,\beta$, we have
 %&=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
  &= \fanalog{1 + u}{\alpha} + \fanalog{1 + u}{\beta} + u \, \fanalog{1 + u}{\alpha} \fanalog{1 + u}{\beta} .
 \end{align*}
-as elements of $\RR[[u]]$.
+as elements of $\RR[\![u]\!]$.
 \end{prop}
 \begin{proof}
 Observe that on the open disc $|u| < 1$,
@@ -464,30 +479,34 @@ we have $[\ell]_0 = 1$ for any $\ell > 0$.
 
 \item (Varying the formal $q$-parameter) If $\ell_0\geq 0$ is fixed and $q > 0$,
 the map 
-$$q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}$$
+\[
+q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}
+\]
 defines a continuous function from $\RRpos \setminus\{1\}$ to $\RR$,
 which satisfies
-$$ \lim_{q \to 0^+} [\ell_0]_q  = 
-\lim_{q \to 0^+} \frac{q^{\ell_0} - 1}{q - 1} =
-\begin{cases}
- 1 &\text{if } \ell_0 > 0 \\
- 0 &\text{if } \ell_0 = 0 \\
- -\infty &\text{if } \ell_0 <0.
-\end{cases}$$
+\[ 
+	\lim_{q \to 0^+} [\ell_0]_q  = 
+	\lim_{q \to 0^+} \frac{q^{\ell_0} - 1}{q - 1} =
+	\begin{cases}
+	1 &\text{if } \ell_0 > 0 \\
+	0 &\text{if } \ell_0 = 0 \\
+	-\infty &\text{if } \ell_0 <0.
+	\end{cases}
+\]
 and has a continuous extension to $\RRpos \to \RR$ that sends $1 \mapsto \ell_0$.
 
 \item 
 In particular, for $\ell, q > 0$ we have
-$$
-[\ell]_0 = 1 
-\qquad\text{and}\qquad
-[0]_q = 0.
-$$
-$$
-\lim_{\ell \to 0} [\ell]_0 = 1 
-\qquad\text{and}\qquad
-\lim_{q \to 0} [0]_q = 0.
-$$
+\[
+	[\ell]_0 = 1 
+	\qquad\text{and}\qquad
+	[0]_q = 0.
+\]
+\[
+	\lim_{\ell \to 0} [\ell]_0 = 1 
+	\qquad\text{and}\qquad
+	\lim_{q \to 0} [0]_q = 0.
+\]
 \end{enumerate}
 
 Considering $[\alpha]_{1+u}$ as a power series in $u$ and $\alpha$:
@@ -507,7 +526,18 @@ As a power series in $\alpha$:
 &= \sum_{j\geq 1} \frac{\log(1+u)^j}{j! \, u} \alpha^j .
 \end{align*}
 
-\subsection{Graph theory}
+
+\section{Metric graphs}
+
+A metric graph is a compact, connected metric space which comes from 
+assigning edge lengths to a finite, connected graph.
+If the metric graph $\Gamma$ comes from a combinatorial graph $G$ by 
+assigning edge lengths $\ell : E(G) \to \RRpos$,
+we say $(G,\ell)$ is a {\em combinatorial model} for $\Gamma$
+and we write $\Gamma = (G,\ell)$.
+%(A single metric graph generally has many different combinatorial models.)
+
+\subsection{Graph terminology}
 \begin{align*}
 h_0(G| A) - 1 &= rk(G) - rk(A), \quad\text{and}\\
 h_1(G| A) &= \#(A) - rk(A) .
@@ -515,16 +545,6 @@ h_1(G| A) &= \#(A) - rk(A) .
 
 
 \subsection{Tutte polynomial}
-
-\section{Metric graphs}
-A metric graph is a compact, connected metric space which comes from 
-assigning edge lengths to a finite, connected graph.
-If the metric graph $\Gamma$
-comes from a combinatorial graph $G$ by 
-assigning edge lengths $\ell : E(G) \to \RRpos$,
-we say $(G,\ell)$ is a {\em combinatorial model} for $\Gamma$
-and we write $\Gamma = (G,\ell)$.
-%(A single metric graph generally has many different combinatorial models.)
 
 \subsection{Deletion and contraction}
 
@@ -534,27 +554,7 @@ The {\em edge deletion} $\Gamma \setminus e$ is the metric graph obtained from $
 
 The {\em edge contraction} $\Gamma / e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$, and then joining the endpoints of $e$.
 
-
-\subsection{Moduli spaces of metric graphs}
-See Melody Chan \cite{Cha}.
-
-Abramovich--Caporaso--Payne~\cite{ACP}.
-
-A graph $G$ is {\em stable} if it is connected, and every vertex has degree at least three.
-A metric graph is {\em semistable} if every point has valence at least two.
- 
-The moduli space of genus $g$ metric graphs is a polyhedral fan
-
-\note{is it natural here to restrict to stable graphs, or have infinitely many graphs per genus?}
-
-\subsection{Tropical curves}
-
-\note{consider deleting}
-Here we use ``tropical curve'' 
-to refer to a metric graph which possibly has contracted loops,
-which we think of as ``infinitesimally small'' loops attached to a vertex.
-We record the number of 
-
+[show a figure with examples]
 
 \section{Tutte power series}
 
@@ -607,8 +607,7 @@ along with the base cases
 
 The Tutte power series $T^+(\Gamma; u,w)$ satisfies a similar deletion-contraction relation.
 
-\begin{thm}
-%\label{thm:deletion-contraction}
+\begin{thm}\label{thm:deletion-contraction}
 For a metric graph $\Gamma$,
 \begin{equation}
 	T^+(\Gamma; u,w) 
@@ -751,7 +750,7 @@ then
 \]
 \end{itemize}
 
-\section{Proofs}
+\subsection{Proofs}
 
 \begin{proof}[Proof of Theorem~\ref{thm:intro-tutte-series}]
 It sufficies to show that the Tutte power series is invariant 
@@ -776,7 +775,32 @@ Therefore. ...
 \]
 \end{proof}
 
-\section{Specializations of the Tutte polynomial}
+\section{Moduli spaces of metric graphs}
+See Melody Chan \cite{Cha},
+and Abramovich--Caporaso--Payne~\cite{ACP}.
+
+A graph $G$ is {\em stable} if it is connected, and every vertex has degree at least three.
+% A metric graph is {\em semistable} if every point has valence at least two.
+ 
+The moduli space of genus $g$ metric graphs is a polyhedral fan
+
+\note{is it natural here to restrict to stable graphs, or have infinitely many graphs per genus?}
+
+\[
+	\Mggraph = \bigsqcup \overline{C(G, w)} / \sim
+\]
+where the union is over all vertex-weighted stable graphs $(G, w)$ of genus $g$.
+
+\subsection{Tropical curves}
+
+\note{consider deleting}
+Here we use ``tropical curve'' 
+to refer to a metric graph which possibly has contracted loops,
+which we think of as ``infinitesimally small'' loops attached to a vertex.
+We record the number of 
+
+
+\section*{Appendix: Specializations of the Tutte polynomial}
 
 \subsection{Constants}
 For a graph $G = (V,E)$, the Tutte polynomial has the following specializations to graph invariants when evaluated at particular integer points.
@@ -1045,28 +1069,28 @@ David Speyer for helpful discussion.
 
 [probably to delete]
 
-\begin{eg}[Tutte power series of $K_4$]
-Suppose $G = K_4$, the complete graph on four vertices.
-Suppose $\Gamma$ is the metric graph assigning edge lengths $a,b,c,d,e,f$ to $G$, as shown in Figure \note{[fill in]}.
-
-Then we have
-\begin{align*}
-T^+(\Gamma;u,w) &= ([a][b][d] + [a][b][e] + [a][b][f] + [a][c][d] + [a][c][e] + [a][c][f] + [a][d][e] + [a][d][f] \\
-&\qquad\quad + [b][c][d] + [b][c][e] + [b][c][f] + [b][d][e] + [b][e][f] + [c][d][f] + [c][e][f] + [d][e][f]) \\
-&\quad + ([a][b][c][d] + [a][b][c][e] + [a][b][c][f] + [a][b][d][e] + [a][b][d][f] + [a][b][e][f] \\
-&\qquad\quad + [a][c][d][e] + [a][c][d][f] + [a][c][e][f] + [a][d][e][f] + [b][c][d][e] \\
-&\qquad\quad + [b][c][d][f] + [b][c][e][f] + [b][d][e][f] + [c][d][e][f] )u \\
-&\quad + ([a][b][c][d][e] + [a][b][c][d][f] + [a][b][c][e][f] + [a][b][d][e][f] \\
-&\qquad\quad + [a][c][d][e][f] + [b][c][d][e][f])u^2 \\
-&\quad + [a][b][c][d][e][f]u^3 \\
-&\quad + ([a][b] + [a][c] + [a][d] + [a][e] + [a][f] + [b][c] + [b][d] + [b][e] \\
-&\qquad\quad + [b][f] + [c][d] + [c][e] + [c][f] + [d][e] + [d][f] + [e][f])w \\
-&\quad + ([a][b][c] + [a][e][f] + [b][d][f] + [c][d][e])uw \\
-&\quad + ([a] + [b] + [c] + [d] + [e] + [f])w^2 %\\&\qquad\quad 
-+ w^3
-\end{align*}
-Compare to the Example in Read--Whitehead \cite[p. 272]{RW2}.
-\end{eg}
+%\begin{eg}[Tutte power series of $K_4$]
+%Suppose $G = K_4$, the complete graph on four vertices.
+%Suppose $\Gamma$ is the metric graph assigning edge lengths $a,b,c,d,e,f$ to $G$, as shown in Figure \note{[fill in]}.
+%
+%Then we have
+%\begin{align*}
+%T^+(\Gamma;u,w) &= ([a][b][d] + [a][b][e] + [a][b][f] + [a][c][d] + [a][c][e] + [a][c][f] + [a][d][e] + [a][d][f] \\
+%&\qquad\quad + [b][c][d] + [b][c][e] + [b][c][f] + [b][d][e] + [b][e][f] + [c][d][f] + [c][e][f] + [d][e][f]) \\
+%&\quad + ([a][b][c][d] + [a][b][c][e] + [a][b][c][f] + [a][b][d][e] + [a][b][d][f] + [a][b][e][f] \\
+%&\qquad\quad + [a][c][d][e] + [a][c][d][f] + [a][c][e][f] + [a][d][e][f] + [b][c][d][e] \\
+%&\qquad\quad + [b][c][d][f] + [b][c][e][f] + [b][d][e][f] + [c][d][e][f] )u \\
+%&\quad + ([a][b][c][d][e] + [a][b][c][d][f] + [a][b][c][e][f] + [a][b][d][e][f] \\
+%&\qquad\quad + [a][c][d][e][f] + [b][c][d][e][f])u^2 \\
+%&\quad + [a][b][c][d][e][f]u^3 \\
+%&\quad + ([a][b] + [a][c] + [a][d] + [a][e] + [a][f] + [b][c] + [b][d] + [b][e] \\
+%&\qquad\quad + [b][f] + [c][d] + [c][e] + [c][f] + [d][e] + [d][f] + [e][f])w \\
+%&\quad + ([a][b][c] + [a][e][f] + [b][d][f] + [c][d][e])uw \\
+%&\quad + ([a] + [b] + [c] + [d] + [e] + [f])w^2 %\\&\qquad\quad 
+%+ w^3
+%\end{align*}
+%Compare to the Example in Read--Whitehead \cite[p. 272]{RW2}.
+%\end{eg}
 
 \bibliography{tutte_metric-ref} 
 \bibliographystyle{abbrv}
