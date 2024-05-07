@@ -2,6 +2,7 @@
 \documentclass{amsart}
 \usepackage{amssymb, amsmath, amsfonts, amsthm}
 \usepackage{graphics, enumerate, mathrsfs, mathtools,soul,csquotes}
+\usepackage[color=red!40]{todonotes}
 \usepackage{tikz-cd}
 \usetikzlibrary{positioning,arrows,scopes}
 %\usepackage{fancyhdr}
@@ -15,13 +16,23 @@ colorlinks, citecolor=cadmiumgreen,
 pagebackref,
 pdfauthor={David Harry Richman}, 
 pdfstartview ={FitV},
+bookmarksdepth=3,
 ]{hyperref}
 \hypersetup{
 	pdftitle={Tutte power series on metric graphs},
 }
 
+\usepackage[
+	backrefs,
+	% msc-links,
+	nobysame,
+	lite,
+	non-sorted-cites,
+]{amsrefs} 
+
 % COMMENT OUT FOR FINAL VERSION
-\usepackage{showkeys}
+\usepackage[inline]{showlabels}
+\renewcommand{\showlabelfont}{\tiny\sffamily}
 
 \newtheorem{thm}{Theorem}
 \newtheorem*{thm*}{Theorem}
@@ -51,6 +62,8 @@ pdfstartview ={FitV},
 \newcommand{\fg}{\mathfrak{g}}
 
 \newcommand{\RRpos}{\RR_{>0}}
+\newcommand{\RRnneg}{\RR_{\geq 0}}
+\newcommand{\en}{n}
 
 \DeclareMathOperator{\val}{val}
 \DeclareMathOperator{\trop}{trop}
@@ -85,6 +98,7 @@ pdfstartview ={FitV},
 \newcommand{\angles}[1]{\langle {#1} \rangle}
 % formal q-analog
 \newcommand{\fanalog}[2]{[\![#2]\!]_{#1}}
+\newcommand{\ufanalog}[1]{\fanalog{1 + u}{#1}}
 % non-formal q-analog
 \newcommand{\analog}[2]{[#2]_{#1}}
 % moduli space of graphs
@@ -92,12 +106,13 @@ pdfstartview ={FitV},
 \newcommand{\Mggraph}{\Mgraphg}
 
 % for comments
-\newcommand{\harry}[1]{{\color{red} \sf $\diamondsuit$  {#1} $\diamondsuit$ }}
+\newcommand{\harry}[1]{{\color{red} \sf $\diamondsuit$ {#1} $\diamondsuit$ }}
 \newcommand{\note}[1]{\harry{#1}}
 
 \begin{document}
-\title[Tutte power series on metric graphs]
-{Tutte power series on metric graphs}
+\title
+[Tutte evaluations on metric graphs]
+{Tutte evaluations on metric graphs and rank-generating power series}
 %{Tutte power series and Tutte evaluations on the moduli space of metric graphs}
 \author{David Harry Richman}
 \date{v1, \today  \,(Preliminary draft, not for circulation).}
@@ -122,24 +137,36 @@ The evaluations give rise to a large family of functions generalizing the functi
 \end{abstract}
 \maketitle
 
-%\setcounter{tocdepth}{1}
+\setcounter{tocdepth}{1}
 \tableofcontents
 
 \section{Introduction}
-Given a graph $G$,
-the Tutte polynomial $T(G;x,y)$ 
-is 
+Given a graph $G$, the Tutte polynomial $T(G;x,y)$ is 
 %an important graph invariant,
- a two-variable polynomial %ssigned to graph $G$,
+a two-variable polynomial %ssigned to graph $G$,
 introduced by Tutte in \cite{Tut}.
 Many important graph invariants arise as evaluations of 
 the Tutte polynomial %$T(G; x,y)$ 
 at specific integer parameters $x$, $y$.
-For a comprehensive modern overview of the Tutte polynomial see \cite{BO, EMM}.
+One particular evaluation of the Tutte polynomial, $T(G; 1, 1)$ is the number of spanning trees of $G$.
+In tropical geometry, it is well-known that the number of spanning trees on a graph has a ``continuous generalization'' as the volume of the Jacobian of a metric graph (a.k.a. tropical curve)~\cites{MZ,BF,ABKS}.
+This motivates the question: can other Tutte polynomial evaluation be generalized to arbitrary metric graphs?
+In this paper, we show that the Tutte polynomial evaluated at $(x, y)$ can be generalized to a continuous invariant on the space of metric graphs, whenever $x > 0$.
+This is achieved by defining a rank generating power series on a metric graph,
+generalizing the rank generating polynomial.
 
+As a consequence, the Tutte evaluation at $(x, y)$ defines a continuous function on the space of metric graphs of fixed genus.
+\begin{thm}
+	For fixed reals $x$ and $y$, let $\ev_{(x, y)}(G)$ denote the evaluation of the Tutte polynomial of $G$ at $(x, y)$.
+	If $x > 0$, then $\ev_{(x, y)}: \Mgraphg \to \RR$ defines a continuous function on the space of metric graphs of genus $g$.
+\end{thm}
+
+For a comprehensive modern overview of the Tutte polynomial see \cites{BO, EMM}.
+
+\subsection{Rank generating power series}
 The following characterization of the Tutte polynomial was initially introduced by Crapo \cite{Cra}, 
 using the  {\em rank generating function} of $G$
-(see also \cite[Definition 3]{EMM}).
+(see also \cite{EMM}*{Definition 3}).
 Given a connected graph $G $, 
 %we can define the Tutte polynomial of $G$ by 
 the Tutte polynomial of $G$ is 
@@ -156,8 +183,8 @@ h_0(G) &= \#(\text{connected components of }G), \quad\text{and}\\
 h_1(G) &= \# E(G) - \# V(G) + h_0(G) .
 \end{align*}
 
-The purpose of this paper is to explain that this definition of the Tutte polynomial may be extended meaningfully to a metric graph.
-As a consequence, evaluation of the Tutte polynomial (at certain real parameters) extends to a continuous function on the moduli space of metric graphs.
+The key insight of this paper is that this polynomial, associated to any graph, may be extended to a power series associated to any metric graph.
+As a consequence, evaluation of the Tutte polynomial, at certain real parameters, extends to a continuous function on the moduli space of metric graphs.
 
 \subsection{Statement of results}
 Suppose $\Gamma$ is a metric graph with combinatorial model $\Gamma = (G,\ell)$,
@@ -173,21 +200,15 @@ of $\Gamma$ as
 	u^{h_0(G\backslash A) - 1}w^{h_1(G\backslash A)} 
 \end{equation}
 where $\fanalog{1 + u}{\alpha}$ denotes the formal power series  
-\begin{equation}
+\begin{equation}\label{eq:f-analog}
 	\fanalog{1 + u}{\alpha} \coloneq \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
 	\quad \in \RR[[u]]
 \end{equation}
 and
-$\displaystyle
-\binom{\alpha}{k} \coloneq \frac1{k!}\alpha(\alpha - 1) \cdots (\alpha - k + 1)$.
-Note this power series converges for $|u| < 1$, and in this range satisfies
-\[ 
-	\fanalog{1}{\alpha} = \alpha
-	\qquad\text{and}\qquad
-	\fanalog{1 + u}{\alpha} = \frac{(1+u)^\alpha - 1}{u}
-	%= \sum_{k \geq 1} \binom{\alpha}{k}u^{k-1} 
-	\qquad \text{if } u \neq 0.
-\]
+$\binom{\alpha}{k}$ % \coloneq 
+denotes the polynomial
+$\displaystyle \frac1{k!}\alpha(\alpha - 1) \cdots (\alpha - k + 1)$.
+If all edges in $\Gamma$ have unit length, i.e. $\ell(e) = 1$, then \eqref{eq:tutte-power-series} reduces to the Tutte polynomial by the substitution $T(G; x, y) = T^+(\Gamma; x - 1, y - 1)$.
 
 Our first main result is that the expression \eqref{eq:tutte-power-series} does not depend on the chosen model $(G,\ell)$ for the metric graph $\Gamma$.
 \begin{thm}[Tutte power series]
@@ -220,45 +241,51 @@ we can
 vary $\Gamma$ over a natural moduli space of metric graphs.
 As $\Gamma$ varies, the value of $T^+(\Gamma;u,w)$ also varies continuously under certain mild assumptions on the parameters $(u, w)$.
 
-Let $\Mgraphg$ denote the moduli space of metric graphs of genus $g$.
+Let $\Mgraphg$ denote the moduli space of stable metric graphs of genus $g$.
 \begin{thm}[Continuity of Tutte evaluation]
 \label{thm:tutte-eval-moduli}
-Let $u$ and $w$ be fixed (nonnegative?) real numbers,
-with $u > -1$.
-The Tutte evaluation at $(u,w)$,
-%on the moduli space of metric graphs (of genus $g$),
-$$ \ev^+(u,w) : \Gamma \,\mapsto\, T^+(\Gamma; u,w) ,$$
-defines a continuous function  
-${\rm ev}^+(u,w) : \Mgraphg \to \RR$.
-
-Namely, 
-\begin{enumerate}[(i)]
-\item 
-(Continuity on cells)
-for each combinatorial graph $G$,
-the Tutte evaluation 
-$\ev^+(u,w) $ 
-restricts to a continuous function
-\[
-	\ev^+(u,w) : \RRpos^{E(G)} \to \RR,
-\]
-where a point in the positive orthant $\RRpos^{E(G)}$
-represents a choice of (positive, real) edge lengths  $\ell : E(G) \to \RRpos$.
-
-\item 
-(Continuity between cells)
-% If $u > -1$, then 
-As the length of a  non-loop edge $e \in E(G)$ approaches zero
-in the metric graph $\Gamma = (G,\ell)$
-while other edge lengths are fixed,
-the value of 
-%the Tutte evaluation 
-$\ev^+(u,w)$
-at $(G,\ell)$ %$\Gamma $ 
-approaches the value of $\ev^+(u,w)$ at the contraction 
-$\Gamma / e$. % = (G / e, \ell \big|_{E\setminus e})$.
-\end{enumerate}
+	Let $u$ and $w$ be fixed real numbers, with $u > -1$.
+	The Tutte evaluation at $(u,w)$,
+	%on the moduli space of metric graphs (of genus $g$),
+	\[ \ev^+(u,w) : \Gamma \,\mapsto\, T^+(\Gamma; u,w) ,\]
+	defines a continuous function  
+	${\rm ev}^+(u,w) : \Mgraphg \to \RR$ on the moduli space of stable graphs.
+	Namely, 
+	\begin{enumerate}[(i)]
+	\item 
+	(Continuity on cells)
+	for each stable combinatorial graph $G$,
+	the Tutte evaluation 
+	$\ev^+(u,w) $ 
+	defines a continuous function
+	\[
+		\ev^+(u,w) : \RRpos^{E(G)} \to \RR,
+	\]
+	where a point in the positive orthant $\RRpos^{E(G)}$
+	represents a choice of positive, real edge lengths in $G$.
+	% $\ell : E(G) \to \RRpos$.
+	
+	\item 
+	(Continuity between cells)
+	% If $u > -1$, then 
+	As the length of a non-loop edge $e \in E(G)$ approaches zero in the metric graph $\Gamma = (G,\ell)$
+	while all other edge lengths are fixed, the value of 
+	%the Tutte evaluation 
+	$\ev^+(u,w)$
+	at $(G, \ell)$ %$\Gamma $ 
+	approaches the value of $\ev^+(u,w)$ at the contraction 
+	$\Gamma / e$. % = (G / e, \ell \big|_{E\setminus e})$.
+	\end{enumerate}
 \end{thm}
+
+Note the power series \eqref{eq:f-analog} converges for $|u| < 1$, and in this range satisfies
+\[ 
+	\fanalog{1}{\alpha} = \alpha
+	\qquad\text{and}\qquad
+	\fanalog{1 + u}{\alpha} = \frac{(1+u)^\alpha - 1}{u}
+	%= \sum_{k \geq 1} \binom{\alpha}{k}u^{k-1} 
+	\qquad \text{if } u \neq 0.
+\]
 
 \begin{eg}
 [$u = 0$, $w = 0$]
@@ -266,7 +293,7 @@ $\Gamma / e$. % = (G / e, \ell \big|_{E\setminus e})$.
 %on a graph $G$ gives the number of spanning trees.
 On a metric graph, the Tutte evaluation $\ev^+(0, 0)$ gives the volume of the Jacobian of
 $\Gamma = (G,\ell)$,
-which can be expressed as a weighted sum of spanning trees of $G$ \note{[cite a reference]}.
+which can be expressed as a weighted sum of spanning trees of $G$\todo{[cite a reference]}.
 The function $\ev^+(0, 0)$ is continuous on $\Mgraphg$, 
 and extends continuously to $\overline{\Mgraphg}$ 
 (where it has value zero on the boundary).
@@ -282,32 +309,53 @@ of a fixed combinatorial model $G$.
 However, $\ev^+(-1, 1)$ is not continuous as some edge length approaches $0$.
 Namely, the value of $T(G; -1, 1)$ generally differs from the value of $T(G/e; -1, 1)$
 after contracting an edge.
-\end{eg}
 
-\subsection{Tutte power series coefficients}
-\note{Maybe remove this theorem}
-\begin{thm}[Continuity of Tutte coefficient]
-For fixed indices $i,j\geq 0$,
-let $\coeff(i,j; \Gamma)$
-denote the coefficient of $u^i w^j$ in the power series expansion of $T^+(\Gamma; u,w)$.
-Then the function ${\rm coeff}(i,j)$
-defines a locally-polynomial 
-function $\Mgraphg \to \RR$.
-\note{extra assumptions needed?}
-\end{thm}
+For example, the number of totally cyclic orientations of graphs of genus two are shown below.
+
+\begin{figure}[h]
+\begin{tabular}{ccc}
+\begin{tikzpicture}
+	\draw (0,0) -- (0,1);
+	\draw (0,0) to[bend left=80,min distance=8mm] (0,1);
+	\draw (0,0) to[bend right=80,min distance=8mm] (0,1);
+	\fill (0,0) circle[radius=0.7mm];
+	\fill (0,1) circle[radius=2pt];
+\end{tikzpicture}
+&
+\begin{tikzpicture}[every loop/.style={min distance=15mm}]
+	\draw (0,0) to[out=140,in=220,loop] (0,0);
+	\draw (0,0) to[in=-40,out=40,loop] (0,0);
+	\fill (0,0) circle[radius=2pt];
+\end{tikzpicture}
+&
+\begin{tikzpicture}
+	[every loop/.style={min distance=15mm}]
+	\draw (0,0) to[out=140,in=220,loop] (0,0);
+	\draw (0,0) -- (1,0);
+	\draw (1,0) to[out=-40,in=40,loop] (1,0);
+	\fill (0,0) circle[radius=2pt];
+	\fill (1,0) circle[radius=2pt];
+\end{tikzpicture}
+\\
+$6$ & $4$ & $0$
+\end{tabular}
+\caption{Number of totally cyclic orientations.}
+\end{figure}
+\end{eg}
 
 \subsection{Previous work} 
 
-Multivariate Tutte polynomial \cite{Sok-potts}
-also known as the {\em Potts-model partition function}.
+The multivariate Tutte polynomial \cite{Sok-potts}
+is also known as the {\em Potts-model partition function}.
 Sokal \cite{Sok-potts} asks:
 \begin{displayquote}
-Let me conclude by observing that numerous specific evaluations of the Tutte polynomial have been given combinatorial interpretations, 
-as counting some set of objects associated to the graphs $G$. 
-It would be an interesting project to seek to extend these counting problems to ``counting with weights,''
-i.e., to obtain suitably defined univariate or multivariate generating polynomials for the objects in question as specializations of 
-$Z_G(q,v)$ or $Z_G(q,\mathbf{v})$, respectively.
+	Let me conclude by observing that numerous specific evaluations of the Tutte polynomial have been given combinatorial interpretations, 
+	as counting some set of objects associated to the graphs $G$. 
+	It would be an interesting project to seek to extend these counting problems to ``counting with weights,''
+	i.e., to obtain suitably defined univariate or multivariate generating polynomials for the objects in question as specializations of 
+	$Z_G(q,v)$ or $Z_G(q,\mathbf{v})$, respectively.
 \end{displayquote}
+\todo[inline]{Is the ``continuous'' version of $Z_g(q, v)$ described? if so, link it}
 
 Several authors have investigated the behavior of the Tutte polynomial under the operation of subdividing an edge into multiple edges.
 
@@ -318,7 +366,7 @@ The identities presented in this paper are essentially in the work of Read and W
 The family of graphs obtained by varying chain lengths of a fixed graph is called a ``homeomorphism class'' of graphs.
 
 Read and Whitehead \cite{RW2}
-\cite{RW1,RW2}
+\cites{RW1,RW2}
 
 The essential contribution of this work is to enforce a dependence of the edge weights $(\alpha(e))$ on the polynomial parameter $u$, namely $\alpha(e) = \fanalog{1 + u}{\ell(e)}$.
 
@@ -331,7 +379,7 @@ The same weighted polynomial was previously studied by Fortuin--Kasteleyn~\cite{
 
 Brylawski \cite{Bry}
 
-Traldi \cite{Tra1,Tra2,Tra3}
+Traldi \cites{Tra1,Tra2,Tra3}
 
 Application: Zeros of Tutte polynomials?
 
@@ -373,36 +421,39 @@ $T^+(\Gamma; u,w)$ the Tutte power series of $\Gamma$
 % \section{Background}
 
 \section{\texorpdfstring{$q$}{q}-analogs}
-For a positive integer $\ell$,
-the {\em $q$-analog}
-$[\ell]_q$ is defined as
+
+For a positive integer $\en$, the {\em $q$-analog} $[\en]_q$ is defined as
 the polynomial
 \begin{equation*}
-[\ell]_q = \frac{q^\ell - 1}{q - 1}
-%= \frac{1 - q^\ell }{1 - q} 
-= 1 + q + q^2 + \cdots + q^{\ell -1} 
-\in \ZZ[q].
+	[\en]_q = \frac{q^\en - 1}{q - 1}
+	%= \frac{1 - q^\en }{1 - q} 
+	= 1 + q + q^2 + \cdots + q^{\en -1} 
+	\in \ZZ[q].
 \end{equation*}
-%When $\ell$ is not a positive integer, the above expression is no longer a polynomial.
-When $\ell$ is not an integer, 
+%When $\en$ is not a positive integer, the above expression is no longer a polynomial.
+When $\en$ is not an integer, 
 %the above expression is not even has 
-$[\ell]_q$ does not admit a Laurent expansion in the variable $q$.
-However, we can obtain a well-defined power series under a change of variable.
+$[\en]_q$ does not admit a Laurent expansion in the variable $q$.
+However, we can obtain a well-defined power series under a simple change of variable.
 Namely, note that
-\[ [\alpha]_{1+u} = \frac{(1+u)^\alpha - 1}{u}
-= \sum_{k \geq 0} \binom{\alpha}{k+1}u^{k} 
+\[ 
+	[\en]_{1+u} = \frac{(1+u)^\en - 1}{u}
+= \sum_{k \geq 0} \binom{\en}{k+1}u^{k},
 \]
-so we have 
-\begin{equation}
-\fanalog{1+u}{\alpha} = \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
-\in \RR[[u]] .
-\end{equation}
-Here $\alpha$ can be any real number, and $\binom{\alpha}{k}$ is the real number
+and the binomial coefficient $\binom{n}{k}$ has a well-defined extension
 \begin{equation}
 \binom{\alpha}{k} = \frac{\alpha (\alpha-1) \cdots (\alpha-k+1)}{k!} 
 \end{equation}
+where $\alpha$ can be any real number.
+% and $\binom{\alpha}{k}$ is the real number
 
-\note{
+by the binomial series expansion, so we have 
+\begin{equation}
+\fanalog{1+u}{\alpha} \coloneq \alpha + \binom{\alpha}{2} u + \binom{\alpha}{3} u^2 + \cdots
+\in \RR[[u]] .
+\end{equation}
+
+\todo{
 TODO: decide on notation
 $\fanalog{q}{\alpha}$
 $\analog{q}{\alpha}$
@@ -421,7 +472,7 @@ As $q \to 0$, we have $\analog{q}{n} \to 1$.
 \item 
 For a real number $\alpha$, the expression $\fanalog{1 + u}{\alpha}$ is a power series in $\RR[[u]]$.
 As $u \to 0$, we have $\fanalog{1 + u}{\alpha} \to \alpha$.
-\note{If $\alpha$ is positive, then as $u \to -1$, we have $\fanalog{1 + u}{\alpha} \to 1$.}
+\todo[inline]{If $\alpha$ is positive, then as $u \to -1$, we have $\fanalog{1 + u}{\alpha} \to 1$.}
 \end{enumerate}
 \end{fact}
 
@@ -433,98 +484,31 @@ For positive integers $n,m$ we have
 %[a + b]_q = [a]_q + q^a [b]_q = [a]_q + [b]_q + (q-1) [a]_q [b]_q .
 \end{equation*}
 The analogous identity holds for power series $\fanalog{1 + u}{\alpha}$.
-\begin{prop}
-For \note{positive ?} real numbers $\alpha,\beta$, we have
-\begin{align*}
-\fanalog{1 + u}{\alpha + \beta} 
-%&=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
- &= \fanalog{1 + u}{\alpha} + \fanalog{1 + u}{\beta} + u \, \fanalog{1 + u}{\alpha} \fanalog{1 + u}{\beta} .
-\end{align*}
-as elements of $\RR[\![u]\!]$.
+\begin{prop}\label{prop:fanalog-add}
+	For real numbers $\alpha,\beta$, we have
+	\begin{align*}
+	\fanalog{1 + u}{\alpha + \beta} 
+	%&=  [\alpha]_{1+u} + (1+u)^{\alpha} [\beta]_{1+u} \\
+	 &= \fanalog{1 + u}{\alpha} + \fanalog{1 + u}{\beta} + u \, \fanalog{1 + u}{\alpha} \fanalog{1 + u}{\beta} .
+	\end{align*}
+	as elements of $\RR[\![u]\!]$.
 \end{prop}
 \begin{proof}
-Observe that on the open disc $|u| < 1$,
+First, observe that on the open disc $|u| < 1$, we have
+\[
+	1 + u \ufanalog{\alpha} = (1 + u)^\alpha,
+\]
+due to the binomial series identity.
+Thus
 \begin{align*}
-\fanalog{1 + u}{\alpha + \beta} &= \frac{(1+u)^{\alpha+\beta}-1}{u} \\
-&= \frac{(1+u)^{\alpha+\beta}-(1+u)^\alpha}{u} + \frac{(1+u)^{\alpha}-1}{u} \\
-&= (1+u)^\alpha \fanalog{1 + u}{\beta} + \fanalog{1 + u}{\alpha} 
+	1 + u \ufanalog{\alpha + \beta} &= (1 + u)^{\alpha + \beta} 
+	= (1 + u)^\alpha (1 + u)^\beta \\
+	&= (1 + u \ufanalog{\alpha}) (1 + u \ufanalog{\beta}) \\
+	&= 1 + u(\ufanalog{\alpha} + \ufanalog{\beta}) + u^2 \ufanalog{\alpha} \ufanalog{\beta},
 \end{align*}
-and
-$
-(1 + u)^\alpha 
-% &= u \left(\frac{(1+u)^\alpha - 1}{u}\right) + 1  \\
-= u \fanalog{1 + u}{\alpha} + 1 .
-$
+which implies the desired result.
 \end{proof}
 
-Note that the $q$-analog satisfies the following properties
-\begin{enumerate}
-\item (Varying the edge length) If $q_0>0$ is fixed and $q_0 \neq 1$, the map 
-$$\ell \mapsto [\ell]_{q_0} = \frac{q_0^\ell - 1}{q_0 - 1}$$
-defines a continuous function from $\RR$ to $\RR$,
-which sends $1 \mapsto 1$ and $0 \mapsto 0$.
-
-If $q_0 = 1$,
-we use the convention that $[\ell]_1 = \ell$.
-
-If $q_0 = 0$,
-we have $[\ell]_0 = 1$ for any $\ell > 0$.
-%\item As $q_0$ approaches $0$ from the right,
-%we have
-%$$ \lim_{q \to 0^+} \frac{q_0^\ell - 1}{q_0 - 1} = \begin{cases}
-%1 &\text{if } \ell > 0, \\
-%0 &\text{if } \ell = 0, \\
-%-\infty &\text{if } \ell < 0.
-%\end{cases} $$
-
-\item (Varying the formal $q$-parameter) If $\ell_0\geq 0$ is fixed and $q > 0$,
-the map 
-\[
-q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}
-\]
-defines a continuous function from $\RRpos \setminus\{1\}$ to $\RR$,
-which satisfies
-\[ 
-	\lim_{q \to 0^+} [\ell_0]_q  = 
-	\lim_{q \to 0^+} \frac{q^{\ell_0} - 1}{q - 1} =
-	\begin{cases}
-	1 &\text{if } \ell_0 > 0 \\
-	0 &\text{if } \ell_0 = 0 \\
-	-\infty &\text{if } \ell_0 <0.
-	\end{cases}
-\]
-and has a continuous extension to $\RRpos \to \RR$ that sends $1 \mapsto \ell_0$.
-
-\item 
-In particular, for $\ell, q > 0$ we have
-\[
-	[\ell]_0 = 1 
-	\qquad\text{and}\qquad
-	[0]_q = 0.
-\]
-\[
-	\lim_{\ell \to 0} [\ell]_0 = 1 
-	\qquad\text{and}\qquad
-	\lim_{q \to 0} [0]_q = 0.
-\]
-\end{enumerate}
-
-Considering $[\alpha]_{1+u}$ as a power series in $u$ and $\alpha$:
-\begin{align*}
-\fanalog{1 + u}{\alpha} &= \sum_{k \geq 0} \binom{\alpha}{k+1}u^k  
-= \sum_{k \geq 0} \frac1{(k+1)!} \alpha^{\underline{k+1}} u^k \\
-&= \sum_{k \geq 0} \left( \sum_{j \geq 0} \frac{s(k+1,j)}{(k+1)!} \alpha^j \right) u^k \\
-&= (\alpha) + (-\frac12\alpha + \frac12 \alpha^2)u + (\frac13\alpha - \frac12 \alpha^2 + \frac16 \alpha^3)u^2 + \cdots \\
-\end{align*}
-where $x^{\underline{k}} = x(x-1)(x-2)\cdots(x-k+1)$ denotes the falling factorial and $s(k,j)$ denotes the Stirling number of the first kind.
-
-As a power series in $\alpha$:
-\begin{align*}
-\fanalog{1 + u}{\alpha} &= \frac{(1+u)^\alpha - 1}{u}
-= \frac{\exp(\alpha \log(1+u)) - 1}{u} \\
-&= \frac1{u} \left( -1 + \sum_{j\geq 0} \frac{\log(1+u)^j}{j!} \alpha^j\right) \\
-&= \sum_{j\geq 1} \frac{\log(1+u)^j}{j! \, u} \alpha^j .
-\end{align*}
 
 
 \section{Metric graphs}
@@ -551,10 +535,9 @@ h_1(G| A) &= \#(A) - rk(A) .
 Suppose $\Gamma = (G,\ell)$, and $e \in E(G)$ is a non-loop edge.
 
 The {\em edge deletion} $\Gamma \setminus e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$.
-
 The {\em edge contraction} $\Gamma / e$ is the metric graph obtained from $\Gamma$ by removing the points in the interior of $e$, and then joining the endpoints of $e$.
 
-[show a figure with examples]
+% [show a figure with examples]
 
 \section{Tutte power series}
 
@@ -626,7 +609,7 @@ The first sum reduces to
 \begin{align*}
 	&\sum_{\substack{A \subset E \\ e_0 \in A}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus A)-1}w^{h_1(G\setminus A)}\\
 	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)} \sum_{\substack{A' \subset E \setminus e_0}} \left( \prod_{e \in A'}\fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus e_0\setminus A)-1}w^{h_1(G\setminus e_0\setminus A)} \\[1.5em]
-	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)} T^+(G\setminus e_0;u,w),
+	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)}\, T^+(G\setminus e_0;u,w),
 \end{align*}
 while the second sum reduces to
 \begin{align*}
@@ -637,7 +620,7 @@ while the second sum reduces to
 In the second equality, we use the fact that the quotient map $(G\setminus A) \to (G\setminus A)/e_0$ is a homotopy equivalence, so it preserves homology groups. The third line uses the fact that deletion and contraction commute, $(G \setminus A) / e_0 = (G / e_0) \setminus A$.
 \end{proof}
 
-\begin{eg}[Tutte power series of a line]
+\begin{eg}[Rank power series of a line]
 Suppose $\Gamma$ is a segment of length $\alpha$,
 then
 %\[
@@ -661,7 +644,7 @@ then
 \]
 \end{eg}
 
-\begin{eg}[Tutte power series of a circle]
+\begin{eg}[Rank power series of a circle]
 If $\Gamma$ is a circle of length $\alpha$, then 
 %\[
 %	T^+(\Gamma;u,w) = w + \fanalog{1 + u}{\alpha} = w + \frac{(1 + u)^\alpha - 1}{u}
@@ -756,6 +739,7 @@ then
 It sufficies to show that the Tutte power series is invariant 
 under an edge subdivision.
 Suppose $G = (V,E)$ contains the edge $e_0$, which we subdivide into $e_1 \cup e_2$ to obtain the graph $G'$.
+Suppose $e_1$ has length $a$ and $e_2$ has length $b$, so that $e_0$ has length $a + b$.
 
 By the deletion-contraction relation, Theorem~\ref{thm:deletion-contraction},
 we have
@@ -766,13 +750,24 @@ and
 \begin{align*}
 	T^+(G'; u,w) &= \fanalog{1 + u}{a} T^+(G\setminus e_1; u,w) + T^+(G/e_1; u,w)\\
 	&= \fanalog{1 + u}{a}\left(\fanalog{1 + u}{b} T^+(G\setminus\{e_1,e_2\}; u,w) + T^+(G \setminus e_1 / e_2; u,w)\right) \\
-	&\qquad + \left(\fanalog{1 + u}{b} T^+(G/e_1 \setminus e_2; u,w) + T^+(G/\{e_1,e_2\}; u,w) \right)\\
-	&= (\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + u\fanalog{1 + u}{a}\fanalog{1 + u}{b}) T^+(G\setminus e_0; u,w) + T^+(G/e_0; u,w) .
+	&\qquad + \left(\fanalog{1 + u}{b} T^+(G/e_1 \setminus e_2; u,w) + T^+(G/\{e_1,e_2\}; u,w) \right)
 \end{align*}
-Therefore. ... 
+The compound contraction $G' / \{e_1, e_2\}$ is the same metric graph as $G / e_0$,
+while the compound deletion $G' \setminus \{e_1, e_2\}$ is the disjoint union of an isolated vertex and the metric graph $G \setminus e_0$.
+For the mixed deletion-contraction operations, 
 \[
-\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + u \fanalog{1 + u}{a} \fanalog{1 + u}{b}
+	G' \setminus e_1 / e_2 \cong G' / e_1 \setminus e_2 \cong G \setminus e_0.
 \]
+
+Therefore, 
+\[
+	T^+(G'; u,w) = (\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + u\fanalog{1 + u}{a}\fanalog{1 + u}{b}) T^+(G\setminus e_0; u,w) + T^+(G/e_0; u,w) .
+\]
+and from here it suffices to appy Proposition~\ref{prop:fanalog-add}.
+%confirm that  
+%\[
+%	\fanalog{1 + u}{a} + \fanalog{1 + u}{b} + u \fanalog{1 + u}{a} \fanalog{1 + u}{b},
+%\]
 \end{proof}
 
 \section{Moduli spaces of metric graphs}
@@ -782,23 +777,46 @@ and Abramovich--Caporaso--Payne~\cite{ACP}.
 A graph $G$ is {\em stable} if it is connected, and every vertex has degree at least three.
 % A metric graph is {\em semistable} if every point has valence at least two.
  
-The moduli space of genus $g$ metric graphs is a polyhedral fan
+The moduli space of (stable) genus $g$ metric graphs is a finite polyhedral fan.
 
-\note{is it natural here to restrict to stable graphs, or have infinitely many graphs per genus?}
+% \note{is it natural here to restrict to stable graphs, or have infinitely many graphs per genus?}
 
 \[
 	\Mggraph = \bigsqcup \overline{C(G, w)} / \sim
 \]
 where the union is over all vertex-weighted stable graphs $(G, w)$ of genus $g$.
+Each cell $C(G)$ is an open dense subset of $\RRnneg^{E(G)}$.
+
+
+\subsection{Proof}
+\begin{proof}[Proof of Theorem~\ref{thm:tutte-eval-moduli}]
+It suffices to show that when a graph in a cell of $\Mggraph$ approaches the boundary of its cell, the limiting value of the Tutte power series agrees with the Tutte power series of the limiting graph.
+In an equation,
+\[
+	\lim_{t \to 0} T^+(G_t; u, w) = T^+(\lim_{t \to 0} G_t; u, w).
+\]
+Approaching the boundary of a cell in $\Mggraph$ means that the length of an edge is approaching zero.
+It suffices to check that $\lim_{\alpha \to 0} \ufanalog{\alpha} = 0$.
+\end{proof}
 
 \subsection{Tropical curves}
 
-\note{consider deleting}
+The moduli space of metric graphs of fixed genus is not compact. 
+It has a natural compactification in which the extra points at the boundary correspond to tropical curves.
 Here we use ``tropical curve'' 
 to refer to a metric graph which possibly has contracted loops,
 which we think of as ``infinitesimally small'' loops attached to a vertex.
 We record the number of 
 
+
+\section{Further questions}
+
+Observation: for a fixed combinatorial graph $G$, the $(i,j)$-coefficient of the Tutte power series $T^+(\Gamma; u,w)$ is a polynomial in the edge lengths.
+
+\section*{Acknowledgements}
+The author would like to thank 
+Will Dana, Leo Jiang, and
+David Speyer for helpful discussion.
 
 \section*{Appendix: Specializations of the Tutte polynomial}
 
@@ -874,29 +892,28 @@ $T^+(\Gamma; -1, 1) = 2$;
 
 \begin{eg}
 Suppose $\Gamma$ is the theta graph with edge lengths $a$, $b$ and $c$,
-\[ \ev^+(\Gamma; 1, 1) = 2^{a + b + c} .\]
+\[ \ev_{(2,2)}(\Gamma) = 2^{a + b + c} .\]
 
 Number of spanning trees:
-
-$T^+(\Gamma; 0,0) = ab + ac + bc$.
+\[\ev_{(1,1)}(\Gamma) = T^+(\Gamma; 0,0) = ab + ac + bc.\]
 
 Number of connected spanning subgraphs:
 
-$T^+(\Gamma; 0,1) = 1 + (a + b + c) + (ab + ac + bc)$.
+$\ev_{(1,2)}(\Gamma) = T^+(\Gamma; 0,1) = 1 + (a + b + c) + (ab + ac + bc)$.
 
 Number of acyclic spanning subgraphs:
 
-$T^+(\Gamma; 1,0) 
+$\ev_{(2,1)}(\Gamma) = T^+(\Gamma; 1,0) 
 %= (2^{a+b}  -2\cdot 2^a + 3) + (2^{a+b+c}-2^{a+b} + 2^a - 1)
 = 2^{a+b+c} - 2^a - 2^b - 2^c + 2$.
 
 Number of totally cyclic orientations:
 
-$T^+(\Gamma; -1,1) = 1 + 3 + 3 - 1 = 6$.
+$\ev_{(0,2)}(\Gamma) = T^+(\Gamma; -1,1) = 1 + 3 + 3 - 1 = 6$.
 
 Number of totally acyclic orientations:
 
-$T^+(\Gamma; 1,-1) = 2^{a+b+c} - 2(2^a + 2^b + 2^c) + 6$.
+$\ev_{(2,0)}(\Gamma) = T^+(\Gamma; 1,-1) = 2^{a+b+c} - 2(2^a + 2^b + 2^c) + 6$.
 \end{eg}
 
 \begin{eg}
@@ -976,7 +993,7 @@ Conclusion: (positive) edge lengths don't change the flow polynomial.
 \subsection{Reliability polynomial}
 The reliability polynomial of a graph satisfies
 \begin{equation*}
-R(G; p) = (1 - p)^{\# V - h_0(G)} p^{h_1(G)} T\left(G; 1, \frac{1}{p} \right)
+R(G; p) = (1 - p)^{\# V - h_0(G)} p^{h_1(G)} T\left(G; 1, \textstyle\frac{1}{p} \right)
 \end{equation*}
 
 For a metric graph,
@@ -988,7 +1005,7 @@ R(\Gamma; p) &= (1 - p)^\infty p^{h_1(\Gamma)} T^+\left(\Gamma; 0, \frac{1 - p}{
 
 \subsection{Potts model polynomial}
 
-Following Sokal~\cite[Section 2.5]{Sok-potts}
+Following Sokal~\cite{Sok-potts}*{Section 2.5}
 
 The (modified) Potts model polynomial, or cluster-generating function, $\widetilde Z(G; q,v)$ is
 \[
@@ -1004,7 +1021,91 @@ The (modified) Potts model polynomial, or cluster-generating function, $\widetil
 	&= (v/q)^{\infty} \sum_{A \subset E} (q/v)^{h_0(\Gamma \setminus A) - 1} v^{h_1(\Gamma \setminus A)} \prod_{e \in A} \fanalog{1 + q/v}{\ell(e)}
 \end{align*}
 
-\section{Miscellaneous}
+\section*{Appendix: Miscellaneous}
+
+\subsection{q-analogs}
+
+Note that the $q$-analog satisfies the following properties
+\begin{enumerate}
+\item (Varying the edge length) If $q_0>0$ is fixed and $q_0 \neq 1$, the map 
+$$\ell \mapsto [\ell]_{q_0} = \frac{q_0^\ell - 1}{q_0 - 1}$$
+defines a continuous function from $\RR$ to $\RR$,
+which sends $1 \mapsto 1$ and $0 \mapsto 0$.
+
+If $q_0 = 1$,
+we use the convention that $[\ell]_1 = \ell$.
+
+If $q_0 = 0$,
+we have $[\ell]_0 = 1$ for any $\ell > 0$.
+%\item As $q_0$ approaches $0$ from the right,
+%we have
+%$$ \lim_{q \to 0^+} \frac{q_0^\ell - 1}{q_0 - 1} = \begin{cases}
+%1 &\text{if } \ell > 0, \\
+%0 &\text{if } \ell = 0, \\
+%-\infty &\text{if } \ell < 0.
+%\end{cases} $$
+
+\item (Varying the formal $q$-parameter) If $\ell_0\geq 0$ is fixed and $q > 0$,
+the map 
+\[
+q \mapsto [\ell_0]_q = \frac{q^{\ell_0} - 1}{q - 1}
+\]
+defines a continuous function from $\RRpos \setminus\{1\}$ to $\RR$,
+which satisfies
+\[ 
+	\lim_{q \to 0^+} [\ell_0]_q  = 
+	\lim_{q \to 0^+} \frac{q^{\ell_0} - 1}{q - 1} =
+	\begin{cases}
+	1 &\text{if } \ell_0 > 0 \\
+	0 &\text{if } \ell_0 = 0 \\
+	-\infty &\text{if } \ell_0 <0.
+	\end{cases}
+\]
+and has a continuous extension to $\RRpos \to \RR$ that sends $1 \mapsto \ell_0$.
+
+\item 
+In particular, for $\ell, q > 0$ we have
+\[
+	[\ell]_0 = 1 
+	\qquad\text{and}\qquad
+	[0]_q = 0.
+\]
+\[
+	\lim_{\ell \to 0} [\ell]_0 = 1 
+	\qquad\text{and}\qquad
+	\lim_{q \to 0} [0]_q = 0.
+\]
+\end{enumerate}
+
+Considering $[\alpha]_{1+u}$ as a power series in $u$ and $\alpha$:
+\begin{align*}
+\fanalog{1 + u}{\alpha} &= \sum_{k \geq 0} \binom{\alpha}{k+1}u^k  
+= \sum_{k \geq 0} \frac1{(k+1)!} \alpha^{\underline{k+1}} u^k \\
+&= \sum_{k \geq 0} \left( \sum_{j \geq 0} \frac{s(k+1,j)}{(k+1)!} \alpha^j \right) u^k \\
+&= (\alpha) + (-\frac12\alpha + \frac12 \alpha^2)u + (\frac13\alpha - \frac12 \alpha^2 + \frac16 \alpha^3)u^2 + \cdots \\
+\end{align*}
+where $x^{\underline{k}} = x(x-1)(x-2)\cdots(x-k+1)$ denotes the falling factorial and $s(k,j)$ denotes the Stirling number of the first kind.
+
+As a power series in $\alpha$:
+\begin{align*}
+\fanalog{1 + u}{\alpha} &= \frac{(1+u)^\alpha - 1}{u}
+= \frac{\exp(\alpha \log(1+u)) - 1}{u} \\
+&= \frac1{u} \left( -1 + \sum_{j\geq 0} \frac{\log(1+u)^j}{j!} \alpha^j\right) \\
+&= \sum_{j\geq 1} \frac{\log(1+u)^j}{j! \, u} \alpha^j .
+\end{align*}
+
+
+\subsection{Tutte power series coefficients}
+\todo{Maybe remove this theorem}
+\begin{thm}[Continuity of Tutte coefficient]
+For fixed indices $i,j\geq 0$,
+let $\coeff(i,j; \Gamma)$
+denote the coefficient of $u^i w^j$ in the power series expansion of $T^+(\Gamma; u,w)$.
+Then the function ${\rm coeff}(i,j)$
+defines a locally-polynomial 
+function $\Mgraphg \to \RR$.
+\todo{extra assumptions needed?}
+\end{thm}
 
 \subsection{Tutte power series as real function}
 Given real parameters $x,y$ with $x > 0$,
@@ -1056,18 +1157,9 @@ the radius of convergence in $u$ is equal to $1$.
 %\end{thm}
 
 
-\section{Further questions}
-
-Observation: for a fixed combinatorial graph $G$, the $(i,j)$-coefficient of the Tutte power series $T^+(\Gamma; u,w)$ is a polynomial in the edge lengths.
-
-\section*{Acknowledgements}
-The author would like to thank 
-Will Dana, Leo Jiang, and
-David Speyer for helpful discussion.
-
-\section*{Appendix: extra material}
-
-[probably to delete]
+%\section*{Appendix: extra material}
+%
+%\todo[inline]{probably to delete}
 
 %\begin{eg}[Tutte power series of $K_4$]
 %Suppose $G = K_4$, the complete graph on four vertices.
