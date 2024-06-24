@@ -315,28 +315,35 @@ For example, the number of totally cyclic orientations of graphs of genus two ar
 
 \begin{figure}[h]
 \begin{tabular}{ccc}
-\begin{tikzpicture}
-	\draw (0,0) -- (0,1);
-	\draw (0,0) to[bend left=80,min distance=8mm] (0,1);
-	\draw (0,0) to[bend right=80,min distance=8mm] (0,1);
-	\fill (0,0) circle[radius=0.7mm];
-	\fill (0,1) circle[radius=2pt];
-\end{tikzpicture}
+% inner tabular-environment is for vertically centering figure
+\begin{tabular}{c}
+	\begin{tikzpicture}
+		\draw (0,0) -- (0,1);
+		\draw (0,0) to[bend left=80,min distance=8mm] (0,1);
+		\draw (0,0) to[bend right=80,min distance=8mm] (0,1);
+		\fill (0,0) circle[radius=0.7mm];
+		\fill (0,1) circle[radius=2pt];
+	\end{tikzpicture}
+\end{tabular}
 &
-\begin{tikzpicture}[every loop/.style={min distance=15mm}]
-	\draw (0,0) to[out=140,in=220,loop] (0,0);
-	\draw (0,0) to[in=-40,out=40,loop] (0,0);
-	\fill (0,0) circle[radius=2pt];
-\end{tikzpicture}
+\begin{tabular}{c}
+	\begin{tikzpicture}[every loop/.style={min distance=15mm}]
+		\draw (0,0) to[out=140,in=220,loop] (0,0);
+		\draw (0,0) to[in=-40,out=40,loop] (0,0);
+		\fill (0,0) circle[radius=2pt];
+	\end{tikzpicture}
+\end{tabular}
 &
-\begin{tikzpicture}
-	[every loop/.style={min distance=15mm}]
-	\draw (0,0) to[out=140,in=220,loop] (0,0);
-	\draw (0,0) -- (1,0);
-	\draw (1,0) to[out=-40,in=40,loop] (1,0);
-	\fill (0,0) circle[radius=2pt];
-	\fill (1,0) circle[radius=2pt];
-\end{tikzpicture}
+\begin{tabular}{c}
+	\begin{tikzpicture}
+		[every loop/.style={min distance=15mm}]
+		\draw (0,0) to[out=140,in=220,loop] (0,0);
+		\draw (0,0) -- (1,0);
+		\draw (1,0) to[out=-40,in=40,loop] (1,0);
+		\fill (0,0) circle[radius=2pt];
+		\fill (1,0) circle[radius=2pt];
+	\end{tikzpicture}
+\end{tabular}
 \\
 $6$ & $4$ & $0$
 \end{tabular}
