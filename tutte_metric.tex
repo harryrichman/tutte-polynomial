@@ -19,7 +19,7 @@ pdfstartview ={FitV},
 bookmarksdepth=3,
 ]{hyperref}
 \hypersetup{
-	pdftitle={Tutte power series on metric graphs},
+	pdftitle={Tutte evaluations on metric graphs and rank-generating power series},
 }
 
 \usepackage[
@@ -121,18 +121,19 @@ and a Rackham Predoctoral Fellowship.}
 
 
 \begin{abstract}
-We define a % formal power series 
-Tutte power series for a metric graph with arbitrary positive real edge lengths, 
+We define a formal power series 
+% Tutte power series 
+for a metric graph with arbitrary positive real edge lengths, 
 %called the Tutte power series,
 % which is invariant under subdivision of edges.
 which recovers the usual Tutte polynomial when all edge lengths are positive integers.
 We prove that %for positive inputs, 
-evaluation of the Tutte power series
+evaluation of the rank-generating power series
 defines a continuous function of the moduli space of metric graphs,
 under certain constraints on the input parameters.
 %which also extends to the compactification by tropical curves.
 The evaluations give rise to a large family of functions generalizing the function that sends a metric graph to the volume of its graph Jacobian.
-%We study how Tutte power series evaluations are
+%We study how rank-generating power series evaluations are
 %related to various structures on a metric graph.
 This is related to string theory.
 \end{abstract}
@@ -151,22 +152,24 @@ the Tutte polynomial %$T(G; x,y)$
 at specific integer parameters $x$, $y$.
 One particular evaluation of the Tutte polynomial, $T(G; 1, 1)$ is the number of spanning trees of $G$.
 In tropical geometry, it is well-known that the number of spanning trees on a graph has a ``continuous generalization'' as the volume of the Jacobian of a metric graph (a.k.a. an abstract tropical curve)~\cites{MZ,BF,ABKS}.
-This motivates the question: can other Tutte polynomial evaluation be generalized to arbitrary metric graphs?
+This motivates the question: can other Tutte polynomial evaluations be generalized to arbitrary metric graphs?
+Other Tutte polynomial evaluations include counts of acyclic orientations, totally cyclic orientations, connected subgraphs, and acyclic subgraphs.
 In this paper, we show that the function sending a graph $G$ to its Tutte polynomial evaluation $T(G; x, y)$ can be extended to a continuous invariant on the space of metric graphs, whenever $x > 0$.
-This is achieved by defining a rank generating power series on a metric graph,
-which generalizes the rank generating polynomial on a graph.
+This is achieved by defining a rank-generating power series on a metric graph,
+which generalizes the rank-generating polynomial on a graph.
 
-As a consequence, the Tutte evaluation at $(x, y)$ defines a continuous function on the space of metric graphs of fixed genus.
+As a consequence, the Tutte evaluation at a chosen $(x, y)$ (often) defines a continuous function on the space of metric graphs of fixed genus.
 \begin{thm}
 	For fixed real constants $x$ and $y$, let $\ev_{(x, y)}(G)$ denote the evaluation of the Tutte polynomial of $G$ at $(x, y)$.
 	If $x > 0$, then $\ev_{(x, y)}: \Mgraphg \to \RR$ defines a continuous function on the space of metric graphs of genus $g$.
 \end{thm}
+\todo[inline]{fix theorem statement}
 
 For a comprehensive modern overview of the Tutte polynomial see \cites{BO, EMM}.
 
-\subsection{Rank generating power series}
+\subsection{Rank-generating power series}
 The following characterization of the Tutte polynomial was initially introduced by Crapo \cite{Cra}, 
-using the  {\em rank generating function} of $G$
+using the  {\em rank-generating function} of $G$
 (see also \cite{EMM}*{Definition 3}).
 Given a connected graph $G $, 
 %we can define the Tutte polynomial of $G$ by 
@@ -184,15 +187,15 @@ h_0(G) &= \#(\text{connected components of }G), \quad\text{and}\\
 h_1(G) &= \# E(G) - \# V(G) + h_0(G) .
 \end{align*}
 
-The key insight of this paper is that this polynomial, associated to any graph, may be extended to a power series associated to any metric graph.
-As a consequence, evaluation of the Tutte polynomial, at certain real parameters, extends to a continuous function on the moduli space of metric graphs.
+% The key insight of this paper is that this polynomial, associated to any graph, may be extended to a power series associated to any metric graph.
+% As a consequence, evaluation of the Tutte polynomial, at certain real parameters, extends to a continuous function on the moduli space of metric graphs.
 
 \subsection{Statement of results}
 Suppose $\Gamma$ is a metric graph with combinatorial model $\Gamma = (G,\ell)$,
 where $\ell : E(G) \to \RRpos$ assigns a positive length to each edge of $G$.
 
 %We can recover a power series expression for $T(\Gamma; x,y)$ by a simple change of variables.
-We define the {\em Tutte power series}
+We define the {\em rank-generating power series}
 $T^+(\Gamma; u,w)$ %$ := T(\Gamma; 1 + u, 1 + w) $
 of $\Gamma$ as
 \begin{equation}
@@ -209,10 +212,10 @@ and
 $\binom{\alpha}{k}$ % \coloneq 
 denotes the polynomial
 $\displaystyle \frac1{k!}\alpha(\alpha - 1) \cdots (\alpha - k + 1)$.
-If all edges in $\Gamma$ have unit length, i.e. $\ell(e) = 1$, then \eqref{eq:tutte-power-series} reduces to the Tutte polynomial by the substitution $T(G; x, y) = T^+(\Gamma; x - 1, y - 1)$.
+If all edges in $\Gamma$ have unit length, i.e. $\ell(e) = 1$, then \eqref{eq:tutte-power-series} recovers the Tutte polynomial by the substitution $T(G; x, y) = T^+(\Gamma; x - 1, y - 1)$.
 
 Our first main result is that the expression \eqref{eq:tutte-power-series} does not depend on the chosen model $(G,\ell)$ for the metric graph $\Gamma$.
-\begin{thm}[Tutte power series]
+\begin{thm}[Rank-generating power series]
 \label{thm:intro-tutte-series}
 Given a metric graph $\Gamma = (G,\ell)$,
 the expression $T^+(\Gamma; u,w)$
@@ -222,18 +225,19 @@ in particular,
 $T^+(\Gamma; u,w)$ does not depend on the choice of model $(G,\ell)$ for $\Gamma$.
 \end{thm}
 
-To prove this result, we show that $T^+(\Gamma; u, w)$ satisfies a familiar deletion-contraction identity.
-\begin{thm}[Deletion-contraction relation]
-\label{thm:intro-deletion-contraction}
-Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
-which is not a loop,
-the Tutte power series satisfies
-\begin{equation}
-	T^+(\Gamma; u,w) = \fanalog{1 + u}{\ell(e)} \, T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w).
-\end{equation}
-\end{thm}
+To prove this result, we show that $T^+(\Gamma; u, w)$ satisfies a familiar deletion-contraction identity (Theorem~\ref{thm:deletion-contraction}).
+%\todo{move thm statement out of intro}
+%\begin{thm}[Deletion-contraction relation]
+%\label{thm:intro-deletion-contraction}
+%Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
+%which is not a loop,
+%the Tutte power series satisfies
+%\begin{equation}
+%	T^+(\Gamma; u,w) = \fanalog{1 + u}{\ell(e)} \, T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w).
+%\end{equation}
+%\end{thm}
 
-\subsection{Evaluating Tutte power series}
+\subsection{Evaluating rank-generating power series}
 
 Instead of considering a fixed metric graph $\Gamma$,
 % and varying the parameters $u,w$,
@@ -369,7 +373,8 @@ Several authors have investigated the behavior of the Tutte polynomial under the
 
 Previous work on {\em chain polynomials}:
 
-The identities presented in this paper are essentially in the work of Read and Whitehead~\cite{RW2}, but with the restriction that edge lengths are positive integers. In their work, edge lengths are called ``chain lengths.''
+The identities presented in this paper are essentially in the work of Read and Whitehead~\cite{RW2}, but with the restriction that edge lengths are positive integers. 
+In their work, edge lengths are called ``chain lengths'' since they are viewed as a chain of unit-length edges.
 
 The family of graphs obtained by varying chain lengths of a fixed graph is called a ``homeomorphism class'' of graphs.
 
@@ -385,16 +390,24 @@ Traldi~\cite{Tra1} considers the weighted Tutte polynomial
 The same weighted polynomial was previously studied by Fortuin--Kasteleyn~\cite{FK}, but in harder-to-understand notation for a modern reader.
 
 
-Brylawski \cite{Bry}
+% Brylawski \cite{Bry}
 
 Traldi \cites{Tra1,Tra2,Tra3}
+\todo{elaborate on these references below}
 
 Application: Zeros of Tutte polynomials?
+For example, \cite{brown-hickman} and \cite{BHSW} study zeros of chromatic polynomials in a family of graphs consisting of assigning integer-valued edge lengths to an underlying graph model.
 
 Jackson and Sokal \cite{JS} study zero-free regions of the Tutte polynomial.
 
 Ok and Perrett \cite{OP} study the density of the real zeros of the Tutte polynomial.
 
+Merino--Welsh conjecture~\cite{merino-welsh}: for any graph $G$, Merino and Welsh conjectured that $\max(T(G; 2,0), T(G; 0,2)) \geq T(G; 1,1)$.
+
+\subsection{Questions}
+
+Do the coefficients of the rank generating power series $T^+(G; u,w)$ produce interesting metric graph invariants?
+Are these coefficients continuous on the space of metric graphs?
 
 \subsection{Notation}
 
@@ -419,7 +432,7 @@ $T(G; x,y)$ the Tutte polynomial of $G$
 
 $T^+(G; u,w) = T(G; 1+u,1+w)$ ``additive'' centered Tutte polynomial
 
-$T^+(\Gamma; u,w)$ the Tutte power series of $\Gamma$
+$T^+(\Gamma; u,w)$ the rank-generating power series of $\Gamma$
 
 % $D_N$ a divisor of degree $N$
 
@@ -448,7 +461,7 @@ Namely, note that
 	[\en]_{1+u} = \frac{(1+u)^\en - 1}{u}
 = \sum_{k \geq 0} \binom{\en}{k+1}u^{k},
 \]
-and the binomial coefficient $\binom{n}{k}$ has a well-defined extension
+and the binomial coefficient function $n \mapsto \binom{n}{k}$ has a well-defined extension
 \begin{equation}
 \binom{\alpha}{k} = \frac{\alpha (\alpha-1) \cdots (\alpha-k+1)}{k!} 
 \end{equation}
@@ -511,8 +524,8 @@ Thus
 \begin{align*}
 	1 + u \ufanalog{\alpha + \beta} &= (1 + u)^{\alpha + \beta} 
 	= (1 + u)^\alpha (1 + u)^\beta \\
-	&= (1 + u \ufanalog{\alpha}) (1 + u \ufanalog{\beta}) \\
-	&= 1 + u(\ufanalog{\alpha} + \ufanalog{\beta}) + u^2 \ufanalog{\alpha} \ufanalog{\beta},
+	&= (1 + u \ufanalog{\alpha}) (1 + u \ufanalog{\beta}),
+	% &= 1 + u(\ufanalog{\alpha} + \ufanalog{\beta}) + u^2 \ufanalog{\alpha} \ufanalog{\beta},
 \end{align*}
 which implies the desired result.
 \end{proof}
@@ -547,7 +560,7 @@ The {\em edge contraction} $\Gamma / e$ is the metric graph obtained from $\Gamm
 
 % [show a figure with examples]
 
-\section{Tutte power series}
+\section{Rank-generating power series}
 
 Let $T^+(\Gamma; u,w)$ be the power series in $\RR[\![u]\!][w]$
 defined by
@@ -576,59 +589,7 @@ Let $\Gamma = \Gamma_1 \bigsqcup \Gamma_2$ denote the (disconnected) disjoint un
 \end{enumerate}
 \end{prop}
 
-
-\subsection{Deletion-contraction}
-
-The Tutte polynomial $T(G; x,y)$ can be characterized inductively by the deletion-contraction relation:
-\begin{equation*}
-	T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
-\end{equation*}
-if $e$ is not a loop or bridge,
-along with the base cases 
-\begin{equation*}
-	T(G; x,y) = x^i y^j \qquad\text{if $G$ consists of $i$ bridges and $j$ loops.}
-\end{equation*}
-%for a loop edge and bridge edge.
-%\begin{equation*}
-%T(G;x,y) = \begin{cases}
-%x & \text{if $G$ is a bridge} \\
-%y & \text{if $G$ is a loop}.
-%\end{cases}
-%\end{equation*}
-
-The Tutte power series $T^+(\Gamma; u,w)$ satisfies a similar deletion-contraction relation.
-
-\begin{thm}\label{thm:deletion-contraction}
-For a metric graph $\Gamma$,
-\begin{equation}
-	T^+(\Gamma; u,w) 
-	= \fanalog{1 + u}{\ell(e)} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w) .
-\end{equation}
-\end{thm}
-
-\begin{proof}
-Observe that
-\[
-	T^+(\Gamma; u,w) 
-	= \sum_{A \subset E} (\cdots)
-	= \sum_{\substack{A \subset E \\ e_0 \in A}} (\cdots) + \sum_{\substack{A \subset E \\ e_0 \not \in A}} (\cdots).
-\]
-The first sum reduces to
-\begin{align*}
-	&\sum_{\substack{A \subset E \\ e_0 \in A}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus A)-1}w^{h_1(G\setminus A)}\\
-	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)} \sum_{\substack{A' \subset E \setminus e_0}} \left( \prod_{e \in A'}\fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus e_0\setminus A)-1}w^{h_1(G\setminus e_0\setminus A)} \\[1.5em]
-	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)}\, T^+(G\setminus e_0;u,w),
-\end{align*}
-while the second sum reduces to
-\begin{align*}
-	&\sum_{\substack{A \subset E \\ e_0 \not\in A}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus A)-1}w^{h_1(G\setminus A)}\\
-	&\qquad\qquad = \sum_{\substack{A \subset E \setminus e_0}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G \setminus A / e_0)-1}w^{h_1(G\setminus A / e_0)} \\[1.5em]
-	&\qquad\qquad = T^+(G/ e_0;u,w).
-\end{align*}
-In the second equality, we use the fact that the quotient map $(G\setminus A) \to (G\setminus A)/e_0$ is a homotopy equivalence, so it preserves homology groups. The third line uses the fact that deletion and contraction commute, $(G \setminus A) / e_0 = (G / e_0) \setminus A$.
-\end{proof}
-
-\begin{eg}[Rank power series of a line]
+\begin{eg}[Rank-generating power series of a line]
 Suppose $\Gamma$ is a segment of length $\alpha$,
 then
 %\[
@@ -652,7 +613,7 @@ then
 \]
 \end{eg}
 
-\begin{eg}[Rank power series of a circle]
+\begin{eg}[Rank-generating power series of a circle]
 If $\Gamma$ is a circle of length $\alpha$, then 
 %\[
 %	T^+(\Gamma;u,w) = w + \fanalog{1 + u}{\alpha} = w + \frac{(1 + u)^\alpha - 1}{u}
@@ -669,13 +630,13 @@ Then
 %= \frac{x^n - 1}{x - 1} + y - 1.
 %$$
 %and
-$$
-T^+(G;u,w) = n + \binom{n}{2}u + \binom{n}{3} u^2 + \cdots + nu^{n-2} + u^{n-1} + w
-= \frac{(1+u)^n-1}{u} + w
-$$
+\[
+	T^+(G;u,w) = n + \binom{n}{2}u + \binom{n}{3} u^2 + \cdots + nu^{n-2} + u^{n-1} + w
+	= \frac{(1+u)^n-1}{u} + w
+\]
 \end{eg}
 
-\begin{eg}[Tutte power series of theta graph]
+\begin{eg}[Rank-generating power series of theta graph]
 Suppose $G$ is the graph with two vertices connected by three edges.
 Suppose $\Gamma$ is the metric graph which assigns lengths $a,b,c$ to the edges of $G$.
 Then
@@ -709,8 +670,63 @@ T^+(G;u,w) = ( \fanalog{1 + u}{a} \fanalog{1 + u}{b} + \fanalog{1 + u}{a} \fanal
 %&= \cdots \\
 %\end{align*}
 
+\section{Deletion-contraction}
+
+The Tutte polynomial $T(G; x,y)$ can be characterized inductively by the deletion-contraction relation:
+\begin{equation*}
+	T(G;x,y) = T(G \backslash e; x,y) + T(G / e; x,y).
+\end{equation*}
+if $e$ is not a loop or bridge,
+along with the base cases 
+\begin{equation*}
+	T(G; x,y) = x^i y^j \qquad\text{if $G$ consists of $i$ bridges and $j$ loops.}
+\end{equation*}
+%for a loop edge and bridge edge.
+%\begin{equation*}
+%T(G;x,y) = \begin{cases}
+%x & \text{if $G$ is a bridge} \\
+%y & \text{if $G$ is a loop}.
+%\end{cases}
+%\end{equation*}
+
+The rank-generating power series $T^+(\Gamma; u,w)$ satisfies a similar deletion-contraction relation.
+
+\begin{thm}[Deletion-contraction relation]\label{thm:deletion-contraction}
+% For a metric graph $\Gamma$,
+Given a metric graph $\Gamma = (G,\ell)$ and an edge $e \in E(G)$,
+which is not a loop,
+the rank-generating power series satisfies
+\begin{equation}
+	T^+(\Gamma; u,w) 
+	= \fanalog{1 + u}{\ell(e)} T^+(\Gamma \backslash e; u,w) + T^+(\Gamma / e; u,w) .
+\end{equation}
+\end{thm}
+
+\begin{proof}
+Observe that
+\[
+	T^+(\Gamma; u,w) 
+	= \sum_{A \subset E} (\cdots)
+	= \sum_{\substack{A \subset E \\ e_0 \in A}} (\cdots) + \sum_{\substack{A \subset E \\ e_0 \not \in A}} (\cdots).
+\]
+The first sum reduces to
+\begin{align*}
+	&\sum_{\substack{A \subset E \\ e_0 \in A}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus A)-1}w^{h_1(G\setminus A)}\\
+	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)} \sum_{\substack{A' \subset E \setminus e_0}} \left( \prod_{e \in A'}\fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus e_0\setminus A)-1}w^{h_1(G\setminus e_0\setminus A)} \\[1.5em]
+	&\qquad\qquad = \fanalog{1+u}{\ell(e_0)}\, T^+(G\setminus e_0;u,w),
+\end{align*}
+while the second sum reduces to
+\begin{align*}
+	&\sum_{\substack{A \subset E \\ e_0 \not\in A}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G\setminus A)-1}w^{h_1(G\setminus A)}\\
+	&\qquad\qquad = \sum_{\substack{A \subset E \setminus e_0}} \left( \prod_{e \in A} \fanalog{1+u}{\ell(e)} \right) u^{h_0(G \setminus A / e_0)-1}w^{h_1(G\setminus A / e_0)} \\[1.5em]
+	&\qquad\qquad = T^+(G/ e_0;u,w).
+\end{align*}
+In the second equality, we use the fact that the quotient map $(G\setminus A) \to (G\setminus A)/e_0$ is a homotopy equivalence, so it preserves homology groups. The third line uses the fact that deletion and contraction commute, $(G \setminus A) / e_0 = (G / e_0) \setminus A$.
+\end{proof}
+
+
 \subsection{Deleting bridges and contracting loops}
-In this section we describe how the definition of Tutte power series $T^+(\Gamma;u,w)$
+In this section we describe how the definition of rank-generating power series $T^+(\Gamma;u,w)$
 may be extended to a more general concept of metric graphs.
 
 \begin{dfn}
@@ -744,10 +760,10 @@ then
 \subsection{Proofs}
 
 \begin{proof}[Proof of Theorem~\ref{thm:intro-tutte-series}]
-It sufficies to show that the Tutte power series is invariant 
+It sufficies to show that the rank-generating power series is invariant 
 under an edge subdivision.
 Suppose $G = (V,E)$ contains the edge $e_0$, which we subdivide into $e_1 \cup e_2$ to obtain the graph $G'$.
-Suppose $e_1$ has length $a$ and $e_2$ has length $b$, so that $e_0$ has length $a + b$.
+Suppose the subdivided edges $e_1$ and $e_2$ have lengths $a$ and $b$, so that $e_0$ has length $a + b$.
 
 By the deletion-contraction relation, Theorem~\ref{thm:deletion-contraction},
 we have
@@ -756,13 +772,14 @@ we have
 \]
 and 
 \begin{align*}
-	T^+(G'; u,w) &= \fanalog{1 + u}{a} T^+(G\setminus e_1; u,w) + T^+(G/e_1; u,w)\\
+	T^+(G'; u,w) &= \fanalog{1 + u}{a} T^+(G'\setminus e_1; u,w) + T^+(G'/e_1; u,w)\\
 	&= \fanalog{1 + u}{a}\left(\fanalog{1 + u}{b} T^+(G\setminus\{e_1,e_2\}; u,w) + T^+(G \setminus e_1 / e_2; u,w)\right) \\
 	&\qquad + \left(\fanalog{1 + u}{b} T^+(G/e_1 \setminus e_2; u,w) + T^+(G/\{e_1,e_2\}; u,w) \right)
 \end{align*}
 The compound contraction $G' / \{e_1, e_2\}$ is the same metric graph as $G / e_0$,
-while the compound deletion $G' \setminus \{e_1, e_2\}$ is the disjoint union of an isolated vertex and the metric graph $G \setminus e_0$.
-For the mixed deletion-contraction operations, 
+while the compound deletion $G' \setminus \{e_1, e_2\}$ is the disjoint union of 
+$G \setminus e_0$ and an isolated vertex.
+For the mixed deletion-contraction operations, we have
 \[
 	G' \setminus e_1 / e_2 \cong G' / e_1 \setminus e_2 \cong G \setminus e_0.
 \]
@@ -798,7 +815,7 @@ Each cell $C(G)$ is an open dense subset of $\RRnneg^{E(G)}$.
 
 \subsection{Proof}
 \begin{proof}[Proof of Theorem~\ref{thm:tutte-eval-moduli}]
-It suffices to show that when a graph in a cell of $\Mggraph$ approaches the boundary of its cell, the limiting value of the Tutte power series agrees with the Tutte power series of the limiting graph.
+It suffices to show that when a graph in a cell of $\Mggraph$ approaches the boundary of its cell, the limiting value of the rank-generating power series agrees with the rank-generating power series of the limiting graph.
 In an equation,
 \[
 	\lim_{t \to 0} T^+(G_t; u, w) = T^+(\lim_{t \to 0} G_t; u, w).
@@ -819,12 +836,12 @@ We record the number of
 
 \section{Further questions}
 
-Observation: for a fixed combinatorial graph $G$, the $(i,j)$-coefficient of the Tutte power series $T^+(\Gamma; u,w)$ is a polynomial in the edge lengths.
+Observation: for a fixed combinatorial graph $G$, the $(i,j)$-coefficient of the rank-generating power series $T^+(\Gamma; u,w)$ is a polynomial in the edge lengths.
 
 \section*{Acknowledgements}
 The author would like to thank 
 Will Dana, Leo Jiang, and
-David Speyer for helpful discussion.
+David Speyer for helpful discussions.
 
 \section*{Appendix: Specializations of the Tutte polynomial}
 
@@ -1020,6 +1037,7 @@ The (modified) Potts model polynomial, or cluster-generating function, $\widetil
 	\widetilde Z(G; q, v) = \sum_{A \subset E} q^{h_0(G|A) - |V|} v^{|A|}
 	= \sum_{A \subset E} q^{h_1(G|A)} (v/q)^{|A|}
 \]
+In terms of the Tutte polynomial, this is
 \[
 	\widetilde Z(G; q,v) = (q/v)^{h_0(G)} (v/q)^{|V|} T(G; 1 + \frac{q}{v}, 1 + v) 
 	= (v/q)^{|V| - h_0(G)} T^+(G; \frac{q}{v}, v) .
@@ -1103,7 +1121,7 @@ As a power series in $\alpha$:
 \end{align*}
 
 
-\subsection{Tutte power series coefficients}
+\subsection{Rank-generating power series coefficients}
 \todo{Maybe remove this theorem}
 \begin{thm}[Continuity of Tutte coefficient]
 For fixed indices $i,j\geq 0$,
@@ -1115,12 +1133,12 @@ function $\Mgraphg \to \RR$.
 \todo{extra assumptions needed?}
 \end{thm}
 
-\subsection{Tutte power series as real function}
+\subsection{Rank-generating power series as real-valued function}
 Given real parameters $x,y$ with $x > 0$,
 let 
 \begin{equation}
 \label{eq:tutte-metric-graph}
-	T(\Gamma; x,y) = \sum_{A \subset E(G)} \left( \prod_{e \in A} \fanalog{x}{\ell(e)} \right)
+	T(\Gamma; x,y) = \sum_{A \subset E(G)} \left( \prod_{e \in A} \analog{x}{\ell(e)} \right)
 	(x-1)^{h_0(G\backslash A) - 1}(y-1)^{h_1(G\backslash A)}
 \end{equation}
 where the notation $\analog{x}{\alpha}$ for real $\alpha, x > 0$ means
@@ -1157,8 +1175,8 @@ moreover,  it does not admit a formal power series expansion in $x$
 %since $[\ell(e_i)]_x$ is not analytic at $x = 0$ 
 if any edge length $\ell(e_i)$ is non-integral.
 
-%Our next result concerns the convergence of the Tutte powers series of a fixed metric graph $\Gamma$.
-It is straightforward to verify that the Tutte power series $T^+(\Gamma;u,w)$ converges to a real value when $|u|<1$.
+%Our next result concerns the convergence of the rank-generating power series of a fixed metric graph $\Gamma$.
+It is straightforward to verify that the rank-generating power series $T^+(\Gamma;u,w)$ converges to a real value when $|u|<1$.
 For a generic choice of edge lengths, % $\ell(e)$ 
 %is not an integer \note{in a minimal model},
 the radius of convergence in $u$ is equal to $1$.
@@ -1169,7 +1187,7 @@ the radius of convergence in $u$ is equal to $1$.
 %
 %\todo[inline]{probably to delete}
 
-%\begin{eg}[Tutte power series of $K_4$]
+%\begin{eg}[Rank-generating power series of $K_4$]
 %Suppose $G = K_4$, the complete graph on four vertices.
 %Suppose $\Gamma$ is the metric graph assigning edge lengths $a,b,c,d,e,f$ to $G$, as shown in Figure \note{[fill in]}.
 %
