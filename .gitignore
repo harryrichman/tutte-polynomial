@@ -1,14 +1,29 @@
-
+# Core LaTeX auxiliary files
 *.aux
+*.out
+*.toc
+*.brf
+
+# Bibliography (BibTeX)
 *.bbl
 *.blg
-*.brf
-*.dvi
-*.fdb_latexmk
-*.fls
+
+# Build logs and latexmk
 *.log
-*.out
-*.pyc
-*.swp
+*.fls
+*_latexmk
 *.synctex.gz
-*.toc
+
+# Compiled output
+*.dvi
+*.pdf
+
+# ...but keep hand-made figures that live in the repo
+!figures/**/*.pdf
+
+# Editor and OS temp files
+*.sav
+*.swp
+
+# Python
+*.pyc
